@@ -18,7 +18,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import Button from '../ui/Button';
 
-// Authentic Ashoka Chakra Vector Icon
+// Authentic Ashoka Chakra Vector Icon for the top government bar
 const AshokaChakraIcon = ({ className = 'w-4 h-4' }) => (
   <svg viewBox="0 0 100 100" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="50" cy="50" r="46" stroke="currentColor" strokeWidth="4" />
@@ -34,6 +34,31 @@ const AshokaChakraIcon = ({ className = 'w-4 h-4' }) => (
         strokeWidth="2.5"
       />
     ))}
+  </svg>
+);
+
+// Modern Geometric LabhSetu Brand Logo
+const ModernLabhSetuLogo = ({ className = 'w-9 h-9' }) => (
+  <svg viewBox="0 0 48 48" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="modernLsGrad" x1="4" y1="4" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stopColor="#0b2545" />
+        <stop offset="50%" stopColor="#184f85" />
+        <stop offset="100%" stopColor="#0284c7" />
+      </linearGradient>
+      <linearGradient id="modernAmberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#fbbf24" />
+        <stop offset="100%" stopColor="#f59e0b" />
+      </linearGradient>
+    </defs>
+    <rect width="48" height="48" rx="12" fill="url(#modernLsGrad)" />
+    <rect x="1" y="1" width="46" height="46" rx="11" stroke="#38bdf8" strokeOpacity="0.4" strokeWidth="1.5" />
+    <path d="M12 32 C 14 19, 34 19, 36 32" stroke="#ffffff" strokeWidth="3.5" strokeLinecap="round" fill="none" />
+    <path d="M17 32 C 19 24, 29 24, 31 32" stroke="#38bdf8" strokeWidth="2" strokeLinecap="round" opacity="0.85" fill="none" />
+    <circle cx="24" cy="17" r="4.5" fill="url(#modernAmberGrad)" />
+    <circle cx="24" cy="17" r="1.8" fill="#ffffff" />
+    <circle cx="12" cy="32" r="2.2" fill="#38bdf8" />
+    <circle cx="36" cy="32" r="2.2" fill="#38bdf8" />
   </svg>
 );
 
@@ -78,12 +103,11 @@ const Header = () => {
     }
   };
 
-  // Applications & Documents removed from public navbar as requested
+  // Modern Clean Nav Links (AI Assistant moved to dedicated floating chatbot widget)
   const navLinks = [
     { to: '/', label: t('nav.home') },
     { to: '/find-schemes', label: t('nav.find_schemes') },
     { to: '/check-eligibility', label: t('nav.check_eligibility') },
-    { to: '/assistant', label: t('nav.ai_assistant'), badge: 'AI' },
   ];
 
   const isActive = (path) => {
@@ -92,8 +116,8 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white dark:bg-[#0c1322] shadow-xs border-b border-slate-200/80 dark:border-[#1a253a] transition-colors duration-200">
-      {/* 1. National Tricolor Strip */}
+    <header className="sticky top-0 z-40 bg-white dark:bg-[#0c1322] shadow-xs border-b border-slate-200/80 dark:border-[#1a253a] transition-colors duration-200">
+      {/* 1. National Tricolor Ribbon */}
       <div className="h-[2.5px] w-full bg-gradient-to-r from-[#FF9933] via-white to-[#138808]" />
 
       {/* 2. Top Government Administration Utility Strip */}
@@ -197,29 +221,33 @@ const Header = () => {
         </div>
       </div>
 
-      {/* 3. Main Navigation Bar (Clean, Balanced, Unified Spacing) */}
+      {/* 3. Main Navigation Bar (Modern Website Design) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Left: Professional, Refined Logo */}
+          {/* Left: Modern Website Brand Logo */}
           <Link to="/" className="flex items-center gap-3 group focus:outline-none flex-shrink-0">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-b from-[#0b2545] to-[#184f85] border border-amber-400/50 shadow-xs flex items-center justify-center text-amber-300 group-hover:border-amber-400 group-hover:scale-102 transition-all flex-shrink-0">
-              <AshokaChakraIcon className="w-5 h-5 text-amber-300" />
-            </div>
+            <ModernLabhSetuLogo className="w-9 h-9 group-hover:scale-105 transition-transform flex-shrink-0 drop-shadow-xs" />
 
             <div className="flex flex-col">
-              <span className="text-xl font-black tracking-tight text-slate-900 dark:text-white group-hover:text-gov-700 dark:group-hover:text-sky-300 transition-colors leading-none font-sans">
-                {isHi ? 'लाभसेतु' : 'LABHSETU'}
-              </span>
-              <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 leading-none mt-1">
-                {isHi ? 'राष्ट्रीय कल्याणकारी योजना सेतु' : 'National Scheme Gateway'}
+              <div className="flex items-center gap-1.5">
+                <span className="text-xl font-black tracking-tight text-slate-900 dark:text-white font-sans leading-none">
+                  {isHi ? 'लाभसेतु' : 'Labh'}
+                  {!isHi && <span className="text-gov-600 dark:text-sky-400">Setu</span>}
+                </span>
+                <span className="text-[10px] font-extrabold tracking-wider px-1.5 py-0.2 rounded bg-sky-100 dark:bg-sky-950/70 text-sky-800 dark:text-sky-300 uppercase leading-none">
+                  GOV
+                </span>
+              </div>
+              <span className="text-[10px] font-medium text-slate-500 dark:text-slate-400 tracking-wide leading-none mt-1">
+                {isHi ? 'कल्याणकारी योजना सेतु' : 'National Scheme Gateway'}
               </span>
             </div>
           </Link>
 
-          {/* Right: Unified Navigation Links & Actions (No Awkward White Void) */}
+          {/* Right: Clean, Unified Navigation Links & Actions */}
           <div className="hidden md:flex items-center gap-5">
-            {/* Clean, Harmonious Navigation Links */}
-            <nav className="flex items-center gap-1.5">
+            {/* Clean Navigation Links */}
+            <nav className="flex items-center gap-1">
               {navLinks.map((link) => {
                 const active = isActive(link.to);
                 return (
@@ -233,11 +261,6 @@ const Header = () => {
                     }`}
                   >
                     <span>{link.label}</span>
-                    {link.badge && (
-                      <span className="text-[9px] font-extrabold px-1.5 py-0.2 rounded-full bg-gov-600 text-white shadow-2xs">
-                        {link.badge}
-                      </span>
-                    )}
                   </Link>
                 );
               })}
@@ -389,14 +412,7 @@ const Header = () => {
                   : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
               }`}
             >
-              <div className="flex items-center justify-between">
-                <span>{link.label}</span>
-                {link.badge && (
-                  <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-gov-600 text-white shadow-2xs">
-                    {link.badge}
-                  </span>
-                )}
-              </div>
+              <span>{link.label}</span>
             </Link>
           ))}
 

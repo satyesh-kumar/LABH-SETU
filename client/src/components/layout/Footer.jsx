@@ -13,26 +13,35 @@ const Footer = () => {
           {/* Col 1: Identity & Mission */}
           <div className="space-y-4 md:col-span-1">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-b from-[#0b2545] to-[#184f85] border border-amber-400/40 flex items-center justify-center text-amber-300 shadow-xs">
-                <svg viewBox="0 0 100 100" className="w-5 h-5 text-amber-300" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="50" cy="50" r="46" stroke="currentColor" strokeWidth="4" />
-                  <circle cx="50" cy="50" r="10" fill="currentColor" />
-                  {[...Array(24)].map((_, i) => (
-                    <line
-                      key={i}
-                      x1="50"
-                      y1="50"
-                      x2={50 + 38 * Math.cos((i * 15 * Math.PI) / 180)}
-                      y2={50 + 38 * Math.sin((i * 15 * Math.PI) / 180)}
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                    />
-                  ))}
-                </svg>
+              <svg viewBox="0 0 48 48" className="w-8 h-8 rounded-lg shadow-xs" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="footerLsGrad" x1="4" y1="4" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stopColor="#0b2545" />
+                    <stop offset="50%" stopColor="#184f85" />
+                    <stop offset="100%" stopColor="#0284c7" />
+                  </linearGradient>
+                  <linearGradient id="footerAmberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#fbbf24" />
+                    <stop offset="100%" stopColor="#f59e0b" />
+                  </linearGradient>
+                </defs>
+                <rect width="48" height="48" rx="12" fill="url(#footerLsGrad)" />
+                <rect x="1" y="1" width="46" height="46" rx="11" stroke="#38bdf8" strokeOpacity="0.4" strokeWidth="1.5" />
+                <path d="M12 32 C 14 19, 34 19, 36 32" stroke="#ffffff" strokeWidth="3.5" strokeLinecap="round" fill="none" />
+                <path d="M17 32 C 19 24, 29 24, 31 32" stroke="#38bdf8" strokeWidth="2" strokeLinecap="round" opacity="0.85" fill="none" />
+                <circle cx="24" cy="17" r="4.5" fill="url(#footerAmberGrad)" />
+                <circle cx="24" cy="17" r="1.8" fill="#ffffff" />
+                <circle cx="12" cy="32" r="2.2" fill="#38bdf8" />
+                <circle cx="36" cy="32" r="2.2" fill="#38bdf8" />
+              </svg>
+              <div className="flex items-center gap-1">
+                <span className="text-lg font-black text-white tracking-tight">
+                  Labh<span className="text-sky-400">Setu</span>
+                </span>
+                <span className="text-[9px] font-extrabold px-1.5 py-0.2 rounded bg-sky-950 text-sky-300 border border-sky-800">
+                  GOV
+                </span>
               </div>
-              <span className="text-lg font-bold text-white tracking-tight">
-                {t('app.name')}
-              </span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
               {t('home.trust_statement')}

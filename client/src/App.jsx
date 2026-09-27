@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
+import FloatingChatbot from './components/assistant/FloatingChatbot';
 
 // Pages
 import HomePage from './pages/HomePage';
@@ -51,6 +52,7 @@ function App() {
           />
         </Routes>
       </main>
+      <FloatingChatbot />
       <Footer />
     </div>
   );

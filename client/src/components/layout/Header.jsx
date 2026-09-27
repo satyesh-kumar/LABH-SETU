@@ -13,7 +13,6 @@ import {
   ChevronDown,
   Sun,
   Moon,
-  Sparkles,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
@@ -83,7 +82,7 @@ const Header = () => {
   const navLinks = [
     { to: '/', label: t('nav.home') },
     { to: '/find-schemes', label: t('nav.find_schemes') },
-    { to: '/check-eligibility', label: t('nav.check_eligibility'), highlight: true },
+    { to: '/check-eligibility', label: t('nav.check_eligibility') },
     { to: '/assistant', label: t('nav.ai_assistant'), badge: 'AI' },
   ];
 
@@ -198,12 +197,12 @@ const Header = () => {
         </div>
       </div>
 
-      {/* 3. Main Navigation Bar (Clean, Spacious, Professional) */}
+      {/* 3. Main Navigation Bar (Clean, Balanced, Unified Spacing) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-15">
-          {/* Professional, Refined Logo */}
+        <div className="flex items-center justify-between h-16">
+          {/* Left: Professional, Refined Logo */}
           <Link to="/" className="flex items-center gap-3 group focus:outline-none flex-shrink-0">
-            <div className="w-8.5 h-8.5 rounded-lg bg-gradient-to-b from-[#0b2545] to-[#184f85] border border-amber-400/40 shadow-xs flex items-center justify-center text-amber-300 group-hover:border-amber-400 group-hover:scale-102 transition-all flex-shrink-0">
+            <div className="w-9 h-9 rounded-lg bg-gradient-to-b from-[#0b2545] to-[#184f85] border border-amber-400/50 shadow-xs flex items-center justify-center text-amber-300 group-hover:border-amber-400 group-hover:scale-102 transition-all flex-shrink-0">
               <AshokaChakraIcon className="w-5 h-5 text-amber-300" />
             </div>
 
@@ -211,82 +210,70 @@ const Header = () => {
               <span className="text-xl font-black tracking-tight text-slate-900 dark:text-white group-hover:text-gov-700 dark:group-hover:text-sky-300 transition-colors leading-none font-sans">
                 {isHi ? 'लाभसेतु' : 'LABHSETU'}
               </span>
-              <span className="text-[10px] font-medium text-slate-500 dark:text-slate-400 leading-none mt-1">
+              <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 leading-none mt-1">
                 {isHi ? 'राष्ट्रीय कल्याणकारी योजना सेतु' : 'National Scheme Gateway'}
               </span>
             </div>
           </Link>
 
-          {/* Center Navigation Links (Streamlined: Home, Find Schemes, Check Eligibility, AI Assistant) */}
-          <nav className="hidden md:flex items-center gap-2">
-            {navLinks.map((link) => {
-              const active = isActive(link.to);
-              if (link.highlight) {
+          {/* Right: Unified Navigation Links & Actions (No Awkward White Void) */}
+          <div className="hidden md:flex items-center gap-5">
+            {/* Clean, Harmonious Navigation Links */}
+            <nav className="flex items-center gap-1.5">
+              {navLinks.map((link) => {
+                const active = isActive(link.to);
                 return (
                   <Link
                     key={link.to}
                     to={link.to}
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 shadow-2xs ${
+                    className={`px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 ${
                       active
-                        ? 'bg-gov-700 text-white shadow-xs'
-                        : 'bg-gov-50 hover:bg-gov-100 text-gov-800 dark:bg-sky-950/60 dark:text-sky-200 dark:hover:bg-sky-900/60 border border-gov-200/70 dark:border-sky-800/60'
+                        ? 'text-gov-900 dark:text-sky-300 bg-gov-100/70 dark:bg-slate-800 font-bold border border-gov-200/80 dark:border-slate-700 shadow-2xs'
+                        : 'text-slate-700 dark:text-slate-300 hover:text-gov-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/60'
                     }`}
                   >
                     <span>{link.label}</span>
+                    {link.badge && (
+                      <span className="text-[9px] font-extrabold px-1.5 py-0.2 rounded-full bg-gov-600 text-white shadow-2xs">
+                        {link.badge}
+                      </span>
+                    )}
                   </Link>
                 );
-              }
+              })}
 
-              return (
+              {user?.role === 'admin' && (
                 <Link
-                  key={link.to}
-                  to={link.to}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
-                    active
-                      ? 'text-gov-900 dark:text-sky-300 bg-gov-50/80 dark:bg-slate-800/90 font-bold border border-gov-100 dark:border-slate-700'
-                      : 'text-slate-600 dark:text-slate-300 hover:text-gov-900 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-slate-800/60'
+                  to="/admin"
+                  className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center gap-1 ml-1 ${
+                    isActive('/admin')
+                      ? 'text-amber-950 dark:text-amber-200 bg-amber-100 dark:bg-amber-950/60 border border-amber-300 dark:border-amber-700'
+                      : 'text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/30 hover:bg-amber-100/80 border border-amber-200 dark:border-amber-800'
                   }`}
                 >
-                  <span>{link.label}</span>
-                  {link.badge && (
-                    <span className="text-[9px] font-extrabold px-1.5 py-0.2 rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 text-white shadow-2xs">
-                      {link.badge}
-                    </span>
-                  )}
+                  <Shield className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
+                  <span>{t('nav.admin')}</span>
                 </Link>
-              );
-            })}
+              )}
+            </nav>
 
-            {user?.role === 'admin' && (
-              <Link
-                to="/admin"
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ml-1 ${
-                  isActive('/admin')
-                    ? 'text-amber-950 dark:text-amber-200 bg-amber-100 dark:bg-amber-950/60 border border-amber-300 dark:border-amber-700'
-                    : 'text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/30 hover:bg-amber-100/80 border border-amber-200 dark:border-amber-800'
-                }`}
-              >
-                <Shield className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
-                <span>{t('nav.admin')}</span>
-              </Link>
-            )}
-          </nav>
+            {/* Subtle Vertical Divider */}
+            <div className="h-5 w-px bg-slate-200 dark:bg-slate-700" />
 
-          {/* Right Action Section: Profile or Login */}
-          <div className="hidden md:flex items-center gap-2">
+            {/* User Profile or Login/Register */}
             {isAuthenticated ? (
               <div className="relative" ref={userDropdownRef}>
                 <button
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                  className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-100 py-1 px-3 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/70"
+                  className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-100 py-1.5 px-3 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-200 dark:border-slate-700 bg-slate-50/80 dark:bg-slate-800/70"
                 >
                   <div className="w-6 h-6 rounded-full bg-gradient-to-br from-gov-700 to-gov-900 text-white font-bold flex items-center justify-center text-[10px] shadow-xs">
                     {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
                   </div>
-                  <span className="max-w-[110px] truncate text-slate-900 dark:text-white">
+                  <span className="max-w-[120px] truncate text-slate-900 dark:text-white">
                     {user?.name}
                   </span>
-                  <ChevronDown className="w-3 h-3 text-slate-400" />
+                  <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
                 </button>
 
                 {userDropdownOpen && (
@@ -344,16 +331,18 @@ const Header = () => {
                 )}
               </div>
             ) : (
-              <div className="flex items-center gap-1.5">
-                <Link to="/login">
-                  <Button variant="ghost" size="sm" className="font-bold text-xs text-gov-800 dark:text-sky-300 hover:bg-slate-100 dark:hover:bg-slate-800 px-3 py-1">
-                    {t('nav.login')}
-                  </Button>
+              <div className="flex items-center gap-2">
+                <Link
+                  to="/login"
+                  className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-gov-800 dark:hover:text-white px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                >
+                  {t('nav.login')}
                 </Link>
-                <Link to="/register">
-                  <Button variant="primary" size="sm" className="font-bold text-xs shadow-xs px-3.5 py-1">
-                    {t('nav.register')}
-                  </Button>
+                <Link
+                  to="/register"
+                  className="text-xs sm:text-sm font-bold text-white bg-gov-600 hover:bg-gov-700 active:bg-gov-800 px-4 py-1.5 rounded-lg shadow-xs transition-colors"
+                >
+                  {t('nav.register')}
                 </Link>
               </div>
             )}
@@ -403,7 +392,7 @@ const Header = () => {
               <div className="flex items-center justify-between">
                 <span>{link.label}</span>
                 {link.badge && (
-                  <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-200">
+                  <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-gov-600 text-white shadow-2xs">
                     {link.badge}
                   </span>
                 )}

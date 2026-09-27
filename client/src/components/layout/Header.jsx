@@ -13,6 +13,7 @@ import {
   ChevronDown,
   Sun,
   Moon,
+  Sparkles,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
@@ -78,12 +79,11 @@ const Header = () => {
     }
   };
 
+  // Applications & Documents removed from public navbar as requested
   const navLinks = [
     { to: '/', label: t('nav.home') },
     { to: '/find-schemes', label: t('nav.find_schemes') },
     { to: '/check-eligibility', label: t('nav.check_eligibility'), highlight: true },
-    { to: '/applications', label: t('nav.my_applications') },
-    { to: '/documents', label: t('nav.documents') },
     { to: '/assistant', label: t('nav.ai_assistant'), badge: 'AI' },
   ];
 
@@ -93,7 +93,7 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white dark:bg-[#0c1322] shadow-xs border-b border-slate-200 dark:border-[#1a253a] transition-colors duration-200">
+    <header className="sticky top-0 z-50 bg-white dark:bg-[#0c1322] shadow-xs border-b border-slate-200/80 dark:border-[#1a253a] transition-colors duration-200">
       {/* 1. National Tricolor Strip */}
       <div className="h-[2.5px] w-full bg-gradient-to-r from-[#FF9933] via-white to-[#138808]" />
 
@@ -115,7 +115,7 @@ const Header = () => {
           </div>
 
           {/* Right: Accessibility Controls, Single Theme Toggle, Language */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 sm:gap-2.5">
             {/* Skip to Main Content */}
             <a
               href="#main-content"
@@ -198,44 +198,58 @@ const Header = () => {
         </div>
       </div>
 
-      {/* 3. Main Navigation Bar (Clean, Proportional, No Clutter) */}
+      {/* 3. Main Navigation Bar (Clean, Spacious, Professional) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14">
+        <div className="flex items-center justify-between h-15">
           {/* Professional, Refined Logo */}
-          <Link to="/" className="flex items-center gap-2.5 group focus:outline-none flex-shrink-0">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-b from-[#0b2545] to-[#184f85] border border-amber-400/40 shadow-xs flex items-center justify-center text-amber-300 flex-shrink-0">
-              <AshokaChakraIcon className="w-4.5 h-4.5 text-amber-300" />
+          <Link to="/" className="flex items-center gap-3 group focus:outline-none flex-shrink-0">
+            <div className="w-8.5 h-8.5 rounded-lg bg-gradient-to-b from-[#0b2545] to-[#184f85] border border-amber-400/40 shadow-xs flex items-center justify-center text-amber-300 group-hover:border-amber-400 group-hover:scale-102 transition-all flex-shrink-0">
+              <AshokaChakraIcon className="w-5 h-5 text-amber-300" />
             </div>
 
             <div className="flex flex-col">
-              <span className="text-lg font-black tracking-tight text-slate-900 dark:text-white group-hover:text-gov-700 dark:group-hover:text-sky-300 transition-colors leading-none font-sans">
+              <span className="text-xl font-black tracking-tight text-slate-900 dark:text-white group-hover:text-gov-700 dark:group-hover:text-sky-300 transition-colors leading-none font-sans">
                 {isHi ? 'लाभसेतु' : 'LABHSETU'}
               </span>
-              <span className="text-[10px] font-medium text-slate-500 dark:text-slate-400 leading-none mt-0.5">
+              <span className="text-[10px] font-medium text-slate-500 dark:text-slate-400 leading-none mt-1">
                 {isHi ? 'राष्ट्रीय कल्याणकारी योजना सेतु' : 'National Scheme Gateway'}
               </span>
             </div>
           </Link>
 
-          {/* Center Navigation Links (Clean, No Boxy Clutter) */}
-          <nav className="hidden lg:flex items-center gap-1">
+          {/* Center Navigation Links (Streamlined: Home, Find Schemes, Check Eligibility, AI Assistant) */}
+          <nav className="hidden md:flex items-center gap-2">
             {navLinks.map((link) => {
               const active = isActive(link.to);
+              if (link.highlight) {
+                return (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 shadow-2xs ${
+                      active
+                        ? 'bg-gov-700 text-white shadow-xs'
+                        : 'bg-gov-50 hover:bg-gov-100 text-gov-800 dark:bg-sky-950/60 dark:text-sky-200 dark:hover:bg-sky-900/60 border border-gov-200/70 dark:border-sky-800/60'
+                    }`}
+                  >
+                    <span>{link.label}</span>
+                  </Link>
+                );
+              }
+
               return (
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all flex items-center gap-1 ${
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
                     active
-                      ? 'text-gov-900 dark:text-sky-300 bg-gov-50 dark:bg-slate-800/90 font-bold border border-gov-100 dark:border-slate-700'
-                      : link.highlight
-                      ? 'text-gov-800 dark:text-sky-400 hover:bg-gov-50/60 dark:hover:bg-slate-800/50'
-                      : 'text-slate-600 dark:text-slate-300 hover:text-gov-900 dark:hover:text-white hover:bg-slate-100/60 dark:hover:bg-slate-800/50'
+                      ? 'text-gov-900 dark:text-sky-300 bg-gov-50/80 dark:bg-slate-800/90 font-bold border border-gov-100 dark:border-slate-700'
+                      : 'text-slate-600 dark:text-slate-300 hover:text-gov-900 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-slate-800/60'
                   }`}
                 >
                   <span>{link.label}</span>
                   {link.badge && (
-                    <span className="text-[9px] font-extrabold px-1.5 py-0.2 rounded-full bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-200">
+                    <span className="text-[9px] font-extrabold px-1.5 py-0.2 rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 text-white shadow-2xs">
                       {link.badge}
                     </span>
                   )}
@@ -246,7 +260,7 @@ const Header = () => {
             {user?.role === 'admin' && (
               <Link
                 to="/admin"
-                className={`px-2.5 py-1.5 rounded-md text-xs font-bold transition-all flex items-center gap-1 ml-1 ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ml-1 ${
                   isActive('/admin')
                     ? 'text-amber-950 dark:text-amber-200 bg-amber-100 dark:bg-amber-950/60 border border-amber-300 dark:border-amber-700'
                     : 'text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/30 hover:bg-amber-100/80 border border-amber-200 dark:border-amber-800'
@@ -259,17 +273,17 @@ const Header = () => {
           </nav>
 
           {/* Right Action Section: Profile or Login */}
-          <div className="hidden lg:flex items-center gap-2">
+          <div className="hidden md:flex items-center gap-2">
             {isAuthenticated ? (
               <div className="relative" ref={userDropdownRef}>
                 <button
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                  className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-100 py-1 px-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/70"
+                  className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-100 py-1 px-3 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/70"
                 >
                   <div className="w-6 h-6 rounded-full bg-gradient-to-br from-gov-700 to-gov-900 text-white font-bold flex items-center justify-center text-[10px] shadow-xs">
                     {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
                   </div>
-                  <span className="max-w-[100px] truncate text-slate-900 dark:text-white">
+                  <span className="max-w-[110px] truncate text-slate-900 dark:text-white">
                     {user?.name}
                   </span>
                   <ChevronDown className="w-3 h-3 text-slate-400" />
@@ -337,7 +351,7 @@ const Header = () => {
                   </Button>
                 </Link>
                 <Link to="/register">
-                  <Button variant="primary" size="sm" className="font-bold text-xs shadow-xs px-3 py-1">
+                  <Button variant="primary" size="sm" className="font-bold text-xs shadow-xs px-3.5 py-1">
                     {t('nav.register')}
                   </Button>
                 </Link>
@@ -346,7 +360,7 @@ const Header = () => {
           </div>
 
           {/* Mobile Actions: Theme Quick Toggle & Menu Hamburger */}
-          <div className="flex lg:hidden items-center gap-1.5">
+          <div className="flex md:hidden items-center gap-1.5">
             <button
               onClick={cycleTheme}
               className="p-1.5 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-colors"
@@ -374,7 +388,7 @@ const Header = () => {
 
       {/* 4. Mobile Drawer Navigation */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c1322] px-4 pt-3 pb-5 space-y-1.5 shadow-elevation animate-in fade-in">
+        <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c1322] px-4 pt-3 pb-5 space-y-1.5 shadow-elevation animate-in fade-in">
           {navLinks.map((link) => (
             <Link
               key={link.to}

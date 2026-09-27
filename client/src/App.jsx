@@ -21,7 +21,7 @@ import AdminDashboardPage from './pages/AdminDashboardPage';
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800">
+    <div className="min-h-screen flex flex-col transition-colors duration-200">
       <Header />
       <main className="flex-1">
         <Routes>

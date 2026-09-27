@@ -18,7 +18,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import Button from '../ui/Button';
 
-// Authentic Ashoka Chakra Vector Icon for the top government bar
+// Authentic Ashoka Chakra Vector Icon for the top national identity strip
 const AshokaChakraIcon = ({ className = 'w-4 h-4' }) => (
   <svg viewBox="0 0 100 100" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="50" cy="50" r="46" stroke="currentColor" strokeWidth="4" />
@@ -103,7 +103,7 @@ const Header = () => {
     }
   };
 
-  // Modern Clean Nav Links (AI Assistant moved to dedicated floating chatbot widget)
+  // Modern Clean Nav Links (AI Assistant lives in the dedicated floating chatbot)
   const navLinks = [
     { to: '/', label: t('nav.home') },
     { to: '/find-schemes', label: t('nav.find_schemes') },
@@ -116,23 +116,23 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white dark:bg-[#0c1322] shadow-xs border-b border-slate-200/80 dark:border-[#1a253a] transition-colors duration-200">
-      {/* 1. National Tricolor Ribbon */}
+    <header className="sticky top-0 z-40 bg-white/95 dark:bg-[#0c1322]/95 backdrop-blur-md shadow-2xs border-b border-slate-200/80 dark:border-slate-800 transition-colors duration-200">
+      {/* 1. National Sovereign Ribbon */}
       <div className="h-[2.5px] w-full bg-gradient-to-r from-[#FF9933] via-white to-[#138808]" />
 
       {/* 2. Top Government Administration Utility Strip */}
-      <div className="bg-[#0b2545] text-slate-200 text-xs py-1 px-4 sm:px-6 lg:px-8 border-b border-[#133966]">
+      <div className="bg-[#081a32] text-slate-300 text-xs py-1 px-4 sm:px-6 lg:px-8 border-b border-[#0f2746]">
         <div className="max-w-7xl mx-auto flex justify-between items-center gap-2">
           {/* Left: National Identity */}
           <div className="flex items-center gap-2">
-            <AshokaChakraIcon className="w-3.5 h-3.5 text-sky-200" />
+            <AshokaChakraIcon className="w-3.5 h-3.5 text-sky-300" />
             <div className="flex items-center gap-1.5">
               <span className="font-semibold text-white tracking-wide text-[11px] sm:text-xs">
                 {isHi ? 'भारत सरकार' : 'GOVERNMENT OF INDIA'}
               </span>
-              <span className="text-slate-500 text-[10px] hidden sm:inline">|</span>
+              <span className="text-slate-600 text-[10px] hidden sm:inline">|</span>
               <span className="hidden sm:inline-block text-[11px] text-slate-300 font-medium">
-                {isHi ? 'केंद्रीय सार्वजनिक सेवा मंच' : 'Ministry of Electronics & IT'}
+                {isHi ? 'सार्वजनिक सेवा पोर्टल' : 'Ministry of Electronics & IT'}
               </span>
             </div>
           </div>
@@ -148,12 +148,12 @@ const Header = () => {
             </a>
 
             {/* Font Size Accessibility Adjuster */}
-            <div className="hidden sm:flex items-center gap-0.5 bg-[#133966]/60 px-1.5 py-0.5 rounded border border-[#1e4c85] text-[10px] text-slate-300">
-              <span className="text-slate-400 mr-0.5">Text:</span>
+            <div className="hidden sm:flex items-center gap-0.5 bg-[#0e2c52]/80 px-1.5 py-0.5 rounded-full border border-[#1b4375] text-[10px] text-slate-300">
+              <span className="text-slate-400 mr-0.5 text-[9px]">Text:</span>
               <button
                 type="button"
                 onClick={() => adjustFontSize('small')}
-                className={`px-1 py-0.2 rounded hover:text-white transition-colors ${
+                className={`px-1.5 py-0.2 rounded-full hover:text-white transition-colors ${
                   fontSize === 'small' ? 'bg-gov-600 font-bold text-white' : ''
                 }`}
                 title="Small Text"
@@ -163,7 +163,7 @@ const Header = () => {
               <button
                 type="button"
                 onClick={() => adjustFontSize('normal')}
-                className={`px-1 py-0.2 rounded hover:text-white transition-colors ${
+                className={`px-1.5 py-0.2 rounded-full hover:text-white transition-colors ${
                   fontSize === 'normal' ? 'bg-gov-600 font-bold text-white' : ''
                 }`}
                 title="Standard Text"
@@ -173,7 +173,7 @@ const Header = () => {
               <button
                 type="button"
                 onClick={() => adjustFontSize('large')}
-                className={`px-1 py-0.2 rounded hover:text-white transition-colors ${
+                className={`px-1.5 py-0.2 rounded-full hover:text-white transition-colors ${
                   fontSize === 'large' ? 'bg-gov-600 font-bold text-white' : ''
                 }`}
                 title="Large Text"
@@ -186,7 +186,7 @@ const Header = () => {
             <button
               type="button"
               onClick={cycleTheme}
-              className="flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-[#133966]/80 hover:bg-[#1a4a84] border border-[#1e4c85] text-slate-200 transition-colors"
+              className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#0e2c52]/80 hover:bg-[#153f75] border border-[#1b4375] text-slate-200 transition-colors shadow-2xs"
               title={`Active Theme: ${theme === 'warm' ? 'Warm Light' : theme === 'dark' ? 'Dark' : 'Light'}. Tap to toggle.`}
             >
               {theme === 'warm' ? (
@@ -210,7 +210,7 @@ const Header = () => {
             {/* Language Toggle */}
             <button
               onClick={toggleLanguage}
-              className="flex items-center gap-1 text-[11px] text-white font-bold py-0.5 px-2 rounded-full bg-[#1b5e9c] hover:bg-[#184f85] border border-sky-400/30 transition-all shadow-xs"
+              className="flex items-center gap-1 text-[11px] text-white font-bold py-0.5 px-2.5 rounded-full bg-[#1b5e9c] hover:bg-[#184f85] border border-sky-400/30 transition-all shadow-xs"
               title="Toggle English / हिंदी"
               aria-label="Change language"
             >
@@ -221,32 +221,32 @@ const Header = () => {
         </div>
       </div>
 
-      {/* 3. Main Navigation Bar (Modern Website Design) */}
+      {/* 3. Main Navigation Bar (Modern Website Design with High-End Aesthetics) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 sm:h-17">
           {/* Left: Modern Website Brand Logo */}
           <Link to="/" className="flex items-center gap-3 group focus:outline-none flex-shrink-0">
-            <ModernLabhSetuLogo className="w-9 h-9 group-hover:scale-105 transition-transform flex-shrink-0 drop-shadow-xs" />
+            <ModernLabhSetuLogo className="w-9 h-9 sm:w-10 sm:h-10 group-hover:scale-105 transition-transform flex-shrink-0 drop-shadow-xs" />
 
             <div className="flex flex-col">
               <div className="flex items-center gap-1.5">
-                <span className="text-xl font-black tracking-tight text-slate-900 dark:text-white font-sans leading-none">
+                <span className="text-xl sm:text-2xl font-black tracking-tight text-slate-900 dark:text-white font-sans leading-none">
                   {isHi ? 'लाभसेतु' : 'Labh'}
                   {!isHi && <span className="text-gov-600 dark:text-sky-400">Setu</span>}
                 </span>
-                <span className="text-[10px] font-extrabold tracking-wider px-1.5 py-0.2 rounded bg-sky-100 dark:bg-sky-950/70 text-sky-800 dark:text-sky-300 uppercase leading-none">
+                <span className="text-[9px] font-black tracking-wider px-1.5 py-0.2 rounded-full bg-sky-100 dark:bg-sky-950/80 text-sky-800 dark:text-sky-300 uppercase leading-none border border-sky-200 dark:border-sky-800">
                   GOV
                 </span>
               </div>
-              <span className="text-[10px] font-medium text-slate-500 dark:text-slate-400 tracking-wide leading-none mt-1">
-                {isHi ? 'कल्याणकारी योजना सेतु' : 'National Scheme Gateway'}
+              <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 tracking-wide uppercase leading-none mt-1">
+                {isHi ? 'राष्ट्रीय कल्याणकारी योजना सेतु' : 'National Scheme Gateway'}
               </span>
             </div>
           </Link>
 
           {/* Right: Clean, Unified Navigation Links & Actions */}
           <div className="hidden md:flex items-center gap-5">
-            {/* Clean Navigation Links */}
+            {/* Modern Navigation Links with Pill Hover & Active States */}
             <nav className="flex items-center gap-1">
               {navLinks.map((link) => {
                 const active = isActive(link.to);
@@ -254,10 +254,10 @@ const Header = () => {
                   <Link
                     key={link.to}
                     to={link.to}
-                    className={`px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 ${
+                    className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 ${
                       active
-                        ? 'text-gov-900 dark:text-sky-300 bg-gov-100/70 dark:bg-slate-800 font-bold border border-gov-200/80 dark:border-slate-700 shadow-2xs'
-                        : 'text-slate-700 dark:text-slate-300 hover:text-gov-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/60'
+                        ? 'text-gov-900 dark:text-sky-300 bg-gov-100/80 dark:bg-slate-800 font-bold border border-gov-200 dark:border-slate-700 shadow-2xs'
+                        : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/70'
                     }`}
                   >
                     <span>{link.label}</span>
@@ -268,7 +268,7 @@ const Header = () => {
               {user?.role === 'admin' && (
                 <Link
                   to="/admin"
-                  className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center gap-1 ml-1 ${
+                  className={`px-3.5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all flex items-center gap-1.5 ml-1 ${
                     isActive('/admin')
                       ? 'text-amber-950 dark:text-amber-200 bg-amber-100 dark:bg-amber-950/60 border border-amber-300 dark:border-amber-700'
                       : 'text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/30 hover:bg-amber-100/80 border border-amber-200 dark:border-amber-800'
@@ -283,14 +283,14 @@ const Header = () => {
             {/* Subtle Vertical Divider */}
             <div className="h-5 w-px bg-slate-200 dark:bg-slate-700" />
 
-            {/* User Profile or Login/Register */}
+            {/* User Profile or Modern Sign In / Register Buttons */}
             {isAuthenticated ? (
               <div className="relative" ref={userDropdownRef}>
                 <button
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                  className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-100 py-1.5 px-3 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-200 dark:border-slate-700 bg-slate-50/80 dark:bg-slate-800/70"
+                  className="flex items-center gap-2.5 text-xs font-bold text-slate-800 dark:text-slate-100 py-1.5 px-3 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-200 dark:border-slate-700 bg-slate-50/80 dark:bg-slate-800/70"
                 >
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-gov-700 to-gov-900 text-white font-bold flex items-center justify-center text-[10px] shadow-xs">
+                  <div className="w-6.5 h-6.5 rounded-full bg-gradient-to-br from-gov-700 to-gov-900 text-white font-bold flex items-center justify-center text-[10px] shadow-xs">
                     {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
                   </div>
                   <span className="max-w-[120px] truncate text-slate-900 dark:text-white">
@@ -357,13 +357,13 @@ const Header = () => {
               <div className="flex items-center gap-2">
                 <Link
                   to="/login"
-                  className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-gov-800 dark:hover:text-white px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                  className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-gov-800 dark:hover:text-white px-3.5 py-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                 >
                   {t('nav.login')}
                 </Link>
                 <Link
                   to="/register"
-                  className="text-xs sm:text-sm font-bold text-white bg-gov-600 hover:bg-gov-700 active:bg-gov-800 px-4 py-1.5 rounded-lg shadow-xs transition-colors"
+                  className="text-xs sm:text-sm font-bold text-white bg-gov-600 hover:bg-gov-700 active:bg-gov-800 px-4.5 py-2 rounded-full shadow-xs hover:shadow transition-all"
                 >
                   {t('nav.register')}
                 </Link>
@@ -406,7 +406,7 @@ const Header = () => {
               key={link.to}
               to={link.to}
               onClick={() => setMobileMenuOpen(false)}
-              className={`block px-3 py-2 rounded-lg text-xs font-bold ${
+              className={`block px-4 py-2.5 rounded-xl text-xs font-bold ${
                 isActive(link.to)
                   ? 'text-gov-800 dark:text-sky-300 bg-gov-50 dark:bg-[#111a2e] border border-gov-100 dark:border-[#1e2c45]'
                   : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
@@ -420,7 +420,7 @@ const Header = () => {
             <Link
               to="/admin"
               onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-2 rounded-lg text-xs font-bold text-amber-900 dark:text-amber-200 bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800"
+              className="block px-4 py-2.5 rounded-xl text-xs font-bold text-amber-900 dark:text-amber-200 bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800"
             >
               {t('nav.admin')}
             </Link>
@@ -442,7 +442,7 @@ const Header = () => {
                     logout();
                     setMobileMenuOpen(false);
                   }}
-                  className="text-xs text-rose-600 font-bold px-2.5 py-1 rounded bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100"
+                  className="text-xs text-rose-600 font-bold px-3 py-1.5 rounded-lg bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100"
                 >
                   {t('nav.logout')}
                 </button>
@@ -450,12 +450,12 @@ const Header = () => {
             ) : (
               <div className="grid grid-cols-2 gap-2 pt-1">
                 <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
-                  <Button variant="outline" size="sm" className="w-full font-bold text-xs py-1">
+                  <Button variant="outline" size="sm" className="w-full font-bold text-xs py-1.5 rounded-xl">
                     {t('nav.login')}
                   </Button>
                 </Link>
                 <Link to="/register" onClick={() => setMobileMenuOpen(false)}>
-                  <Button variant="primary" size="sm" className="w-full font-bold text-xs py-1">
+                  <Button variant="primary" size="sm" className="w-full font-bold text-xs py-1.5 rounded-xl">
                     {t('nav.register')}
                   </Button>
                 </Link>

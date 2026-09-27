@@ -14,6 +14,7 @@ import {
   VolumeX,
   RotateCcw,
   Loader2,
+  ChevronDown,
 } from 'lucide-react';
 import api from '../../services/api';
 
@@ -27,8 +28,8 @@ const FloatingChatbot = () => {
       id: 'welcome',
       sender: 'assistant',
       text: isHi
-        ? 'नमस्ते! मैं लाभसेतु एआई सहायक हूँ। आप मुझसे किसी भी सरकारी योजना, पात्रता नियमों या आवेदन प्रक्रिया के बारे में पूछ सकते हैं।'
-        : 'Namaste! I am your LabhSetu AI Assistant. Ask me anything about central or state welfare schemes, eligibility norms, or document requirements.',
+        ? 'नमस्ते! मैं आपका लाभसेतु एआई सहायक हूँ। आप मुझसे किसी भी सरकारी योजना की पात्रता, आवश्यक दस्तावेज या आवेदन प्रक्रिया के बारे में सीधे पूछ सकते हैं।'
+        : 'Namaste! I am your LabhSetu AI Assistant. Ask me anything about government welfare schemes, eligibility rules, or application steps.',
       sources: [],
     },
   ]);
@@ -37,19 +38,19 @@ const FloatingChatbot = () => {
   const [suggestions, setSuggestions] = useState([
     isHi ? 'पीएम किसान की पात्रता क्या है?' : 'What is PM-KISAN eligibility?',
     isHi ? 'आयुष्मान भारत कार्ड कैसे बनवाएं?' : 'How to apply for Ayushman Card?',
-    isHi ? 'विद्यार्थियों के लिए कौन सी छात्रवृत्तियां हैं?' : 'Scholarships for students?',
+    isHi ? 'छात्रों के लिए छात्रवृत्ति?' : 'Scholarships for students?',
   ]);
   const [speakingId, setSpeakingId] = useState(null);
   const messagesEndRef = useRef(null);
 
-  // Auto-scroll to bottom of messages
+  // Auto-scroll on new messages or loading
   useEffect(() => {
     if (isOpen) {
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages, loading, isOpen]);
 
-  // Load suggestions
+  // Load contextual suggested questions
   useEffect(() => {
     const fetchSuggestions = async () => {
       try {
@@ -58,7 +59,7 @@ const FloatingChatbot = () => {
           setSuggestions(data.suggestions.slice(0, 3));
         }
       } catch {
-        // keep fallback suggestions
+        // fallback suggestions preserved
       }
     };
     fetchSuggestions();
@@ -122,8 +123,8 @@ const FloatingChatbot = () => {
           id: (Date.now() + 1).toString(),
           sender: 'assistant',
           text: isHi
-            ? 'क्षमा करें, इस समय जानकारी प्राप्त करने में कठिनाई हो रही है। कृपया योजना सूची देखें या पुनः प्रयास करें।'
-            : 'Sorry, I am temporarily unable to retrieve this data. Please explore Find Schemes or try again.',
+            ? 'क्षमा करें, इस समय जानकारी प्राप्त करने में कठिनाई हो रही है। कृपया योजना खोजें पृष्ठ देखें या पुनः प्रयास करें।'
+            : 'Sorry, I am temporarily unable to retrieve this scheme info. Please visit the Find Schemes directory or try again.',
           sources: [],
         },
       ]);
@@ -140,32 +141,48 @@ const FloatingChatbot = () => {
         id: 'welcome',
         sender: 'assistant',
         text: isHi
-          ? 'नमस्ते! मैं लाभसेतु एआई सहायक हूँ। आप मुझसे किसी भी सरकारी योजना के बारे में पूछ सकते हैं।'
-          : 'Namaste! I am your LabhSetu AI Assistant. Ask me anything about central or state welfare schemes.',
+          ? 'नमस्ते! मैं आपका लाभसेतु एआई सहायक हूँ। आप मुझसे किसी भी सरकारी योजना के बारे में पूछ सकते हैं।'
+          : 'Namaste! I am your LabhSetu AI Assistant. Ask me anything about government welfare schemes.',
         sources: [],
       },
     ]);
   };
 
+  // Helper to format text with bold syntax cleanly
+  const renderFormattedText = (rawText) => {
+    if (!rawText) return null;
+    const parts = rawText.split(/(\*\*.*?\*\*)/g);
+    return parts.map((part, index) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        return (
+          <strong key={index} className="font-bold text-slate-950 dark:text-white">
+            {part.slice(2, -2)}
+          </strong>
+        );
+      }
+      return <span key={index}>{part}</span>;
+    });
+  };
+
   return (
     <>
-      {/* 1. Minimized Modern Floating Chat Trigger */}
+      {/* 1. Minimized Floating Chat Trigger (Modern & Distinctive) */}
       {!isOpen && (
         <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2 group animate-in fade-in zoom-in-95 duration-200">
-          <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white dark:bg-[#111a2e] text-slate-800 dark:text-slate-200 text-xs font-bold shadow-elevation border border-slate-200 dark:border-slate-700 pointer-events-none group-hover:scale-102 transition-transform">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span>{isHi ? 'सहायता चाहिए? AI से पूछें' : 'Need Help? Ask AI'}</span>
+          <div className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#111a2e] text-slate-800 dark:text-slate-200 text-xs font-bold shadow-xl border border-slate-200 dark:border-slate-700 pointer-events-none group-hover:scale-105 transition-transform">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+            <span>{isHi ? 'AI योजना सहायक से पूछें' : 'Ask AI Scheme Guide'}</span>
           </div>
 
           <button
             onClick={() => setIsOpen(true)}
-            className="w-13 h-13 rounded-2xl bg-gradient-to-br from-gov-700 via-gov-800 to-gov-950 hover:from-gov-600 hover:to-gov-900 text-white shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center relative border border-sky-400/30 group focus:outline-none focus:ring-4 focus:ring-sky-500/30"
+            className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-gov-800 via-gov-700 to-sky-500 hover:from-gov-700 hover:to-sky-400 text-white shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center relative border border-sky-300/40 group focus:outline-none focus:ring-4 focus:ring-sky-500/30 cursor-pointer"
             aria-label="Open AI Scheme Chatbot"
             title="Open LabhSetu AI Assistant"
           >
-            <Bot className="w-6 h-6 text-sky-200 group-hover:rotate-6 transition-transform" />
-            <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-amber-400 rounded-full border-2 border-white dark:border-slate-900 flex items-center justify-center">
-              <Sparkles className="w-2 h-2 text-slate-950" />
+            <Bot className="w-7 h-7 text-white drop-shadow-xs group-hover:rotate-6 transition-transform" />
+            <span className="absolute -top-1 -right-1 w-4 h-4 bg-amber-400 rounded-full border-2 border-white dark:border-slate-900 flex items-center justify-center shadow-xs">
+              <Sparkles className="w-2.5 h-2.5 text-slate-950" />
             </span>
           </button>
         </div>
@@ -173,19 +190,19 @@ const FloatingChatbot = () => {
 
       {/* 2. Expanded Floating Chatbot Window */}
       {isOpen && (
-        <div className="fixed bottom-4 sm:bottom-6 right-3 sm:right-6 w-[calc(100vw-24px)] sm:w-[410px] h-[560px] max-h-[85vh] z-50 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c1322] flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-300">
+        <div className="fixed bottom-4 sm:bottom-6 right-3 sm:right-6 w-[calc(100vw-24px)] sm:w-[420px] h-[580px] max-h-[85vh] z-50 rounded-2xl shadow-2xl border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-[#0c1322] flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-300">
           {/* Header */}
           <div className="px-4 py-3 bg-gradient-to-r from-[#0b2545] via-[#103b6d] to-[#184f85] text-white flex items-center justify-between border-b border-[#1b4b82] flex-shrink-0">
             <div className="flex items-center gap-2.5">
               <div className="relative">
-                <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center text-white shadow-xs">
-                  <Bot className="w-4.5 h-4.5" />
+                <div className="w-8.5 h-8.5 rounded-xl bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center text-white shadow-xs">
+                  <Bot className="w-5 h-5" />
                 </div>
                 <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#0b2545]" />
               </div>
               <div>
                 <div className="flex items-center gap-1.5">
-                  <h3 className="text-xs sm:text-sm font-bold tracking-tight text-white leading-tight">
+                  <h3 className="text-sm font-bold tracking-tight text-white leading-tight">
                     {isHi ? 'लाभसेतु सहायक' : 'LabhSetu Assistant'}
                   </h3>
                   <span className="text-[9px] font-extrabold px-1.5 py-0.2 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30">
@@ -193,16 +210,16 @@ const FloatingChatbot = () => {
                   </span>
                 </div>
                 <p className="text-[10px] text-sky-200/80 leading-none mt-0.5">
-                  {isHi ? 'आधिकारिक योजना परामर्शदाता' : 'Grounded Scheme Guide'}
+                  {isHi ? 'सत्यापित योजना गाइड • लाइव' : 'Grounded Scheme Guide • Live'}
                 </p>
               </div>
             </div>
 
-            {/* Header Control Buttons */}
+            {/* Header Action Controls */}
             <div className="flex items-center gap-1">
               <button
                 onClick={handleReset}
-                className="p-1.5 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                className="p-1.5 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
                 title="Reset conversation"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
@@ -210,7 +227,7 @@ const FloatingChatbot = () => {
               <Link
                 to="/assistant"
                 onClick={() => setIsOpen(false)}
-                className="p-1.5 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                className="p-1.5 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
                 title="Open full page assistant"
               >
                 <Maximize2 className="w-3.5 h-3.5" />
@@ -220,45 +237,47 @@ const FloatingChatbot = () => {
                   window.speechSynthesis?.cancel();
                   setIsOpen(false);
                 }}
-                className="p-1.5 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors ml-0.5"
+                className="p-1.5 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors ml-0.5 cursor-pointer"
                 title="Minimize chatbot"
               >
-                <X className="w-4 h-4" />
+                <ChevronDown className="w-4 h-4" />
               </button>
             </div>
           </div>
 
           {/* Messages Scroll Area */}
-          <div className="flex-1 overflow-y-auto p-3.5 space-y-3 bg-slate-50/60 dark:bg-[#090e1a]/80 text-xs">
+          <div className="flex-1 overflow-y-auto p-3.5 space-y-3 bg-slate-50/70 dark:bg-[#090e1a]/90 text-xs">
             {messages.map((m) => {
               const isUser = m.sender === 'user';
               return (
                 <div
                   key={m.id}
-                  className={`flex items-start gap-2 ${isUser ? 'flex-row-reverse' : 'flex-row'}`}
+                  className={`flex items-start gap-2.5 ${isUser ? 'flex-row-reverse' : 'flex-row'}`}
                 >
                   <div
-                    className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-[10px] font-bold ${
+                    className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 text-[10px] font-bold shadow-xs ${
                       isUser
                         ? 'bg-gov-600 text-white'
-                        : 'bg-gradient-to-br from-sky-500 to-gov-700 text-white shadow-xs'
+                        : 'bg-gradient-to-br from-sky-500 to-gov-700 text-white'
                     }`}
                   >
-                    {isUser ? <User className="w-3.5 h-3.5" /> : <Bot className="w-3.5 h-3.5" />}
+                    {isUser ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
                   </div>
 
                   <div
-                    className={`max-w-[82%] rounded-2xl px-3 py-2 text-xs leading-relaxed shadow-xs ${
+                    className={`max-w-[84%] rounded-2xl px-3.5 py-2.5 text-xs leading-relaxed shadow-xs ${
                       isUser
                         ? 'bg-gov-600 text-white rounded-tr-none'
                         : 'bg-white dark:bg-[#111a2e] border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 rounded-tl-none'
                     }`}
                   >
-                    <p className="whitespace-pre-line">{m.text}</p>
+                    <p className="whitespace-pre-line leading-relaxed">
+                      {renderFormattedText(m.text)}
+                    </p>
 
-                    {/* Sources Chips */}
+                    {/* Verified Official Sources Chips */}
                     {m.sources && m.sources.length > 0 && (
-                      <div className="mt-2 pt-1.5 border-t border-slate-100 dark:border-slate-800">
+                      <div className="mt-2.5 pt-2 border-t border-slate-100 dark:border-slate-800">
                         <span className="text-[10px] font-bold text-slate-400 block mb-1">
                           {isHi ? 'सत्यापित स्रोत:' : 'Official Sources:'}
                         </span>
@@ -269,7 +288,7 @@ const FloatingChatbot = () => {
                               href={s.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-[10px] text-gov-600 dark:text-sky-400 hover:underline bg-slate-50 dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700"
+                              className="inline-flex items-center gap-1 text-[10px] font-medium text-gov-600 dark:text-sky-400 hover:underline bg-slate-50 dark:bg-slate-800 px-2 py-0.5 rounded-full border border-slate-200 dark:border-slate-700"
                             >
                               <span>{s.title}</span>
                               <ExternalLink className="w-2.5 h-2.5" />
@@ -279,18 +298,18 @@ const FloatingChatbot = () => {
                       </div>
                     )}
 
-                    {/* Speech toggle */}
+                    {/* Audio reader */}
                     {!isUser && (
-                      <div className="mt-1.5 flex justify-end">
+                      <div className="mt-2 flex justify-end">
                         <button
                           onClick={() => handleSpeak(m.text, m.id)}
-                          className="text-[10px] text-slate-400 hover:text-gov-600 dark:hover:text-sky-400 flex items-center gap-1 p-0.5"
+                          className="text-[10px] text-slate-400 hover:text-gov-600 dark:hover:text-sky-400 flex items-center gap-1 px-1.5 py-0.5 rounded hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
                           title="Read aloud"
                         >
                           {speakingId === m.id ? (
                             <>
-                              <VolumeX className="w-3 h-3 text-rose-500" />
-                              <span className="text-rose-500">Stop</span>
+                              <VolumeX className="w-3 h-3 text-rose-500 animate-pulse" />
+                              <span className="text-rose-500 font-semibold">Stop</span>
                             </>
                           ) : (
                             <>
@@ -307,13 +326,13 @@ const FloatingChatbot = () => {
             })}
 
             {loading && (
-              <div className="flex items-start gap-2">
-                <div className="w-6 h-6 rounded-full bg-gradient-to-br from-sky-500 to-gov-700 text-white flex items-center justify-center flex-shrink-0">
-                  <Bot className="w-3.5 h-3.5" />
+              <div className="flex items-start gap-2.5">
+                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-sky-500 to-gov-700 text-white flex items-center justify-center flex-shrink-0 shadow-xs">
+                  <Bot className="w-4 h-4" />
                 </div>
-                <div className="bg-white dark:bg-[#111a2e] border border-slate-200 dark:border-slate-800 rounded-2xl rounded-tl-none px-3 py-2 flex items-center gap-2 text-slate-500 text-xs shadow-xs">
-                  <Loader2 className="w-3.5 h-3.5 animate-spin text-gov-600" />
-                  <span>{isHi ? 'जानकारी खोजी जा रही है...' : 'Searching official records...'}</span>
+                <div className="bg-white dark:bg-[#111a2e] border border-slate-200 dark:border-slate-800 rounded-2xl rounded-tl-none px-3.5 py-2.5 flex items-center gap-2 text-slate-500 dark:text-slate-400 text-xs shadow-xs">
+                  <Loader2 className="w-3.5 h-3.5 animate-spin text-gov-600 dark:text-sky-400" />
+                  <span>{isHi ? 'जानकारी खोजी जा रही है...' : 'Searching official scheme database...'}</span>
                 </div>
               </div>
             )}
@@ -323,13 +342,13 @@ const FloatingChatbot = () => {
 
           {/* Quick Suggestions Chips */}
           {suggestions.length > 0 && (
-            <div className="px-3 py-1.5 bg-slate-100/70 dark:bg-[#0c1322] border-t border-slate-200 dark:border-slate-800 flex gap-1.5 overflow-x-auto no-scrollbar">
+            <div className="px-3 py-1.5 bg-slate-100/80 dark:bg-[#0c1322] border-t border-slate-200 dark:border-slate-800 flex gap-1.5 overflow-x-auto no-scrollbar">
               {suggestions.map((q, idx) => (
                 <button
                   key={idx}
                   onClick={() => handleSend(q)}
                   disabled={loading}
-                  className="whitespace-nowrap px-2.5 py-1 bg-white dark:bg-[#111a2e] hover:bg-gov-50 dark:hover:bg-slate-800 text-[10px] font-medium text-slate-700 dark:text-slate-300 rounded-full border border-slate-200 dark:border-slate-700 transition-colors flex-shrink-0"
+                  className="whitespace-nowrap px-2.5 py-1 bg-white dark:bg-[#111a2e] hover:bg-gov-50 dark:hover:bg-slate-800 text-[10px] font-medium text-slate-700 dark:text-slate-300 rounded-full border border-slate-200 dark:border-slate-700 transition-colors flex-shrink-0 cursor-pointer"
                 >
                   {q}
                 </button>
@@ -337,7 +356,7 @@ const FloatingChatbot = () => {
             </div>
           )}
 
-          {/* Input Footer */}
+          {/* Chat Input Footer */}
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -347,17 +366,17 @@ const FloatingChatbot = () => {
           >
             <input
               type="text"
-              placeholder={isHi ? 'योजना के बारे में प्रश्न पूछें...' : 'Ask about any scheme, eligibility...'}
+              placeholder={isHi ? 'योजना के बारे में प्रश्न पूछें...' : 'Ask about schemes, eligibility, documents...'}
               value={inputQuery}
               onChange={(e) => setInputQuery(e.target.value)}
               disabled={loading}
-              className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[#111a2e] border border-slate-200 dark:border-slate-700 rounded-xl text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-gov-600"
+              className="flex-1 px-3.5 py-2 bg-slate-50 dark:bg-[#111a2e] border border-slate-200 dark:border-slate-700 rounded-full text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-gov-600"
             />
             <button
               type="submit"
               disabled={!inputQuery.trim() || loading}
-              className="p-2 bg-gov-600 hover:bg-gov-700 disabled:opacity-40 text-white rounded-xl transition-colors shadow-xs"
-              title="Send query"
+              className="w-8.5 h-8.5 rounded-full bg-gov-600 hover:bg-gov-700 disabled:opacity-40 text-white flex items-center justify-center transition-all shadow-xs cursor-pointer flex-shrink-0"
+              title="Send message"
             >
               <Send className="w-4 h-4" />
             </button>

@@ -352,16 +352,16 @@ const Header = () => {
                 )}
               </div>
             ) : (
-              <div className="hidden md:flex items-center gap-2">
+              <div className="hidden md:flex items-center gap-2.5">
                 <Link
                   to="/login"
-                  className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-gov-800 dark:hover:text-white px-3.5 py-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                  className="inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-gov-800 dark:hover:text-white bg-slate-100/90 hover:bg-slate-200/90 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-300/80 dark:border-slate-700 rounded-full transition-all shadow-2xs"
                 >
                   {t('nav.login')}
                 </Link>
                 <Link
                   to="/register"
-                  className="text-xs sm:text-sm font-bold text-white bg-gov-600 hover:bg-gov-700 active:bg-gov-800 px-4.5 py-2 rounded-full shadow-xs hover:shadow transition-all"
+                  className="inline-flex items-center justify-center px-4.5 py-2 text-xs sm:text-sm font-bold text-white bg-gov-600 hover:bg-gov-700 active:bg-gov-800 rounded-full shadow-sm hover:shadow transition-all"
                 >
                   {t('nav.register')}
                 </Link>

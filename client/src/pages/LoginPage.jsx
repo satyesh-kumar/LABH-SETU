@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { LogIn, UserCheck, Shield, Sparkles } from 'lucide-react';
+import { LogIn } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import Card from '../components/ui/Card';
@@ -34,11 +34,6 @@ const LoginPage = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const fillDemo = (demoEmail, demoPassword) => {
-    setEmail(demoEmail);
-    setPassword(demoPassword);
   };
 
   return (
@@ -84,41 +79,11 @@ const LoginPage = () => {
           </Button>
         </form>
 
-        <div className="text-center text-xs text-slate-500">
+        <div className="text-center text-xs text-slate-500 pt-2 border-t border-slate-100 dark:border-slate-800">
           Don't have an account?{' '}
-          <Link to="/register" className="font-semibold text-gov-700 hover:text-gov-900 underline">
+          <Link to="/register" className="font-bold text-gov-700 dark:text-sky-400 hover:text-gov-900 underline">
             Register for free
           </Link>
-        </div>
-
-        {/* Quick Demo Credentials (Section 58) */}
-        <div className="pt-4 border-t border-slate-100 space-y-3">
-          <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block text-center flex items-center justify-center gap-1">
-            <Sparkles className="w-3 h-3 text-amber-500" />
-            <span>Instant Demo Accounts</span>
-          </span>
-          <div className="grid grid-cols-2 gap-2">
-            <button
-              type="button"
-              onClick={() => {
-                fillDemo('citizen@labhsetu.gov.in', 'password123');
-              }}
-              className="p-2 text-left rounded-md border border-slate-200 hover:border-gov-400 bg-slate-50 text-xs transition-colors"
-            >
-              <span className="font-bold text-slate-800 block">Citizen User</span>
-              <span className="text-[10px] text-slate-500 block">Rameshwar Sharma</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                fillDemo('admin@labhsetu.gov.in', 'password123');
-              }}
-              className="p-2 text-left rounded-md border border-slate-200 hover:border-gov-400 bg-slate-50 text-xs transition-colors"
-            >
-              <span className="font-bold text-slate-800 block">Administrator</span>
-              <span className="text-[10px] text-slate-500 block">Priya Sundaram</span>
-            </button>
-          </div>
         </div>
       </Card>
     </div>

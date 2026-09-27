@@ -1,24 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Search, Filter, RotateCcw, SlidersHorizontal } from 'lucide-react';
+import { Search, Filter, RotateCcw, SlidersHorizontal, X, ArrowRight, Layers, CheckSquare } from 'lucide-react';
 import api from '../services/api';
 import SchemeCard from '../components/scheme/SchemeCard';
 import { SchemeCardSkeleton } from '../components/ui/Skeleton';
 import { EmptyState, ErrorState } from '../components/ui/EmptyState';
-import Input from '../components/ui/Input';
 import Select from '../components/ui/Select';
 import Button from '../components/ui/Button';
+import Modal from '../components/ui/Modal';
 
 const FindSchemesPage = () => {
   const { t } = useTranslation();
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [schemes, setSchemes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Filters state
-  const [searchTerm, setSearchTerm] = useState('');
-  const [category, setCategory] = useState('All');
-  const [stateScope, setStateScope] = useState('All');
+  // Filters state initialized from URL query params
+  const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '');
+  const [category, setCategory] = useState(searchParams.get('category') || 'All');
+  const [stateScope, setStateScope] = useState(searchParams.get('state') || 'All');
   const [benefitType, setBenefitType] = useState('All');
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
@@ -52,12 +55,10 @@ const FindSchemesPage = () => {
     }
   };
 
-  // Debounced search
   useEffect(() => {
     const timer = setTimeout(() => {
-      setPage(1);
       fetchSchemes();
-    }, 300);
+    }, 250);
     return () => clearTimeout(timer);
   }, [searchTerm, category, stateScope, benefitType, page]);
 
@@ -67,6 +68,7 @@ const FindSchemesPage = () => {
     setStateScope('All');
     setBenefitType('All');
     setPage(1);
+    setSearchParams({});
   };
 
   const categories = [
@@ -106,19 +108,29 @@ const FindSchemesPage = () => {
     'Scholarship',
   ];
 
+  const hasActiveFilters = searchTerm || category !== 'All' || stateScope !== 'All' || benefitType !== 'All';
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       {/* Header & Search */}
       <div className="space-y-4">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
-            {t('nav.find_schemes')}
-          </h1>
-          <p className="text-xs sm:text-sm text-slate-500">
-            Explore verified government benefits across sectors and states
-          </p>
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+              {t('nav.find_schemes')}
+            </h1>
+            <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
+              Explore authentic Central and State government welfare schemes and grants
+            </p>
+          </div>
+          <Link to="/check-eligibility">
+            <Button variant="primary" size="sm" className="font-bold">
+              Check My Eligibility
+            </Button>
+          </Link>
         </div>
 
+        {/* Search input with clear button */}
         <div className="flex gap-2">
           <div className="relative flex-1">
             <Search className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -126,27 +138,85 @@ const FindSchemesPage = () => {
               type="text"
               placeholder={t('schemes.search_placeholder')}
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-11 pr-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-gov-600 focus:border-gov-600 shadow-xs"
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                setPage(1);
+              }}
+              className="w-full pl-11 pr-10 py-3 bg-white border border-slate-300 rounded-xl text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-gov-600 focus:border-gov-600 shadow-xs font-medium"
             />
+            {searchTerm && (
+              <button
+                type="button"
+                onClick={() => setSearchTerm('')}
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1"
+                aria-label="Clear search"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
           </div>
           <Button
             variant="outline"
-            className="lg:hidden flex items-center gap-1.5"
+            className="lg:hidden flex items-center gap-1.5 bg-white"
             onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
           >
             <SlidersHorizontal className="w-4 h-4" />
             <span>{t('schemes.filters')}</span>
           </Button>
         </div>
+
+        {/* Active Filter Chips */}
+        {hasActiveFilters && (
+          <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
+            <span className="font-semibold text-slate-500">Active filters:</span>
+            {category !== 'All' && (
+              <span className="inline-flex items-center gap-1 bg-gov-50 text-gov-800 font-semibold px-2.5 py-1 rounded-full border border-gov-200">
+                Category: {category}
+                <button onClick={() => setCategory('All')}>
+                  <X className="w-3.5 h-3.5 hover:text-rose-600" />
+                </button>
+              </span>
+            )}
+            {stateScope !== 'All' && (
+              <span className="inline-flex items-center gap-1 bg-gov-50 text-gov-800 font-semibold px-2.5 py-1 rounded-full border border-gov-200">
+                State: {stateScope}
+                <button onClick={() => setStateScope('All')}>
+                  <X className="w-3.5 h-3.5 hover:text-rose-600" />
+                </button>
+              </span>
+            )}
+            {benefitType !== 'All' && (
+              <span className="inline-flex items-center gap-1 bg-gov-50 text-gov-800 font-semibold px-2.5 py-1 rounded-full border border-gov-200">
+                Benefit: {benefitType}
+                <button onClick={() => setBenefitType('All')}>
+                  <X className="w-3.5 h-3.5 hover:text-rose-600" />
+                </button>
+              </span>
+            )}
+            {searchTerm && (
+              <span className="inline-flex items-center gap-1 bg-slate-100 text-slate-800 font-semibold px-2.5 py-1 rounded-full border border-slate-200">
+                Keyword: "{searchTerm}"
+                <button onClick={() => setSearchTerm('')}>
+                  <X className="w-3.5 h-3.5 hover:text-rose-600" />
+                </button>
+              </span>
+            )}
+            <button
+              onClick={handleResetFilters}
+              className="text-xs text-rose-600 hover:text-rose-800 font-bold ml-1 underline"
+            >
+              Clear All
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
-        {/* Left Sidebar Filters (Desktop) */}
+        {/* Left Sidebar Filters (Desktop Sticky) */}
         <div
           className={`lg:block ${
             mobileFilterOpen ? 'block' : 'hidden'
-          } bg-white p-6 rounded-xl border border-slate-200 shadow-subtle space-y-6`}
+          } bg-white p-6 rounded-2xl border border-slate-200 shadow-subtle space-y-6 lg:sticky lg:top-24`}
         >
           <div className="flex items-center justify-between pb-3 border-b border-slate-100">
             <h3 className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
@@ -155,9 +225,9 @@ const FindSchemesPage = () => {
             </h3>
             <button
               onClick={handleResetFilters}
-              className="text-xs text-gov-600 hover:text-gov-800 flex items-center gap-1 font-medium"
+              className="text-xs text-gov-600 hover:text-gov-800 flex items-center gap-1 font-semibold"
             >
-              <RotateCcw className="w-3 h-3" />
+              <RotateCcw className="w-3.5 h-3.5" />
               <span>{t('schemes.reset_filters')}</span>
             </button>
           </div>
@@ -202,15 +272,30 @@ const FindSchemesPage = () => {
               }))}
             />
           </div>
+
+          {/* Quick Guidance Box */}
+          <div className="p-3.5 rounded-xl bg-gov-50/70 border border-gov-100 text-xs text-gov-900 space-y-1">
+            <span className="font-bold block">Need help choosing?</span>
+            <p className="text-[11px] text-slate-600 leading-snug">
+              Answer 4 questions on our eligibility screener to get matched schemes instantly.
+            </p>
+            <Link
+              to="/check-eligibility"
+              className="inline-flex items-center gap-1 text-[11px] font-bold text-gov-700 hover:underline pt-1"
+            >
+              <span>Launch Screener</span>
+              <ArrowRight className="w-3 h-3" />
+            </Link>
+          </div>
         </div>
 
         {/* Right Scheme Cards Grid */}
         <div className="lg:col-span-3 space-y-6">
-          <div className="flex items-center justify-between text-xs text-slate-500 font-medium px-1">
+          <div className="flex items-center justify-between text-xs text-slate-500 font-semibold px-1">
             <span>
-              {totalCount} {t('schemes.results_found')}
+              Showing {schemes.length} of {totalCount} verified schemes
             </span>
-            {searchTerm && <span>Search: "{searchTerm}"</span>}
+            <span>Sorted by Latest Verified</span>
           </div>
 
           {loading ? (
@@ -247,7 +332,7 @@ const FindSchemesPage = () => {
               >
                 Previous
               </Button>
-              <span className="text-xs text-slate-600 font-medium px-3">
+              <span className="text-xs text-slate-700 font-bold px-3">
                 Page {page} of {totalPages}
               </span>
               <Button

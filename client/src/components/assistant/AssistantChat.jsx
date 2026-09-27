@@ -9,6 +9,8 @@ import {
   AlertCircle,
   Sparkles,
   Info,
+  Volume2,
+  VolumeX,
 } from 'lucide-react';
 import api from '../../services/api';
 import Card from '../ui/Card';
@@ -30,7 +32,27 @@ const AssistantChat = ({ initialSchemeId = null, initialQuery = '' }) => {
   const [inputQuery, setInputQuery] = useState(initialQuery);
   const [loading, setLoading] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
+  const [speakingId, setSpeakingId] = useState(null);
   const messagesEndRef = useRef(null);
+
+  const handleSpeak = (text, msgId) => {
+    if (!('speechSynthesis' in window)) return;
+
+    if (speakingId === msgId) {
+      window.speechSynthesis.cancel();
+      setSpeakingId(null);
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+    const cleanText = text.replace(/[*#•\[\]()]/g, '');
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.lang = isHi ? 'hi-IN' : 'en-IN';
+    utterance.onend = () => setSpeakingId(null);
+    utterance.onerror = () => setSpeakingId(null);
+    setSpeakingId(msgId);
+    window.speechSynthesis.speak(utterance);
+  };
 
   useEffect(() => {
     const fetchSuggestions = async () => {
@@ -151,6 +173,31 @@ const AssistantChat = ({ initialSchemeId = null, initialQuery = '' }) => {
                     : 'bg-slate-50 border border-slate-200 text-slate-800 rounded-tl-none'
                 }`}
               >
+                {!isUser && (
+                  <div className="flex items-center justify-between mb-2 pb-1.5 border-b border-slate-200/60">
+                    <span className="text-[10px] font-bold text-gov-700 uppercase tracking-wider">
+                      Official Guidance
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => handleSpeak(m.text, m.id)}
+                      className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-600 hover:text-gov-800 bg-white hover:bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200 transition-colors"
+                      title="Listen aloud / आवाज़ सुनें"
+                    >
+                      {speakingId === m.id ? (
+                        <>
+                          <VolumeX className="w-3.5 h-3.5 text-rose-600 animate-pulse" />
+                          <span className="text-rose-600">Stop</span>
+                        </>
+                      ) : (
+                        <>
+                          <Volume2 className="w-3.5 h-3.5 text-gov-600" />
+                          <span>Listen</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                )}
                 <div className="whitespace-pre-line">{m.text}</div>
 
                 {/* Sources References in Assistant Message */}

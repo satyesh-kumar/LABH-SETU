@@ -151,9 +151,14 @@ const EligibilityResultsPage = () => {
                   </Link>
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-2">
+                  <Link to="/documents">
+                    <Button variant="outline" size="sm" className="text-xs font-semibold">
+                      Prepare Documents
+                    </Button>
+                  </Link>
                   <Link to={`/schemes/${evalItem.schemeId}`}>
-                    <Button variant="primary" size="sm" icon={ArrowRight}>
+                    <Button variant="primary" size="sm" icon={ArrowRight} className="text-xs font-bold">
                       View Scheme & Apply
                     </Button>
                   </Link>

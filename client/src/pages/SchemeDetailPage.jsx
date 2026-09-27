@@ -153,9 +153,15 @@ const SchemeDetailPage = () => {
                 onClick={handleStartPathway}
                 isLoading={creatingApp}
                 icon={ArrowRight}
+                className="font-bold shadow-xs"
               >
-                Start Application Pathway
+                Start Pathway & Tracker
               </Button>
+              <Link to="/check-eligibility">
+                <Button variant="outline" size="md" icon={CheckCircle2} className="bg-white font-semibold text-slate-800">
+                  Check My Eligibility
+                </Button>
+              </Link>
               {scheme.officialPortalUrl && (
                 <a
                   href={scheme.officialPortalUrl}

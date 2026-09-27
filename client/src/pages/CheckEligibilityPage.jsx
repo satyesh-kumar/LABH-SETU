@@ -1,16 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { CheckCircle2, ArrowRight, ArrowLeft, User, MapPin, IndianRupee, ShieldAlert } from 'lucide-react';
+import {
+  CheckCircle2,
+  ArrowRight,
+  ArrowLeft,
+  User,
+  MapPin,
+  IndianRupee,
+  ShieldAlert,
+  HelpCircle,
+  Sparkles,
+  Wheat,
+  GraduationCap,
+  Hammer,
+  Briefcase,
+  Users,
+  Building,
+  Home,
+} from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 import Card from '../components/ui/Card';
 import Input from '../components/ui/Input';
-import Select from '../components/ui/Select';
 import Button from '../components/ui/Button';
 
 const CheckEligibilityPage = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isHi = i18n.language === 'hi';
   const navigate = useNavigate();
   const { profile, updateProfileData, isAuthenticated } = useAuth();
 
@@ -20,7 +37,7 @@ const CheckEligibilityPage = () => {
   // Form State
   const [formData, setFormData] = useState({
     fullName: '',
-    age: 35,
+    age: 38,
     gender: 'male',
     maritalStatus: 'married',
     state: 'Uttar Pradesh',
@@ -97,7 +114,6 @@ const CheckEligibilityPage = () => {
       // Check eligibility directly via API
       const { data } = await api.post('/eligibility/check', { profile: payload });
       if (data.success) {
-        // Store results in sessionStorage to render in results page
         sessionStorage.setItem('labhsetu_eligibility_results', JSON.stringify(data));
         navigate('/results');
       }
@@ -115,14 +131,44 @@ const CheckEligibilityPage = () => {
     { num: 4, title: t('eligibility.step_special'), icon: ShieldAlert },
   ];
 
+  const occupations = [
+    { id: 'farmer', label: 'Farmer / Kisan', icon: Wheat, desc: 'Owns or tills agricultural land' },
+    { id: 'student', label: 'Student', icon: GraduationCap, desc: 'School, college, or higher studies' },
+    { id: 'self_employed', label: 'Artisan / Shopkeeper', icon: Hammer, desc: 'Micro enterprise, vendor, crafts' },
+    { id: 'daily_wage', label: 'Daily Wage Laborer', icon: Users, desc: 'Manual or seasonal wage work' },
+    { id: 'salaried', label: 'Private Salaried', icon: Briefcase, desc: 'Organized / private job' },
+    { id: 'unemployed', label: 'Job Seeker', icon: HelpCircle, desc: 'Currently seeking employment' },
+  ];
+
+  const states = [
+    'All India',
+    'Andhra Pradesh',
+    'Bihar',
+    'Delhi',
+    'Gujarat',
+    'Haryana',
+    'Karnataka',
+    'Madhya Pradesh',
+    'Maharashtra',
+    'Punjab',
+    'Rajasthan',
+    'Tamil Nadu',
+    'Uttar Pradesh',
+    'West Bengal',
+  ];
+
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10 space-y-8">
       {/* Header */}
       <div className="text-center space-y-2">
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gov-100 text-gov-800 text-xs font-bold border border-gov-200">
+          <Sparkles className="w-3.5 h-3.5 text-gov-600" />
+          <span>Transparent 4-Step Questionnaire</span>
+        </div>
+        <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
           {t('eligibility.title')}
         </h1>
-        <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto">
+        <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto font-medium">
           {t('eligibility.subtitle')}
         </p>
       </div>
@@ -130,29 +176,26 @@ const CheckEligibilityPage = () => {
       {/* Stepper Progress Bar */}
       <div className="grid grid-cols-4 gap-2 sm:gap-4">
         {stepsList.map((s) => {
-          const Icon = s.icon;
           const isActive = step === s.num;
           const isDone = step > s.num;
           return (
             <div key={s.num} className="text-center">
               <div
-                className={`h-2 rounded-full mb-2 transition-all ${
+                className={`h-2.5 rounded-full mb-2 transition-all ${
                   isDone
                     ? 'bg-emerald-600'
                     : isActive
-                    ? 'bg-gov-600'
+                    ? 'bg-gov-600 ring-2 ring-gov-600 ring-offset-2'
                     : 'bg-slate-200'
                 }`}
               />
-              <div className="flex items-center justify-center gap-1">
-                <span
-                  className={`text-[11px] font-semibold hidden sm:inline ${
-                    isActive ? 'text-gov-800' : isDone ? 'text-emerald-700' : 'text-slate-400'
-                  }`}
-                >
-                  {s.title}
-                </span>
-              </div>
+              <span
+                className={`text-xs font-bold block ${
+                  isActive ? 'text-gov-800' : isDone ? 'text-emerald-700' : 'text-slate-400'
+                }`}
+              >
+                {s.title}
+              </span>
             </div>
           );
         })}
@@ -162,27 +205,54 @@ const CheckEligibilityPage = () => {
       <Card className="p-6 sm:p-8 border-slate-200 bg-white shadow-subtle">
         {/* Step 1: Personal Details */}
         {step === 1 && (
-          <div className="space-y-5">
+          <div className="space-y-6">
             <div className="border-b border-slate-100 pb-3">
               <h3 className="text-base font-bold text-slate-900">
                 Step 1: {t('eligibility.step_personal')}
               </h3>
               <p className="text-xs text-slate-500">
-                Used to determine age brackets and family entitlement criteria
+                Age and gender brackets determine specific youth, women, and pension entitlements.
               </p>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-5">
               <Input
                 label="Full Name (Optional)"
                 value={formData.fullName}
                 onChange={(e) => handleChange('fullName', e.target.value)}
-                placeholder="e.g. Rameshwar Kumar"
+                placeholder="e.g. Rameshwar Kumar Sharma"
+                helperText="Will be used to personalize your scheme application guides"
               />
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                  Gender *
+                </label>
+                <div className="grid grid-cols-3 gap-3">
+                  {[
+                    { id: 'male', label: 'Male 👨' },
+                    { id: 'female', label: 'Female 👩' },
+                    { id: 'other', label: 'Other 🧑' },
+                  ].map((g) => (
+                    <button
+                      key={g.id}
+                      type="button"
+                      onClick={() => handleChange('gender', g.id)}
+                      className={`py-3 px-4 rounded-xl border text-center font-bold text-sm transition-all ${
+                        formData.gender === g.id
+                          ? 'border-gov-600 bg-gov-50/70 text-gov-900 ring-2 ring-gov-600'
+                          : 'border-slate-200 bg-slate-50/40 text-slate-700 hover:bg-slate-50'
+                      }`}
+                    >
+                      {g.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Input
-                  label="Age (in years)"
+                  label="Age (Years) *"
                   type="number"
                   min="0"
                   max="120"
@@ -191,145 +261,163 @@ const CheckEligibilityPage = () => {
                   required
                 />
 
-                <Select
-                  label="Gender"
-                  value={formData.gender}
-                  onChange={(e) => handleChange('gender', e.target.value)}
-                  options={[
-                    { value: 'male', label: 'Male' },
-                    { value: 'female', label: 'Female' },
-                    { value: 'other', label: 'Other' },
-                  ]}
-                  required
-                />
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                    Marital Status
+                  </label>
+                  <select
+                    value={formData.maritalStatus}
+                    onChange={(e) => handleChange('maritalStatus', e.target.value)}
+                    className="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-gov-600"
+                  >
+                    <option value="single">Single / Unmarried</option>
+                    <option value="married">Married</option>
+                    <option value="widowed">Widowed</option>
+                    <option value="divorced">Divorced / Separated</option>
+                  </select>
+                </div>
               </div>
-
-              <Select
-                label="Marital Status"
-                value={formData.maritalStatus}
-                onChange={(e) => handleChange('maritalStatus', e.target.value)}
-                options={[
-                  { value: 'single', label: 'Single / Unmarried' },
-                  { value: 'married', label: 'Married' },
-                  { value: 'widowed', label: 'Widowed' },
-                  { value: 'divorced', label: 'Divorced / Separated' },
-                ]}
-              />
             </div>
           </div>
         )}
 
         {/* Step 2: Residence Details */}
         {step === 2 && (
-          <div className="space-y-5">
+          <div className="space-y-6">
             <div className="border-b border-slate-100 pb-3">
               <h3 className="text-base font-bold text-slate-900">
                 Step 2: {t('eligibility.step_residence')}
               </h3>
               <p className="text-xs text-slate-500">
-                Identifies whether State-specific or rural/urban schemes apply to your area
+                Identifies state-administered benefits (e.g. state scholarships, regional subsidies).
               </p>
             </div>
 
-            <div className="space-y-4">
-              <Select
-                label="State of Domicile / Residence"
-                value={formData.state}
-                onChange={(e) => handleChange('state', e.target.value)}
-                options={[
-                  'Andhra Pradesh',
-                  'Bihar',
-                  'Delhi',
-                  'Gujarat',
-                  'Haryana',
-                  'Karnataka',
-                  'Madhya Pradesh',
-                  'Maharashtra',
-                  'Punjab',
-                  'Rajasthan',
-                  'Tamil Nadu',
-                  'Telangana',
-                  'Uttar Pradesh',
-                  'West Bengal',
-                ]}
-                required
-              />
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Input
-                  label="District"
-                  value={formData.district}
-                  onChange={(e) => handleChange('district', e.target.value)}
-                  placeholder="e.g. Lucknow, Patna, Varanasi"
-                />
-
-                <Select
-                  label="Residence Area Type"
-                  value={formData.residenceType}
-                  onChange={(e) => handleChange('residenceType', e.target.value)}
-                  options={[
-                    { value: 'rural', label: 'Rural (Gram Panchayat)' },
-                    { value: 'urban', label: 'Urban (Municipality / City)' },
-                    { value: 'semi-urban', label: 'Semi-Urban / Nagar Panchayat' },
-                  ]}
-                  required
-                />
+            <div className="space-y-5">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                  State of Domicile / Residence *
+                </label>
+                <select
+                  value={formData.state}
+                  onChange={(e) => handleChange('state', e.target.value)}
+                  className="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-lg text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-gov-600"
+                >
+                  {states.map((st) => (
+                    <option key={st} value={st}>
+                      {st}
+                    </option>
+                  ))}
+                </select>
               </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                  Area Type (Crucial for Housing & MGNREGA) *
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {[
+                    { id: 'rural', label: '🏡 Rural Area', desc: 'Gram Panchayat village' },
+                    { id: 'urban', label: '🏢 Urban Area', desc: 'Municipality / City' },
+                    { id: 'semi-urban', label: '🏘️ Semi-Urban', desc: 'Town / Nagar Panchayat' },
+                  ].map((area) => (
+                    <button
+                      key={area.id}
+                      type="button"
+                      onClick={() => handleChange('residenceType', area.id)}
+                      className={`p-4 rounded-xl border text-left transition-all ${
+                        formData.residenceType === area.id
+                          ? 'border-gov-600 bg-gov-50/70 text-gov-900 ring-2 ring-gov-600'
+                          : 'border-slate-200 bg-slate-50/40 text-slate-700 hover:bg-slate-50'
+                      }`}
+                    >
+                      <span className="font-bold text-sm block">{area.label}</span>
+                      <span className="text-[11px] text-slate-500 block mt-0.5">{area.desc}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <Input
+                label="District (Optional)"
+                value={formData.district}
+                onChange={(e) => handleChange('district', e.target.value)}
+                placeholder="e.g. Lucknow, Varanasi, Patna"
+              />
             </div>
           </div>
         )}
 
         {/* Step 3: Income & Livelihood */}
         {step === 3 && (
-          <div className="space-y-5">
+          <div className="space-y-6">
             <div className="border-b border-slate-100 pb-3">
               <h3 className="text-base font-bold text-slate-900">
                 Step 3: {t('eligibility.step_income')}
               </h3>
               <p className="text-xs text-slate-500">
-                Evaluates income-cap limits and vocational target groups
+                Most government welfare schemes have official income thresholds.
               </p>
             </div>
 
-            <div className="space-y-4">
-              <Input
-                label="Annual Household Income (₹ per year)"
-                type="number"
-                step="10000"
-                value={formData.annualIncome}
-                onChange={(e) => handleChange('annualIncome', e.target.value)}
-                helperText="Total income from all sources including agriculture, wages, or business"
-                required
-              />
+            <div className="space-y-5">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                  Primary Occupation *
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {occupations.map((occ) => {
+                    const Icon = occ.icon;
+                    return (
+                      <button
+                        key={occ.id}
+                        type="button"
+                        onClick={() => handleChange('occupation', occ.id)}
+                        className={`p-3.5 rounded-xl border text-left flex items-start gap-3 transition-all ${
+                          formData.occupation === occ.id
+                            ? 'border-gov-600 bg-gov-50/70 text-gov-900 ring-2 ring-gov-600'
+                            : 'border-slate-200 bg-slate-50/40 text-slate-700 hover:bg-slate-50'
+                        }`}
+                      >
+                        <Icon className="w-5 h-5 text-gov-600 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <span className="font-bold text-sm block">{occ.label}</span>
+                          <span className="text-[11px] text-slate-500 block">{occ.desc}</span>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Select
-                  label="Primary Occupation"
-                  value={formData.occupation}
-                  onChange={(e) => handleChange('occupation', e.target.value)}
-                  options={[
-                    { value: 'farmer', label: 'Farmer / Cultivator' },
-                    { value: 'student', label: 'Student' },
-                    { value: 'self_employed', label: 'Self Employed / Artisan / Shopkeeper' },
-                    { value: 'daily_wage', label: 'Daily Wage Laborer' },
-                    { value: 'salaried', label: 'Salaried Private Worker' },
-                    { value: 'unemployed', label: 'Unemployed / Job Seeker' },
-                  ]}
+              <div>
+                <Input
+                  label="Annual Family Income (₹) *"
+                  type="number"
+                  step="10000"
+                  value={formData.annualIncome}
+                  onChange={(e) => handleChange('annualIncome', e.target.value)}
                   required
                 />
-
-                <Select
-                  label="Employment Status"
-                  value={formData.employmentStatus}
-                  onChange={(e) => handleChange('employmentStatus', e.target.value)}
-                  options={[
-                    { value: 'self_employed', label: 'Self Employed' },
-                    { value: 'employed', label: 'Employed' },
-                    { value: 'unemployed', label: 'Unemployed' },
-                    { value: 'student', label: 'Student' },
-                    { value: 'homemaker', label: 'Homemaker' },
-                  ]}
-                />
+                {/* Income Presets */}
+                <div className="flex flex-wrap items-center gap-2 mt-2">
+                  <span className="text-[11px] font-semibold text-slate-500">Quick set:</span>
+                  {[
+                    { label: '₹1.2 Lakh (BPL Cap)', val: 120000 },
+                    { label: '₹1.8 Lakh (Small Farmer)', val: 180000 },
+                    { label: '₹2.5 Lakh (Ayushman Cap)', val: 250000 },
+                    { label: '₹3.5 Lakh (NMMSS Cap)', val: 350000 },
+                  ].map((preset) => (
+                    <button
+                      key={preset.val}
+                      type="button"
+                      onClick={() => handleChange('annualIncome', preset.val)}
+                      className="text-[11px] font-bold px-2 py-0.5 rounded bg-slate-100 hover:bg-gov-50 hover:text-gov-800 text-slate-700 transition-colors border border-slate-200"
+                    >
+                      {preset.label}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -337,70 +425,154 @@ const CheckEligibilityPage = () => {
 
         {/* Step 4: Special Categories */}
         {step === 4 && (
-          <div className="space-y-5">
+          <div className="space-y-6">
             <div className="border-b border-slate-100 pb-3">
               <h3 className="text-base font-bold text-slate-900">
                 Step 4: {t('eligibility.step_special')}
               </h3>
               <p className="text-xs text-slate-500">
-                Crucial for affirmative action, farmer benefits, and targeted welfare
+                Key affirmative welfare conditions, farmer landholding, and BPL entitlements.
               </p>
             </div>
 
-            <div className="space-y-4">
-              <Select
-                label="Social Category"
-                value={formData.socialCategory}
-                onChange={(e) => handleChange('socialCategory', e.target.value)}
-                options={[
-                  { value: 'general', label: 'General' },
-                  { value: 'obc', label: 'Other Backward Class (OBC)' },
-                  { value: 'sc', label: 'Scheduled Caste (SC)' },
-                  { value: 'st', label: 'Scheduled Tribe (ST)' },
-                  { value: 'ews', label: 'Economically Weaker Section (EWS)' },
-                ]}
-                required
-              />
+            <div className="space-y-5">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                  Social Category *
+                </label>
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+                  {['General', 'OBC', 'SC', 'ST', 'EWS'].map((cat) => (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => handleChange('socialCategory', cat.toLowerCase())}
+                      className={`py-3 px-3 rounded-xl border text-center font-bold text-sm transition-all ${
+                        formData.socialCategory === cat.toLowerCase()
+                          ? 'border-gov-600 bg-gov-50/70 text-gov-900 ring-2 ring-gov-600'
+                          : 'border-slate-200 bg-slate-50/40 text-slate-700 hover:bg-slate-50'
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <Select
-                  label="Do you own agricultural land?"
-                  value={formData.isFarmer}
-                  onChange={(e) => handleChange('isFarmer', e.target.value)}
-                  options={[
-                    { value: 'yes', label: 'Yes (Landholding Farmer)' },
-                    { value: 'no', label: 'No' },
-                  ]}
-                />
+              {/* Yes / No Toggle Cards */}
+              <div className="space-y-3 pt-2">
+                <div className="p-4 rounded-xl border border-slate-200 flex items-center justify-between gap-4">
+                  <div>
+                    <span className="text-sm font-bold text-slate-800 block">
+                      Do you own cultivable agricultural land? (PM-KISAN)
+                    </span>
+                    <span className="text-xs text-slate-500">
+                      Unlocks central farmer income support and crop insurance.
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1.5 flex-shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => handleChange('isFarmer', 'yes')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-bold ${
+                        formData.isFarmer === 'yes'
+                          ? 'bg-gov-600 text-white shadow-xs'
+                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      }`}
+                    >
+                      Yes
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleChange('isFarmer', 'no')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-bold ${
+                        formData.isFarmer === 'no'
+                          ? 'bg-gov-600 text-white shadow-xs'
+                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      }`}
+                    >
+                      No
+                    </button>
+                  </div>
+                </div>
 
-                <Select
-                  label="Do you hold BPL / Antyodaya card?"
-                  value={formData.isBPL}
-                  onChange={(e) => handleChange('isBPL', e.target.value)}
-                  options={[
-                    { value: 'yes', label: 'Yes' },
-                    { value: 'no', label: 'No' },
-                  ]}
-                />
+                <div className="p-4 rounded-xl border border-slate-200 flex items-center justify-between gap-4">
+                  <div>
+                    <span className="text-sm font-bold text-slate-800 block">
+                      Do you hold BPL / NFSA Ration Card?
+                    </span>
+                    <span className="text-xs text-slate-500">
+                      Unlocks subsidized housing (PMAY-G) and health insurance (PM-JAY).
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1.5 flex-shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => handleChange('isBPL', 'yes')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-bold ${
+                        formData.isBPL === 'yes'
+                          ? 'bg-gov-600 text-white shadow-xs'
+                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      }`}
+                    >
+                      Yes
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleChange('isBPL', 'no')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-bold ${
+                        formData.isBPL === 'no'
+                          ? 'bg-gov-600 text-white shadow-xs'
+                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      }`}
+                    >
+                      No
+                    </button>
+                  </div>
+                </div>
 
-                <Select
-                  label="Person with Disability (PwD)?"
-                  value={formData.disabilityStatus}
-                  onChange={(e) => handleChange('disabilityStatus', e.target.value)}
-                  options={[
-                    { value: 'yes', label: 'Yes (40%+ Disability)' },
-                    { value: 'no', label: 'No' },
-                  ]}
-                />
+                <div className="p-4 rounded-xl border border-slate-200 flex items-center justify-between gap-4">
+                  <div>
+                    <span className="text-sm font-bold text-slate-800 block">
+                      Person with Disability (PwD 40%+)?
+                    </span>
+                    <span className="text-xs text-slate-500">
+                      Unlocks disability pension and assistive welfare aid.
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1.5 flex-shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => handleChange('disabilityStatus', 'yes')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-bold ${
+                        formData.disabilityStatus === 'yes'
+                          ? 'bg-gov-600 text-white shadow-xs'
+                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      }`}
+                    >
+                      Yes
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleChange('disabilityStatus', 'no')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-bold ${
+                        formData.disabilityStatus === 'no'
+                          ? 'bg-gov-600 text-white shadow-xs'
+                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      }`}
+                    >
+                      No
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         )}
 
-        {/* Form Controls */}
+        {/* Navigation Controls */}
         <div className="flex items-center justify-between pt-6 mt-6 border-t border-slate-100">
           {step > 1 ? (
-            <Button variant="secondary" size="md" icon={ArrowLeft} onClick={handleBack}>
+            <Button variant="secondary" size="md" icon={ArrowLeft} onClick={handleBack} className="font-bold">
               {t('eligibility.prev')}
             </Button>
           ) : (
@@ -408,7 +580,7 @@ const CheckEligibilityPage = () => {
           )}
 
           {step < 4 ? (
-            <Button variant="primary" size="md" onClick={handleNext}>
+            <Button variant="primary" size="md" onClick={handleNext} className="font-bold shadow-xs">
               <span>{t('eligibility.next')}</span>
               <ArrowRight className="w-4 h-4 ml-1.5" />
             </Button>
@@ -419,6 +591,7 @@ const CheckEligibilityPage = () => {
               icon={CheckCircle2}
               onClick={handleSubmit}
               isLoading={loading}
+              className="font-bold shadow-md px-6"
             >
               {t('eligibility.submit')}
             </Button>

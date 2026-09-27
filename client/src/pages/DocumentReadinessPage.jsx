@@ -163,6 +163,21 @@ const DocumentReadinessPage = () => {
         </Button>
       </div>
 
+      {/* Guest Mode Notice */}
+      {!user && (
+        <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 flex flex-wrap items-center justify-between gap-3 text-xs text-amber-900 shadow-2xs">
+          <div className="flex items-center gap-2">
+            <span className="text-base">💡</span>
+            <span className="font-semibold">You are testing Document Readiness in demo mode. Sign in to save your verified documents permanently across sessions.</span>
+          </div>
+          <Link to="/login">
+            <Button size="sm" variant="outline" className="text-amber-900 border-amber-300 hover:bg-amber-100 font-bold bg-white text-xs py-1">
+              Sign In / Instant Demo
+            </Button>
+          </Link>
+        </div>
+      )}
+
       {/* Document Readiness Score Banner (Section 20) */}
       <Card className="p-6 sm:p-8 bg-gradient-to-r from-gov-900 via-gov-800 to-gov-900 text-white border-none shadow-elevation">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">

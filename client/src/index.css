@@ -6,30 +6,30 @@
   :root {
     --bg-page: #f8fafc;
     --bg-card: #ffffff;
-    --bg-surface: #ffffff;
+    --bg-card-hover: #f1f5f9;
     --border-color: #e2e8f0;
     --text-primary: #0f172a;
-    --text-secondary: #475569;
+    --text-secondary: #334155;
     --text-muted: #64748b;
   }
 
-  /* Warm Light Mode Theme Variables (Soothing Warm Cream/Parchment/Amber) */
-  html.warm, [data-theme='warm'] {
-    --bg-page: #fbf9f4;
+  /* ☀️ WARM LIGHT MODE THEME TOKENS (Premium Eye-Comfort Cream/Parchment) */
+  html.warm, body.warm, [data-theme='warm'] {
+    --bg-page: #faf6ee;
     --bg-card: #ffffff;
-    --bg-surface: #f6f3eb;
-    --border-color: #e7dfd1;
-    --text-primary: #292524;
-    --text-secondary: #57534e;
+    --bg-card-hover: #f5f0e3;
+    --border-color: #e7dec9;
+    --text-primary: #1c1917;
+    --text-secondary: #44403c;
     --text-muted: #78716c;
   }
 
-  /* Dark Mode Theme Variables */
-  html.dark, [data-theme='dark'] {
-    --bg-page: #0a0f1d;
-    --bg-card: #131b2e;
-    --bg-surface: #1a243b;
-    --border-color: #243049;
+  /* 🌙 DARK MODE THEME TOKENS (Sleek Midnight Slate & Deep Navy) */
+  html.dark, body.dark, [data-theme='dark'] {
+    --bg-page: #090e1a;
+    --bg-card: #111a2e;
+    --bg-card-hover: #17233d;
+    --border-color: #1e2c45;
     --text-primary: #f8fafc;
     --text-secondary: #cbd5e1;
     --text-muted: #94a3b8;
@@ -41,146 +41,291 @@
     @apply antialiased font-sans transition-colors duration-200;
   }
 
-  /* Warm Mode Specific Tweaks */
-  html.warm body {
-    background-color: #faf7f2;
-    color: #292524;
-  }
-
-  html.warm header {
-    background-color: #fdfcf9 !important;
-    border-color: #eae3d5 !important;
-  }
-
-  html.warm .bg-white {
-    background-color: #ffffff;
-  }
-
-  html.warm .bg-slate-50 {
-    background-color: #f7f4ed !important;
-  }
-
-  html.warm .bg-slate-100 {
-    background-color: #efebe0 !important;
-  }
-
-  html.warm .border-slate-200,
-  html.warm .border-slate-100 {
-    border-color: #e7dfd1 !important;
-  }
-
-  html.warm .border-slate-300 {
-    border-color: #d6ccbd !important;
-  }
-
-  html.warm .text-slate-900,
-  html.warm .text-slate-800 {
-    color: #292524 !important;
-  }
-
-  html.warm .text-slate-700,
-  html.warm .text-slate-600 {
-    color: #57534e !important;
-  }
-
-  html.warm .text-slate-500 {
-    color: #78716c !important;
-  }
-
-  /* Dark Mode Comprehensive Styling */
-  html.dark body {
-    background-color: #0b1120;
-    color: #f1f5f9;
-  }
-
-  html.dark header {
-    background-color: #0d1527 !important;
-    border-color: #1e293b !important;
-  }
-
-  html.dark .bg-white {
-    background-color: #131d33 !important;
-  }
-
-  html.dark .bg-slate-50 {
-    background-color: #0b1120 !important;
-  }
-
-  html.dark .bg-slate-100 {
-    background-color: #1a2642 !important;
-  }
-
-  html.dark .border-slate-200,
-  html.dark .border-slate-100 {
-    border-color: #1e2b45 !important;
-  }
-
-  html.dark .border-slate-300 {
-    border-color: #2a3a5c !important;
-  }
-
-  html.dark .text-slate-900 {
-    color: #f8fafc !important;
-  }
-
-  html.dark .text-slate-800 {
-    color: #f1f5f9 !important;
-  }
-
-  html.dark .text-slate-700 {
-    color: #e2e8f0 !important;
-  }
-
-  html.dark .text-slate-600 {
-    color: #cbd5e1 !important;
-  }
-
-  html.dark .text-slate-500 {
-    color: #94a3b8 !important;
-  }
-
-  html.dark .text-gov-950,
-  html.dark .text-gov-900 {
-    color: #93c5fd !important;
-  }
-
-  html.dark .bg-gov-50 {
-    background-color: #132742 !important;
-  }
-
-  html.dark .border-gov-100,
-  html.dark .border-gov-200 {
-    border-color: #1e3a61 !important;
-  }
-
-  html.dark input, 
-  html.dark select, 
-  html.dark textarea {
-    background-color: #131d33 !important;
-    color: #f8fafc !important;
-    border-color: #2a3a5c !important;
-  }
-
-  html.dark input::placeholder,
-  html.dark textarea::placeholder {
-    color: #64748b !important;
-  }
-
-  html.dark .shadow-xs,
-  html.dark .shadow-sm,
-  html.dark .shadow-md,
-  html.dark .shadow-elevation {
-    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.45) !important;
-  }
-
   h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold tracking-tight;
+    @apply font-bold tracking-tight text-slate-900;
   }
 }
 
-/* Custom accessible focus outline */
+/* ==========================================================================
+   ☀️ 1. WARM LIGHT THEME OVERRIDES (Comprehensive coverage)
+   ========================================================================== */
+html.warm body, body.warm {
+  background-color: #faf6ee !important;
+  color: #1c1917 !important;
+}
+
+html.warm header, body.warm header {
+  background-color: #fbf8f2 !important;
+  border-color: #e8dfcc !important;
+}
+
+html.warm .bg-white,
+body.warm .bg-white {
+  background-color: #ffffff !important;
+}
+
+html.warm .bg-slate-50,
+body.warm .bg-slate-50,
+html.warm [class*="bg-slate-50"],
+body.warm [class*="bg-slate-50"] {
+  background-color: #f6f1e6 !important;
+}
+
+html.warm .bg-slate-100,
+body.warm .bg-slate-100,
+html.warm [class*="bg-slate-100"],
+body.warm [class*="bg-slate-100"] {
+  background-color: #efe7d7 !important;
+}
+
+html.warm .bg-gov-50,
+body.warm .bg-gov-50 {
+  background-color: #f7f2e5 !important;
+}
+
+html.warm .border-slate-200,
+body.warm .border-slate-200,
+html.warm .border-slate-100,
+body.warm .border-slate-100 {
+  border-color: #e8dfcc !important;
+}
+
+html.warm .border-slate-300,
+body.warm .border-slate-300 {
+  border-color: #d9ceb7 !important;
+}
+
+html.warm .text-slate-900,
+body.warm .text-slate-900 {
+  color: #1c1917 !important;
+}
+
+html.warm .text-slate-800,
+body.warm .text-slate-800 {
+  color: #292524 !important;
+}
+
+html.warm .text-slate-700,
+body.warm .text-slate-700 {
+  color: #44403c !important;
+}
+
+html.warm .text-slate-600,
+body.warm .text-slate-600 {
+  color: #57534e !important;
+}
+
+html.warm .text-slate-500,
+body.warm .text-slate-500 {
+  color: #78716c !important;
+}
+
+html.warm input, 
+body.warm input,
+html.warm select, 
+body.warm select,
+html.warm textarea, 
+body.warm textarea {
+  background-color: #ffffff !important;
+  color: #1c1917 !important;
+  border-color: #d9ceb7 !important;
+}
+
+/* Warm Gradients */
+html.warm .bg-gradient-to-b.from-gov-50,
+body.warm .bg-gradient-to-b.from-gov-50 {
+  background-image: linear-gradient(to bottom, #f5efe1, #ffffff, #faf6ee) !important;
+}
+
+/* ==========================================================================
+   🌙 2. DARK MODE THEME OVERRIDES (No white cards or blinding gradients)
+   ========================================================================== */
+html.dark body, body.dark {
+  background-color: #090e1a !important;
+  color: #f1f5f9 !important;
+}
+
+html.dark header, body.dark header {
+  background-color: #0c1322 !important;
+  border-color: #1a253a !important;
+}
+
+/* All white cards and containers become deep midnight surfaces */
+html.dark .bg-white,
+body.dark .bg-white,
+html.dark [class*="bg-white/"],
+body.dark [class*="bg-white/"] {
+  background-color: #111a2e !important;
+}
+
+html.dark .bg-slate-50,
+body.dark .bg-slate-50,
+html.dark [class*="bg-slate-50"],
+body.dark [class*="bg-slate-50"] {
+  background-color: #0d1527 !important;
+}
+
+html.dark .bg-slate-100,
+body.dark .bg-slate-100,
+html.dark [class*="bg-slate-100"],
+body.dark [class*="bg-slate-100"] {
+  background-color: #162238 !important;
+}
+
+html.dark .bg-slate-200,
+body.dark .bg-slate-200 {
+  background-color: #1c2b48 !important;
+}
+
+html.dark .bg-gov-50,
+body.dark .bg-gov-50 {
+  background-color: #102138 !important;
+}
+
+html.dark .bg-gov-100,
+body.dark .bg-gov-100 {
+  background-color: #152d4e !important;
+}
+
+html.dark .bg-gov-900,
+body.dark .bg-gov-900 {
+  background-color: #0b1322 !important;
+}
+
+/* Borders in Dark Mode */
+html.dark .border-slate-200,
+body.dark .border-slate-200,
+html.dark .border-slate-100,
+body.dark .border-slate-100,
+html.dark .border-gov-100,
+body.dark .border-gov-100 {
+  border-color: #1e2c45 !important;
+}
+
+html.dark .border-slate-300,
+body.dark .border-slate-300,
+html.dark .border-slate-400,
+body.dark .border-slate-400 {
+  border-color: #273958 !important;
+}
+
+html.dark .border-slate-800,
+body.dark .border-slate-800 {
+  border-color: #1a253a !important;
+}
+
+/* Typography in Dark Mode */
+html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6,
+body.dark h1, body.dark h2, body.dark h3, body.dark h4, body.dark h5, body.dark h6 {
+  color: #f8fafc !important;
+}
+
+html.dark .text-slate-900,
+body.dark .text-slate-900 {
+  color: #f8fafc !important;
+}
+
+html.dark .text-slate-800,
+body.dark .text-slate-800 {
+  color: #f1f5f9 !important;
+}
+
+html.dark .text-slate-700,
+body.dark .text-slate-700 {
+  color: #cbd5e1 !important;
+}
+
+html.dark .text-slate-600,
+body.dark .text-slate-600 {
+  color: #94a3b8 !important;
+}
+
+html.dark .text-slate-500,
+body.dark .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+html.dark .text-gov-950,
+body.dark .text-gov-950,
+html.dark .text-gov-900,
+body.dark .text-gov-900 {
+  color: #93c5fd !important;
+}
+
+html.dark .text-gov-800,
+body.dark .text-gov-800,
+html.dark .text-gov-700,
+body.dark .text-gov-700 {
+  color: #60a5fa !important;
+}
+
+/* Inputs & Form Controls in Dark Mode */
+html.dark input, 
+body.dark input,
+html.dark select, 
+body.dark select,
+html.dark textarea, 
+body.dark textarea {
+  background-color: #111a2e !important;
+  color: #f8fafc !important;
+  border-color: #233453 !important;
+}
+
+html.dark input::placeholder,
+body.dark input::placeholder,
+html.dark textarea::placeholder,
+body.dark textarea::placeholder {
+  color: #64748b !important;
+}
+
+/* Hero Section and Banner Gradients in Dark Mode */
+html.dark .bg-gradient-to-b.from-gov-50,
+body.dark .bg-gradient-to-b.from-gov-50,
+html.dark [class*="bg-gradient-to-b"][class*="from-gov-50"],
+body.dark [class*="bg-gradient-to-b"][class*="from-gov-50"] {
+  background-image: linear-gradient(to bottom, #0d1728, #090e1a, #0c1322) !important;
+}
+
+/* Badges & Color Pills in Dark Mode */
+html.dark .bg-emerald-50,
+body.dark .bg-emerald-50 {
+  background-color: #062b1b !important;
+  color: #6ee7b7 !important;
+  border-color: #064e3b !important;
+}
+
+html.dark .bg-blue-50,
+body.dark .bg-blue-50 {
+  background-color: #0c2340 !important;
+  color: #93c5fd !important;
+  border-color: #1d4ed8 !important;
+}
+
+html.dark .bg-rose-50,
+body.dark .bg-rose-50 {
+  background-color: #381017 !important;
+  color: #fda4af !important;
+  border-color: #881337 !important;
+}
+
+html.dark .bg-amber-50,
+body.dark .bg-amber-50 {
+  background-color: #311c08 !important;
+  color: #fcd34d !important;
+  border-color: #78350f !important;
+}
+
+/* Elevation Shadows in Dark Mode */
+html.dark .shadow-elevation,
+body.dark .shadow-elevation,
+html.dark .shadow-subtle,
+body.dark .shadow-subtle {
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Accessible outline */
 *:focus-visible {
-  @apply outline-none ring-2 ring-gov-600 ring-offset-2 ring-offset-white;
+  @apply outline-none ring-2 ring-gov-600 ring-offset-2 ring-offset-white dark:ring-offset-slate-900;
 }
 
 /* Print styles for citizen application printouts */

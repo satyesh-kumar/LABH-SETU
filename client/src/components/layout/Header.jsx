@@ -43,7 +43,7 @@ const Header = () => {
   const isHi = i18n.language === 'hi';
   const location = useLocation();
   const { user, isAuthenticated, logout } = useAuth();
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, cycleTheme } = useTheme();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
@@ -94,7 +94,7 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white dark:bg-slate-900 shadow-xs border-b border-slate-200 dark:border-slate-800 transition-colors duration-200">
+    <header className="sticky top-0 z-50 bg-white dark:bg-[#0c1322] shadow-xs border-b border-slate-200 dark:border-[#1a253a] transition-colors duration-200">
       {/* 1. National Tricolor Strip */}
       <div className="h-[3px] w-full bg-gradient-to-r from-[#FF9933] via-white to-[#138808]" />
 
@@ -160,8 +160,8 @@ const Header = () => {
               </button>
             </div>
 
-            {/* Theme Switcher: Warm Light, Crisp Light, Dark */}
-            <div className="flex items-center bg-[#133966]/70 p-0.5 rounded-md border border-[#1e4c85] text-[11px]">
+            {/* Top Bar Theme Switcher: Warm Light, Crisp Light, Dark */}
+            <div className="flex items-center bg-[#133966]/80 p-0.5 rounded-md border border-[#1e4c85] text-[11px]">
               <button
                 type="button"
                 onClick={() => setTheme('warm')}
@@ -219,7 +219,7 @@ const Header = () => {
       {/* 3. Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Professional, Refined Logo Branding */}
+          {/* Professional, Dignified Logo Branding */}
           <Link to="/" className="flex items-center gap-3 group focus:outline-none flex-shrink-0">
             {/* National Emblem Crest Motif */}
             <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-b from-[#0b2545] to-[#184f85] border border-amber-400/50 shadow-xs flex items-center justify-center text-amber-300 group-hover:border-amber-400 group-hover:scale-102 transition-all flex-shrink-0">
@@ -281,11 +281,11 @@ const Header = () => {
           </nav>
 
           {/* Right Action Section */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-2.5">
             {/* Quick Search Shortcut Button */}
             <Link
               to="/find-schemes"
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-medium text-slate-500 dark:text-slate-300 hover:text-slate-800 dark:hover:text-white transition-colors shadow-2xs"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-[#1e2c45] bg-slate-50 dark:bg-[#111a2e] hover:bg-slate-100 dark:hover:bg-[#162238] text-xs font-medium text-slate-500 dark:text-slate-300 hover:text-slate-800 dark:hover:text-white transition-colors shadow-2xs"
               title="Search Schemes"
             >
               <Search className="w-3.5 h-3.5 text-slate-400" />
@@ -294,6 +294,48 @@ const Header = () => {
                 /
               </kbd>
             </Link>
+
+            {/* Prominent Main Navbar Theme Pill */}
+            <div className="flex items-center p-0.5 rounded-lg border border-slate-200 dark:border-[#1e2c45] bg-slate-100/90 dark:bg-[#111a2e] text-xs">
+              <button
+                type="button"
+                onClick={() => setTheme('warm')}
+                className={`px-2 py-1 rounded-md text-xs font-semibold flex items-center gap-1 transition-all ${
+                  theme === 'warm'
+                    ? 'bg-amber-400 text-stone-900 font-bold shadow-xs'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                }`}
+                title="Warm Light Mode (Eye Comfort)"
+              >
+                <Sun className={`w-3.5 h-3.5 ${theme === 'warm' ? 'text-stone-900' : 'text-amber-500'}`} />
+                <span className="hidden xl:inline text-[11px]">Warm</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setTheme('light')}
+                className={`px-2 py-1 rounded-md text-xs font-semibold flex items-center gap-1 transition-all ${
+                  theme === 'light'
+                    ? 'bg-white text-slate-900 font-bold shadow-xs'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                }`}
+                title="Crisp Light Mode"
+              >
+                <span className="text-[11px]">Light</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setTheme('dark')}
+                className={`px-2 py-1 rounded-md text-xs font-semibold flex items-center gap-1 transition-all ${
+                  theme === 'dark'
+                    ? 'bg-slate-950 text-white font-bold shadow-xs'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                }`}
+                title="Dark Mode"
+              >
+                <Moon className={`w-3.5 h-3.5 ${theme === 'dark' ? 'text-sky-300' : 'text-slate-500'}`} />
+                <span className="hidden xl:inline text-[11px]">Dark</span>
+              </button>
+            </div>
 
             {isAuthenticated ? (
               <div className="relative" ref={userDropdownRef}>
@@ -316,8 +358,8 @@ const Header = () => {
                 </button>
 
                 {userDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-slate-800 rounded-xl shadow-elevation border border-slate-200 dark:border-slate-700 py-1.5 z-50 animate-in fade-in slide-in-from-top-2">
-                    <div className="px-4 py-2.5 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50">
+                  <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-[#111a2e] rounded-xl shadow-elevation border border-slate-200 dark:border-[#1e2c45] py-1.5 z-50 animate-in fade-in slide-in-from-top-2">
+                    <div className="px-4 py-2.5 border-b border-slate-100 dark:border-[#1e2c45] bg-slate-50/50 dark:bg-[#0c1322]/50">
                       <p className="text-xs font-bold text-slate-900 dark:text-white truncate">{user?.name}</p>
                       <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
                       <div className="mt-1">
@@ -360,7 +402,7 @@ const Header = () => {
                         <span>Administration Node</span>
                       </Link>
                     )}
-                    <div className="border-t border-slate-100 dark:border-slate-700 my-1" />
+                    <div className="border-t border-slate-100 dark:border-[#1e2c45] my-1" />
                     <button
                       onClick={() => {
                         setUserDropdownOpen(false);
@@ -390,8 +432,22 @@ const Header = () => {
             )}
           </div>
 
-          {/* Mobile Menu Hamburger */}
+          {/* Mobile Actions: Theme Quick Toggle & Menu Hamburger */}
           <div className="flex lg:hidden items-center gap-2">
+            <button
+              onClick={cycleTheme}
+              className="p-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-colors"
+              title={`Current Theme: ${theme}. Tap to switch`}
+              aria-label="Switch Theme"
+            >
+              {theme === 'warm' ? (
+                <Sun className="w-5 h-5 text-amber-500" />
+              ) : theme === 'dark' ? (
+                <Moon className="w-5 h-5 text-sky-400" />
+              ) : (
+                <Sun className="w-5 h-5 text-slate-700" />
+              )}
+            </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2.5 rounded-xl text-slate-700 dark:text-slate-200 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-gov-600 border border-slate-200 dark:border-slate-700"
@@ -405,10 +461,10 @@ const Header = () => {
 
       {/* 4. Mobile Drawer Navigation */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-3 pb-6 space-y-2 shadow-elevation animate-in fade-in">
+        <div className="lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c1322] px-4 pt-3 pb-6 space-y-2 shadow-elevation animate-in fade-in">
           {/* Mobile Theme Selector */}
-          <div className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-            <span className="text-xs font-bold text-slate-600 dark:text-slate-300">Display Theme:</span>
+          <div className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-[#111a2e] border border-slate-200 dark:border-[#1e2c45]">
+            <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Display Theme:</span>
             <div className="flex items-center gap-1">
               <button
                 type="button"
@@ -447,7 +503,7 @@ const Header = () => {
             <Link
               to="/find-schemes"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-2 w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg text-xs font-medium text-slate-500 dark:text-slate-300"
+              className="flex items-center gap-2 w-full px-3.5 py-2.5 bg-slate-50 dark:bg-[#111a2e] border border-slate-300 dark:border-[#1e2c45] rounded-lg text-xs font-medium text-slate-500 dark:text-slate-300"
             >
               <Search className="w-4 h-4 text-slate-400" />
               <span>Search schemes directory...</span>
@@ -461,7 +517,7 @@ const Header = () => {
               onClick={() => setMobileMenuOpen(false)}
               className={`block px-3.5 py-2.5 rounded-lg text-sm font-bold ${
                 isActive(link.to)
-                  ? 'text-gov-800 dark:text-sky-300 bg-gov-50 dark:bg-slate-800 border border-gov-100 dark:border-slate-700 shadow-2xs'
+                  ? 'text-gov-800 dark:text-sky-300 bg-gov-50 dark:bg-[#111a2e] border border-gov-100 dark:border-[#1e2c45] shadow-2xs'
                   : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
               }`}
             >

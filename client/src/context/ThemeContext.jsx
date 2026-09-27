@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  // Themes: 'warm' | 'light' | 'dark'
+  // Supported Themes: 'warm' (Warm Light) | 'light' (Crisp Light) | 'dark' (Deep Midnight)
   const [theme, setTheme] = useState(() => {
     try {
       const saved = localStorage.getItem('labhsetu_theme');
@@ -13,24 +13,32 @@ export const ThemeProvider = ({ children }) => {
     } catch {
       // ignore localStorage errors
     }
-    // Default to 'warm' light mode as requested
     return 'warm';
   });
 
   useEffect(() => {
     const root = document.documentElement;
+    const body = document.body;
+
+    // Clean previous theme classes
     root.classList.remove('dark', 'warm', 'light');
-    root.removeAttribute('data-theme');
+    body.classList.remove('dark', 'warm', 'light');
 
     if (theme === 'dark') {
       root.classList.add('dark');
+      body.classList.add('dark');
       root.setAttribute('data-theme', 'dark');
+      root.style.colorScheme = 'dark';
     } else if (theme === 'warm') {
       root.classList.add('warm');
+      body.classList.add('warm');
       root.setAttribute('data-theme', 'warm');
+      root.style.colorScheme = 'light';
     } else {
       root.classList.add('light');
+      body.classList.add('light');
       root.setAttribute('data-theme', 'light');
+      root.style.colorScheme = 'light';
     }
 
     try {

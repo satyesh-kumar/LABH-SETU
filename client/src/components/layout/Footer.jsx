@@ -12,9 +12,23 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           {/* Col 1: Identity & Mission */}
           <div className="space-y-4 md:col-span-1">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded bg-gov-600 flex items-center justify-center text-white font-bold text-base">
-                LS
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-b from-[#0b2545] to-[#184f85] border border-amber-400/40 flex items-center justify-center text-amber-300 shadow-xs">
+                <svg viewBox="0 0 100 100" className="w-5 h-5 text-amber-300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="50" cy="50" r="46" stroke="currentColor" strokeWidth="4" />
+                  <circle cx="50" cy="50" r="10" fill="currentColor" />
+                  {[...Array(24)].map((_, i) => (
+                    <line
+                      key={i}
+                      x1="50"
+                      y1="50"
+                      x2={50 + 38 * Math.cos((i * 15 * Math.PI) / 180)}
+                      y2={50 + 38 * Math.sin((i * 15 * Math.PI) / 180)}
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                    />
+                  ))}
+                </svg>
               </div>
               <span className="text-lg font-bold text-white tracking-tight">
                 {t('app.name')}

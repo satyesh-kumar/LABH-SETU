@@ -185,7 +185,7 @@ const DocumentReadinessPage = () => {
             <span className="text-xs font-semibold uppercase tracking-wider text-sky-300">
               {t('documents.readiness_score')}
             </span>
-            <h2 className="text-xl sm:text-2xl font-bold">
+            <h2 className="text-xl sm:text-2xl font-bold text-white">
               {readinessPercent}% Verified for Direct Government Application
             </h2>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">

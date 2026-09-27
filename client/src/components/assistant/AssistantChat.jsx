@@ -130,7 +130,7 @@ const AssistantChat = ({ initialSchemeId = null, initialQuery = '' }) => {
             <Bot className="w-5 h-5 text-sky-300" />
           </div>
           <div>
-            <h3 className="text-sm font-bold tracking-wide">{t('assistant.title')}</h3>
+            <h3 className="text-sm font-bold tracking-wide text-white">{t('assistant.title')}</h3>
             <p className="text-[11px] text-slate-300">
               Grounded in verified government guidelines & operational norms
             </p>

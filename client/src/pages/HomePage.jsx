@@ -448,7 +448,7 @@ const HomePage = () => {
               <ShieldCheck className="w-4 h-4" />
               <span>National Digital Public Good Standard</span>
             </div>
-            <h3 className="text-xl sm:text-2xl font-black tracking-tight">
+            <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white">
               {t('home.trust_title')}
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">

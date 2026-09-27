@@ -42,7 +42,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold tracking-tight text-slate-900;
+    @apply font-bold tracking-tight;
   }
 }
 
@@ -135,6 +135,17 @@ body.warm textarea {
 html.warm .bg-gradient-to-b.from-gov-50,
 body.warm .bg-gradient-to-b.from-gov-50 {
   background-image: linear-gradient(to bottom, #f5efe1, #ffffff, #faf6ee) !important;
+}
+
+/* Ensure white text & dark container headings always remain crisp white in Warm Mode */
+html.warm .text-white,
+body.warm .text-white,
+html.warm [class*="text-white"],
+body.warm [class*="text-white"],
+html.warm [class*="bg-gov-9"] h1, html.warm [class*="bg-gov-9"] h2, html.warm [class*="bg-gov-9"] h3, html.warm [class*="bg-gov-9"] h4, html.warm [class*="bg-gov-9"] h5, html.warm [class*="bg-gov-9"] h6,
+html.warm [class*="bg-slate-9"] h1, html.warm [class*="bg-slate-9"] h2, html.warm [class*="bg-slate-9"] h3, html.warm [class*="bg-slate-9"] h4, html.warm [class*="bg-slate-9"] h5, html.warm [class*="bg-slate-9"] h6,
+html.warm .text-white h1, html.warm .text-white h2, html.warm .text-white h3, html.warm .text-white h4, html.warm .text-white h5, html.warm .text-white h6 {
+  color: #ffffff !important;
 }
 
 /* ==========================================================================
@@ -354,3 +365,11 @@ body.dark .shadow-subtle {
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
+
+/* Universal Dark Banner / Container Heading Protection */
+[class*="bg-gov-9"] h1, [class*="bg-gov-9"] h2, [class*="bg-gov-9"] h3, [class*="bg-gov-9"] h4, [class*="bg-gov-9"] h5, [class*="bg-gov-9"] h6,
+[class*="bg-slate-9"] h1, [class*="bg-slate-9"] h2, [class*="bg-slate-9"] h3, [class*="bg-slate-9"] h4, [class*="bg-slate-9"] h5, [class*="bg-slate-9"] h6,
+.text-white h1, .text-white h2, .text-white h3, .text-white h4, .text-white h5, .text-white h6 {
+  color: #ffffff;
+}
+

@@ -98,15 +98,15 @@ const SchemeDetailPage = () => {
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       {/* Top Breadcrumb & Metadata Card */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2 text-xs text-slate-500">
-          <Link to="/" className="hover:text-gov-700">Home</Link>
+        <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+          <Link to="/" className="hover:text-gov-700 dark:hover:text-sky-400">Home</Link>
           <span>/</span>
-          <Link to="/find-schemes" className="hover:text-gov-700">Find Schemes</Link>
+          <Link to="/find-schemes" className="hover:text-gov-700 dark:hover:text-sky-400">Find Schemes</Link>
           <span>/</span>
-          <span className="text-slate-700 font-medium truncate max-w-xs">{name}</span>
+          <span className="text-slate-700 dark:text-slate-200 font-medium truncate max-w-xs">{name}</span>
         </div>
 
-        <div className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-subtle space-y-6">
+        <div className="bg-white dark:bg-[#111a2e] p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-[#1e2c45] shadow-subtle space-y-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex flex-wrap items-center gap-2">
               <Badge variant="primary" size="md">
@@ -117,17 +117,17 @@ const SchemeDetailPage = () => {
                 Version {scheme.version || 1}
               </Badge>
             </div>
-            <div className="flex items-center gap-1.5 text-xs text-emerald-700 font-semibold bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
+            <div className="flex items-center gap-1.5 text-xs text-emerald-700 dark:text-emerald-300 font-semibold bg-emerald-50 dark:bg-emerald-950/60 px-2.5 py-1 rounded-md border border-emerald-200 dark:border-emerald-800">
+              <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               <span>Verified: {new Date(scheme.verificationDate).toLocaleDateString()}</span>
             </div>
           </div>
 
           <div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-2">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-2">
               {name}
             </h1>
-            <div className="flex flex-wrap items-center gap-y-1 gap-x-4 text-xs sm:text-sm text-slate-500">
+            <div className="flex flex-wrap items-center gap-y-1 gap-x-4 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
               <span className="flex items-center gap-1.5">
                 <Building2 className="w-4 h-4 text-slate-400" />
                 <span>{scheme.department}</span>
@@ -139,12 +139,12 @@ const SchemeDetailPage = () => {
             </div>
           </div>
 
-          <div className="bg-gov-50/60 p-4 rounded-xl border border-gov-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="bg-gov-50/60 dark:bg-slate-800/80 p-4 rounded-xl border border-gov-100 dark:border-slate-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-gov-800 block mb-1">
+              <span className="text-xs font-semibold uppercase tracking-wider text-gov-800 dark:text-sky-300 block mb-1">
                 Key Benefit Summary
               </span>
-              <p className="text-sm font-bold text-slate-900">{benefit}</p>
+              <p className="text-sm font-bold text-slate-900 dark:text-slate-100">{benefit}</p>
             </div>
             <div className="flex flex-wrap gap-2 w-full sm:w-auto">
               <Button
@@ -153,12 +153,12 @@ const SchemeDetailPage = () => {
                 onClick={handleStartPathway}
                 isLoading={creatingApp}
                 icon={ArrowRight}
-                className="font-bold shadow-xs"
+                className="font-bold shadow-xs rounded-xl"
               >
                 Start Pathway & Tracker
               </Button>
               <Link to="/check-eligibility">
-                <Button variant="outline" size="md" icon={CheckCircle2} className="bg-white font-semibold text-slate-800">
+                <Button variant="outline" size="md" icon={CheckCircle2} className="bg-white dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100 font-semibold text-slate-800 rounded-xl">
                   Check My Eligibility
                 </Button>
               </Link>
@@ -168,7 +168,7 @@ const SchemeDetailPage = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Button variant="outline" size="md" icon={ExternalLink}>
+                  <Button variant="outline" size="md" icon={ExternalLink} className="rounded-xl">
                     Official Portal
                   </Button>
                 </a>
@@ -183,34 +183,34 @@ const SchemeDetailPage = () => {
         {/* Left 2 Cols: Comprehensive Overview, Rules, Requirements */}
         <div className="lg:col-span-2 space-y-8">
           {/* Detailed Overview */}
-          <Card className="p-6 border-slate-200">
-            <h2 className="text-lg font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100 flex items-center gap-2">
-              <BookOpen className="w-5 h-5 text-gov-600" />
+          <Card className="p-6 border-slate-200 dark:border-[#1e2c45]">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-4 pb-2 border-b border-slate-100 dark:border-slate-800 flex items-center gap-2">
+              <BookOpen className="w-5 h-5 text-gov-600 dark:text-sky-400" />
               <span>Scheme Description & Objectives</span>
             </h2>
-            <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-line">
+            <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line">
               {fullDesc || shortDesc}
             </p>
           </Card>
 
           {/* Eligibility Rules */}
-          <Card className="p-6 border-slate-200">
-            <h2 className="text-lg font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100 flex items-center gap-2">
-              <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+          <Card className="p-6 border-slate-200 dark:border-[#1e2c45]">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-4 pb-2 border-b border-slate-100 dark:border-slate-800 flex items-center gap-2">
+              <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
               <span>Mandatory & Listed Eligibility Criteria</span>
             </h2>
             <div className="space-y-3">
               {(scheme.eligibilityRules || []).length === 0 ? (
-                <p className="text-xs text-slate-500">General eligibility applies to residents.</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">General eligibility applies to residents.</p>
               ) : (
                 scheme.eligibilityRules.map((rule) => (
-                  <div key={rule._id} className="p-3 rounded-lg bg-slate-50 border border-slate-200 flex items-start gap-3">
-                    <span className="w-2 h-2 rounded-full bg-gov-600 mt-1.5 flex-shrink-0" />
+                  <div key={rule._id} className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 flex items-start gap-3">
+                    <span className="w-2 h-2 rounded-full bg-gov-600 dark:bg-sky-400 mt-1.5 flex-shrink-0" />
                     <div>
-                      <h4 className="text-sm font-semibold text-slate-800">
+                      <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-100">
                         {isHi && rule.titleHi ? rule.titleHi : rule.title}
                       </h4>
-                      <p className="text-xs text-slate-600 mt-0.5">
+                      <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 leading-relaxed">
                         {isHi && rule.descriptionHi ? rule.descriptionHi : rule.description}
                       </p>
                     </div>
@@ -221,20 +221,20 @@ const SchemeDetailPage = () => {
           </Card>
 
           {/* Required Documents */}
-          <Card className="p-6 border-slate-200">
-            <h2 className="text-lg font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100 flex items-center gap-2">
-              <FileText className="w-5 h-5 text-gov-600" />
+          <Card className="p-6 border-slate-200 dark:border-[#1e2c45]">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-4 pb-2 border-b border-slate-100 dark:border-slate-800 flex items-center gap-2">
+              <FileText className="w-5 h-5 text-gov-600 dark:text-sky-400" />
               <span>Required Certificates & Documents</span>
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {(scheme.requirements || []).map((req) => (
-                <div key={req._id} className="p-3 rounded-lg border border-slate-200 bg-white flex items-start gap-2.5">
-                  <FileText className="w-4 h-4 text-gov-600 mt-0.5 flex-shrink-0" />
+                <div key={req._id} className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/80 flex items-start gap-2.5">
+                  <FileText className="w-4 h-4 text-gov-600 dark:text-sky-400 mt-0.5 flex-shrink-0" />
                   <div>
-                    <span className="text-xs font-bold text-slate-800 block">
+                    <span className="text-xs font-bold text-slate-800 dark:text-slate-100 block">
                       {isHi && req.titleHi ? req.titleHi : req.title}
                     </span>
-                    <span className="text-[11px] text-slate-500 block mt-0.5">
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400 block mt-0.5">
                       {req.isMandatory ? 'Mandatory Proof' : 'Optional / If applicable'}
                     </span>
                   </div>
@@ -247,18 +247,18 @@ const SchemeDetailPage = () => {
         {/* Right Sidebar: Official Sources, Steps */}
         <div className="space-y-6">
           {/* Official Departmental Source (Section 43 & 44) */}
-          <Card className="p-6 border-slate-200 bg-slate-50/50">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 block mb-2">
+          <Card className="p-6 border-slate-200 dark:border-[#1e2c45] bg-slate-50/50 dark:bg-[#111a2e]">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-2">
               Official Source & Administration
             </span>
             <div className="space-y-3">
               <div>
-                <span className="text-xs text-slate-400 block">Department</span>
-                <span className="text-xs font-semibold text-slate-800">{scheme.department}</span>
+                <span className="text-xs text-slate-400 dark:text-slate-500 block">Department</span>
+                <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">{scheme.department}</span>
               </div>
               <div>
-                <span className="text-xs text-slate-400 block">Ministry</span>
-                <span className="text-xs font-semibold text-slate-800">{scheme.ministry || 'Government of India'}</span>
+                <span className="text-xs text-slate-400 dark:text-slate-500 block">Ministry</span>
+                <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">{scheme.ministry || 'Government of India'}</span>
               </div>
               {scheme.officialPortalUrl && (
                 <div className="pt-2">
@@ -266,7 +266,7 @@ const SchemeDetailPage = () => {
                     href={scheme.officialPortalUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-gov-700 hover:text-gov-900 underline"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-gov-700 dark:text-sky-400 hover:text-gov-900 underline"
                   >
                     <span>Visit Verified Portal ({new URL(scheme.officialPortalUrl).hostname})</span>
                     <ExternalLink className="w-3.5 h-3.5" />
@@ -277,8 +277,8 @@ const SchemeDetailPage = () => {
           </Card>
 
           {/* Guidance Disclaimer Card */}
-          <Card className="p-6 border-amber-200 bg-amber-50/40 text-xs text-amber-900 space-y-2">
-            <h4 className="font-bold flex items-center gap-1.5 text-amber-800">
+          <Card className="p-6 border-amber-200 dark:border-amber-900/60 bg-amber-50/40 dark:bg-amber-950/20 text-xs text-amber-900 dark:text-amber-200 space-y-2">
+            <h4 className="font-bold flex items-center gap-1.5 text-amber-800 dark:text-amber-300">
               <ShieldCheck className="w-4 h-4" />
               <span>Official Guidance Notice</span>
             </h4>

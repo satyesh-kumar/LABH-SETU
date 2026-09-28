@@ -36,6 +36,20 @@ const register = async (req, res, next) => {
       fullName: name,
     });
 
+    // Create welcome notification
+    try {
+      const Notification = require('../models/Notification');
+      await Notification.create({
+        userId: user._id,
+        title: 'Welcome to Labh-Setu! 🏛️',
+        message: 'Complete your profile to discover government schemes tailored specifically for you.',
+        type: 'info',
+        link: '/profile',
+      });
+    } catch (notifErr) {
+      // Non-blocking
+    }
+
     const token = signToken(user._id);
 
     await logAudit({

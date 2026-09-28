@@ -89,41 +89,41 @@ const ProfilePage = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       {/* Header & Score Bar */}
-      <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-subtle flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+      <div className="bg-white dark:bg-[#111a2e] p-6 rounded-2xl border border-slate-200 dark:border-[#1e2c45] shadow-subtle flex flex-col sm:flex-row sm:items-center justify-between gap-6">
         <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-full bg-gov-100 text-gov-800 font-bold flex items-center justify-center text-xl border-2 border-gov-300">
+          <div className="w-14 h-14 rounded-full bg-gov-100 dark:bg-sky-950 text-gov-800 dark:text-sky-300 font-bold flex items-center justify-center text-xl border-2 border-gov-300 dark:border-sky-800 shadow-xs">
             {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
           </div>
           <div>
-            <h1 className="text-xl font-bold text-slate-900">{user?.name}</h1>
-            <p className="text-xs text-slate-500 font-medium">
-              Role: <span className="uppercase text-gov-700 font-semibold">{user?.role}</span> • {user?.email}
+            <h1 className="text-xl font-bold text-slate-900 dark:text-white">{user?.name}</h1>
+            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+              Role: <span className="uppercase text-gov-700 dark:text-sky-400 font-semibold">{user?.role}</span> • {user?.email}
             </p>
           </div>
         </div>
 
         <div className="sm:text-right">
-          <span className="text-xs font-semibold text-slate-500 block mb-1">
+          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 block mb-1">
             Profile Completion Score
           </span>
           <div className="flex items-center sm:justify-end gap-3">
-            <div className="w-32 bg-slate-100 rounded-full h-2.5 overflow-hidden border border-slate-200">
+            <div className="w-32 bg-slate-100 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden border border-slate-200 dark:border-slate-700">
               <div
                 className="bg-emerald-600 h-full rounded-full transition-all"
                 style={{ width: `${score}%` }}
               />
             </div>
-            <span className="text-sm font-bold text-slate-800">{score}%</span>
+            <span className="text-sm font-bold text-slate-800 dark:text-slate-100">{score}%</span>
           </div>
         </div>
       </div>
 
       {/* Main Profile Form */}
-      <Card className="p-6 sm:p-8 border-slate-200 bg-white">
+      <Card className="p-6 sm:p-8 border-slate-200 dark:border-[#1e2c45]">
         <form onSubmit={handleSave} className="space-y-6">
           <div>
-            <h3 className="text-sm font-bold text-slate-900 mb-1">Personal Details</h3>
-            <p className="text-xs text-slate-500 mb-4">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-1">Personal Details</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
               Baseline citizen demographic information
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -151,9 +151,9 @@ const ProfilePage = () => {
             </div>
           </div>
 
-          <div className="pt-4 border-t border-slate-100">
-            <h3 className="text-sm font-bold text-slate-900 mb-1">Residence Location</h3>
-            <p className="text-xs text-slate-500 mb-4">
+          <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-1">Residence Location</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
               Used for state and panchayat scheme jurisdictional matching
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -197,9 +197,9 @@ const ProfilePage = () => {
             </div>
           </div>
 
-          <div className="pt-4 border-t border-slate-100">
-            <h3 className="text-sm font-bold text-slate-900 mb-1">Economic & Category Background</h3>
-            <p className="text-xs text-slate-500 mb-4">
+          <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-1">Economic & Category Background</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
               Determines income bracket exemptions and targeted subsidies
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -237,7 +237,7 @@ const ProfilePage = () => {
             </div>
           </div>
 
-          <div className="pt-4 border-t border-slate-100">
+          <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <Select
                 label="Landholding Farmer?"
@@ -269,13 +269,14 @@ const ProfilePage = () => {
             </div>
           </div>
 
-          <div className="flex justify-end pt-4 border-t border-slate-100">
+          <div className="flex justify-end pt-4 border-t border-slate-100 dark:border-slate-800">
             <Button
               type="submit"
               variant="primary"
               size="md"
               icon={Save}
               isLoading={saving}
+              className="rounded-xl shadow-xs font-bold"
             >
               Save Profile Changes
             </Button>

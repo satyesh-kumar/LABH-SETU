@@ -17,6 +17,7 @@ import {
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import Button from '../ui/Button';
+import NotificationBell from './NotificationBell';
 
 // Authentic Ashoka Chakra Vector Icon for the top national identity strip
 const AshokaChakraIcon = ({ className = 'w-4 h-4' }) => (
@@ -254,7 +255,7 @@ const Header = () => {
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 ${
+                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 ${
                     active
                       ? 'text-gov-900 dark:text-sky-300 bg-gov-100/80 dark:bg-slate-800 font-bold border border-gov-200 dark:border-slate-700 shadow-2xs'
                       : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/70'
@@ -268,7 +269,7 @@ const Header = () => {
             {user?.role === 'admin' && (
               <Link
                 to="/admin"
-                className={`px-3.5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all flex items-center gap-1.5 ml-1 ${
+                className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-1.5 ml-1 ${
                   isActive('/admin')
                     ? 'text-amber-950 dark:text-amber-200 bg-amber-100 dark:bg-amber-950/60 border border-amber-300 dark:border-amber-700'
                     : 'text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/30 hover:bg-amber-100/80 border border-amber-200 dark:border-amber-800'
@@ -281,12 +282,15 @@ const Header = () => {
           </nav>
 
           {/* Right Column: Actions / Auth / Profile */}
-          <div className="flex-1 flex items-center justify-end gap-3">
+          <div className="flex-1 flex items-center justify-end gap-2.5 sm:gap-3">
+            {/* Desktop Notification Bell */}
+            <NotificationBell />
+
             {isAuthenticated ? (
               <div className="relative" ref={userDropdownRef}>
                 <button
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                  className="hidden md:flex items-center gap-2.5 text-xs font-bold text-slate-800 dark:text-slate-100 py-1.5 px-3 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-200 dark:border-slate-700 bg-slate-50/80 dark:bg-slate-800/70"
+                  className="hidden md:flex items-center gap-2.5 text-xs font-bold text-slate-800 dark:text-slate-100 py-1.5 px-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-200 dark:border-slate-700 bg-slate-50/80 dark:bg-slate-800/70"
                 >
                   <div className="w-6.5 h-6.5 rounded-full bg-gradient-to-br from-gov-700 to-gov-900 text-white font-bold flex items-center justify-center text-[10px] shadow-xs">
                     {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
@@ -352,16 +356,16 @@ const Header = () => {
                 )}
               </div>
             ) : (
-              <div className="hidden md:flex items-center gap-2.5">
+              <div className="hidden md:flex items-center gap-3">
                 <Link
                   to="/login"
-                  className="inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-gov-800 dark:hover:text-white bg-slate-100/90 hover:bg-slate-200/90 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-300/80 dark:border-slate-700 rounded-full transition-all shadow-2xs"
+                  className="inline-flex items-center justify-center px-4.5 py-2 text-xs sm:text-sm font-bold text-slate-700 hover:text-gov-800 dark:text-slate-200 dark:hover:text-white bg-white hover:bg-slate-50 dark:bg-slate-800/90 dark:hover:bg-slate-700 border border-slate-300/80 dark:border-slate-700 rounded-xl transition-all shadow-2xs hover:shadow-xs active:scale-[0.98]"
                 >
                   {t('nav.login')}
                 </Link>
                 <Link
                   to="/register"
-                  className="inline-flex items-center justify-center px-4.5 py-2 text-xs sm:text-sm font-bold text-white bg-gov-600 hover:bg-gov-700 active:bg-gov-800 rounded-full shadow-sm hover:shadow transition-all"
+                  className="inline-flex items-center justify-center px-5 py-2 text-xs sm:text-sm font-bold text-white bg-gov-600 hover:bg-gov-700 active:bg-gov-800 rounded-xl shadow-xs hover:shadow transition-all active:scale-[0.98]"
                 >
                   {t('nav.register')}
                 </Link>
@@ -414,6 +418,33 @@ const Header = () => {
             </Link>
           ))}
 
+          {isAuthenticated && (
+            <>
+              <Link
+                to="/applications"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block px-4 py-2.5 rounded-xl text-xs font-bold ${
+                  isActive('/applications')
+                    ? 'text-gov-800 dark:text-sky-300 bg-gov-50 dark:bg-[#111a2e] border border-gov-100 dark:border-[#1e2c45]'
+                    : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
+                }`}
+              >
+                <span>{t('nav.my_applications')}</span>
+              </Link>
+              <Link
+                to="/documents"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block px-4 py-2.5 rounded-xl text-xs font-bold ${
+                  isActive('/documents')
+                    ? 'text-gov-800 dark:text-sky-300 bg-gov-50 dark:bg-[#111a2e] border border-gov-100 dark:border-[#1e2c45]'
+                    : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
+                }`}
+              >
+                <span>{t('nav.documents')}</span>
+              </Link>
+            </>
+          )}
+
           {user?.role === 'admin' && (
             <Link
               to="/admin"
@@ -430,7 +461,7 @@ const Header = () => {
                 <Link
                   to="/profile"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-200"
+                  className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-200 hover:text-gov-700"
                 >
                   <User className="w-3.5 h-3.5 text-gov-600 dark:text-sky-400" />
                   <span>{user?.name}</span>
@@ -440,20 +471,20 @@ const Header = () => {
                     logout();
                     setMobileMenuOpen(false);
                   }}
-                  className="text-xs text-rose-600 font-bold px-2.5 py-1 rounded bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100"
+                  className="text-xs text-rose-600 font-bold px-2.5 py-1 rounded-lg bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 transition-colors"
                 >
                   {t('nav.logout')}
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-2 gap-2 pt-1">
+              <div className="grid grid-cols-2 gap-3 pt-2 mt-1">
                 <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
-                  <Button variant="outline" size="sm" className="w-full font-bold text-xs py-1.5 rounded-xl">
+                  <Button variant="secondary" size="md" className="w-full font-bold text-xs sm:text-sm py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 shadow-2xs">
                     {t('nav.login')}
                   </Button>
                 </Link>
                 <Link to="/register" onClick={() => setMobileMenuOpen(false)}>
-                  <Button variant="primary" size="sm" className="w-full font-bold text-xs py-1.5 rounded-xl">
+                  <Button variant="primary" size="md" className="w-full font-bold text-xs sm:text-sm py-2.5 rounded-xl shadow-xs">
                     {t('nav.register')}
                   </Button>
                 </Link>

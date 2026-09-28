@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   FileText,
@@ -145,10 +146,10 @@ const DocumentReadinessPage = () => {
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             {t('documents.title')}
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500">
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
             {t('documents.subtitle')}
           </p>
         </div>
@@ -158,6 +159,7 @@ const DocumentReadinessPage = () => {
           size="md"
           icon={Plus}
           onClick={() => setUploadModalOpen(true)}
+          className="rounded-xl shadow-xs font-bold"
         >
           {t('documents.upload_btn')}
         </Button>
@@ -165,13 +167,13 @@ const DocumentReadinessPage = () => {
 
       {/* Guest Mode Notice */}
       {!user && (
-        <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 flex flex-wrap items-center justify-between gap-3 text-xs text-amber-900 shadow-2xs">
+        <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 flex flex-wrap items-center justify-between gap-3 text-xs text-amber-900 dark:text-amber-200 shadow-2xs">
           <div className="flex items-center gap-2">
             <span className="text-base">💡</span>
             <span className="font-semibold">You are testing Document Readiness in demo mode. Sign in to save your verified documents permanently across sessions.</span>
           </div>
           <Link to="/login">
-            <Button size="sm" variant="outline" className="text-amber-900 border-amber-300 hover:bg-amber-100 font-bold bg-white text-xs py-1">
+            <Button size="sm" variant="outline" className="text-amber-900 dark:text-amber-200 border-amber-300 dark:border-amber-700 hover:bg-amber-100 dark:hover:bg-amber-900/50 font-bold bg-white dark:bg-slate-800 text-xs py-1 rounded-xl">
               Sign In / Instant Demo
             </Button>
           </Link>
@@ -215,24 +217,24 @@ const DocumentReadinessPage = () => {
           const isReview = doc && doc.verificationStatus !== 'verified';
 
           return (
-            <Card key={type} className="p-4 border-slate-200 bg-white flex items-center justify-between">
+            <Card key={type} className="p-4 border-slate-200 dark:border-[#1e2c45] flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div
                   className={`w-9 h-9 rounded-lg flex items-center justify-center ${
                     isVerified
-                      ? 'bg-emerald-100 text-emerald-700'
+                      ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/70 dark:text-emerald-400'
                       : isReview
-                      ? 'bg-amber-100 text-amber-700'
-                      : 'bg-slate-100 text-slate-400'
+                      ? 'bg-amber-100 text-amber-700 dark:bg-amber-950/70 dark:text-amber-400'
+                      : 'bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-500'
                   }`}
                 >
                   <FileText className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-slate-800 uppercase">
+                  <h4 className="text-xs font-bold text-slate-800 dark:text-slate-100 uppercase">
                     {type.replace(/_/g, ' ')}
                   </h4>
-                  <span className="text-[11px] font-medium text-slate-500">
+                  <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400">
                     {isVerified
                       ? 'Verified'
                       : isReview
@@ -242,16 +244,16 @@ const DocumentReadinessPage = () => {
                 </div>
               </div>
               {isVerified ? (
-                <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+                <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
               ) : isReview ? (
-                <AlertTriangle className="w-5 h-5 text-amber-500" />
+                <AlertTriangle className="w-5 h-5 text-amber-500 dark:text-amber-400" />
               ) : (
                 <button
                   onClick={() => {
                     setDocType(type);
                     setUploadModalOpen(true);
                   }}
-                  className="text-xs font-semibold text-gov-600 hover:text-gov-800 underline"
+                  className="text-xs font-semibold text-gov-600 dark:text-sky-400 hover:text-gov-800 underline"
                 >
                   Upload
                 </button>
@@ -263,7 +265,7 @@ const DocumentReadinessPage = () => {
 
       {/* Uploaded Documents List & OCR Review */}
       <div className="space-y-4">
-        <h3 className="text-base font-bold text-slate-900">
+        <h3 className="text-base font-bold text-slate-900 dark:text-white">
           Uploaded Documents & Intelligence Extractions ({documents.length})
         </h3>
 
@@ -288,7 +290,7 @@ const DocumentReadinessPage = () => {
                 />
                 <button
                   onClick={() => handleDelete(doc._id)}
-                  className="absolute top-4 right-4 text-slate-400 hover:text-rose-600 p-1.5 rounded bg-white/80 shadow-xs"
+                  className="absolute top-4 right-4 text-slate-400 hover:text-rose-600 p-1.5 rounded-lg bg-white/90 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 shadow-xs transition-colors"
                   title="Remove document"
                 >
                   <Trash2 className="w-4 h-4" />
@@ -334,7 +336,7 @@ const DocumentReadinessPage = () => {
             acceptedDocType={docType}
           />
 
-          <div className="flex justify-end gap-2 pt-4 border-t border-slate-100">
+          <div className="flex justify-end gap-2 pt-4 border-t border-slate-100 dark:border-slate-800">
             <Button
               variant="secondary"
               size="sm"

@@ -15,6 +15,7 @@ const applicationRoutes = require('./routes/applicationRoutes');
 const assistantRoutes = require('./routes/assistantRoutes');
 const feedbackRoutes = require('./routes/feedbackRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const notificationRoutes = require('./routes/notificationRoutes');
 
 const app = express();
 
@@ -81,6 +82,7 @@ app.use('/api/applications', applicationRoutes);
 app.use('/api/assistant', assistantRoutes);
 app.use('/api/feedback', feedbackRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 // 404 handler for unknown API routes
 app.all('/api/*', (req, res) => {

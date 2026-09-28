@@ -47,54 +47,80 @@
 }
 
 /* ==========================================================================
-   ☀️ 1. WARM LIGHT THEME OVERRIDES (Comprehensive coverage)
+/* ==========================================================================
+   ☀️ 1. WARM LIGHT THEME OVERRIDES (Comprehensive, Accessible & Eye-Friendly)
    ========================================================================== */
 html.warm body, body.warm {
-  background-color: #faf6ee !important;
+  background-color: #faf5eb !important;
   color: #1c1917 !important;
 }
 
 html.warm header, body.warm header {
-  background-color: #fbf8f2 !important;
+  background-color: #fdfbf7 !important;
   border-color: #e8dfcc !important;
 }
 
+/* White cards stay crisp white with soft contrast on warm parchment */
 html.warm .bg-white,
 body.warm .bg-white {
   background-color: #ffffff !important;
 }
 
+/* Secondary warm surfaces & badges */
 html.warm .bg-slate-50,
-body.warm .bg-slate-50,
-html.warm [class*="bg-slate-50"],
-body.warm [class*="bg-slate-50"] {
-  background-color: #f6f1e6 !important;
+body.warm .bg-slate-50 {
+  background-color: #f7f2e7 !important;
 }
 
 html.warm .bg-slate-100,
-body.warm .bg-slate-100,
-html.warm [class*="bg-slate-100"],
-body.warm [class*="bg-slate-100"] {
+body.warm .bg-slate-100 {
   background-color: #efe7d7 !important;
+}
+
+html.warm .bg-slate-200,
+body.warm .bg-slate-200 {
+  background-color: #e4dac5 !important;
 }
 
 html.warm .bg-gov-50,
 body.warm .bg-gov-50 {
-  background-color: #f7f2e5 !important;
+  background-color: #f5ede0 !important;
 }
 
+html.warm .bg-gov-100,
+body.warm .bg-gov-100 {
+  background-color: #e8ded0 !important;
+}
+
+/* Warm interactive hover states (only when hovered) */
+html.warm .hover\:bg-slate-50:hover,
+body.warm .hover\:bg-slate-50:hover,
+html.warm .hover\:bg-slate-100:hover,
+body.warm .hover\:bg-slate-100:hover {
+  background-color: #efe6d4 !important;
+}
+
+html.warm .hover\:bg-slate-200:hover,
+body.warm .hover\:bg-slate-200:hover {
+  background-color: #e5dbc7 !important;
+}
+
+/* Warm borders */
 html.warm .border-slate-200,
 body.warm .border-slate-200,
 html.warm .border-slate-100,
-body.warm .border-slate-100 {
+body.warm .border-slate-100,
+html.warm .border-gov-100,
+body.warm .border-gov-100 {
   border-color: #e8dfcc !important;
 }
 
 html.warm .border-slate-300,
 body.warm .border-slate-300 {
-  border-color: #d9ceb7 !important;
+  border-color: #d8cbb3 !important;
 }
 
+/* Warm Typography - High Contrast Stone Palette (WCAG AAA Compliant) */
 html.warm .text-slate-900,
 body.warm .text-slate-900 {
   color: #1c1917 !important;
@@ -120,6 +146,7 @@ body.warm .text-slate-500 {
   color: #78716c !important;
 }
 
+/* Warm Inputs & Form Controls */
 html.warm input, 
 body.warm input,
 html.warm select, 
@@ -128,24 +155,48 @@ html.warm textarea,
 body.warm textarea {
   background-color: #ffffff !important;
   color: #1c1917 !important;
-  border-color: #d9ceb7 !important;
+  border-color: #d8cbb3 !important;
+}
+
+html.warm input:focus, 
+body.warm input:focus,
+html.warm select:focus, 
+body.warm select:focus,
+html.warm textarea:focus, 
+body.warm textarea:focus {
+  border-color: #1b5e9c !important;
+  box-shadow: 0 0 0 2px rgba(27, 94, 156, 0.2) !important;
 }
 
 /* Warm Gradients */
 html.warm .bg-gradient-to-b.from-gov-50,
-body.warm .bg-gradient-to-b.from-gov-50 {
-  background-image: linear-gradient(to bottom, #f5efe1, #ffffff, #faf6ee) !important;
+body.warm .bg-gradient-to-b.from-gov-50,
+html.warm [class*="bg-gradient-to-b"][class*="from-gov-50"],
+body.warm [class*="bg-gradient-to-b"][class*="from-gov-50"] {
+  background-image: linear-gradient(to bottom, #f7f1e2, #ffffff, #faf5eb) !important;
 }
 
-/* Ensure white text & dark container headings always remain crisp white in Warm Mode */
+/* Ensure white text is preserved ONLY on elements with explicit .text-white (e.g. primary buttons, badges, dark banners)
+   NEVER match dark:text-white or dark:hover:text-white via wildcard substrings */
 html.warm .text-white,
 body.warm .text-white,
-html.warm [class*="text-white"],
-body.warm [class*="text-white"],
+html.warm .btn-primary,
+body.warm .btn-primary,
+html.warm .bg-gov-600,
+body.warm .bg-gov-600,
+html.warm .bg-gov-700,
+body.warm .bg-gov-700,
 html.warm [class*="bg-gov-9"] h1, html.warm [class*="bg-gov-9"] h2, html.warm [class*="bg-gov-9"] h3, html.warm [class*="bg-gov-9"] h4, html.warm [class*="bg-gov-9"] h5, html.warm [class*="bg-gov-9"] h6,
-html.warm [class*="bg-slate-9"] h1, html.warm [class*="bg-slate-9"] h2, html.warm [class*="bg-slate-9"] h3, html.warm [class*="bg-slate-9"] h4, html.warm [class*="bg-slate-9"] h5, html.warm [class*="bg-slate-9"] h6,
-html.warm .text-white h1, html.warm .text-white h2, html.warm .text-white h3, html.warm .text-white h4, html.warm .text-white h5, html.warm .text-white h6 {
-  color: #ffffff !important;
+html.warm [class*="bg-slate-9"] h1, html.warm [class*="bg-slate-9"] h2, html.warm [class*="bg-slate-9"] h3, html.warm [class*="bg-slate-9"] h4, html.warm [class*="bg-slate-9"] h5, html.warm [class*="bg-slate-9"] h6 {
+  color: #ffffff;
+}
+
+/* Warm active navigation highlight */
+html.warm nav a.bg-gov-100\/80,
+body.warm nav a.bg-gov-100\/80 {
+  background-color: #e3effa !important;
+  color: #0f3d6b !important;
+  border-color: #bed7f3 !important;
 }
 
 /* ==========================================================================
@@ -170,17 +221,20 @@ body.dark [class*="bg-white/"] {
 }
 
 html.dark .bg-slate-50,
-body.dark .bg-slate-50,
-html.dark [class*="bg-slate-50"],
-body.dark [class*="bg-slate-50"] {
+body.dark .bg-slate-50 {
   background-color: #0d1527 !important;
 }
 
 html.dark .bg-slate-100,
-body.dark .bg-slate-100,
-html.dark [class*="bg-slate-100"],
-body.dark [class*="bg-slate-100"] {
+body.dark .bg-slate-100 {
   background-color: #162238 !important;
+}
+
+html.dark .hover\:bg-slate-100:hover,
+body.dark .hover\:bg-slate-100:hover,
+html.dark .hover\:bg-slate-800:hover,
+body.dark .hover\:bg-slate-800:hover {
+  background-color: #1a2842 !important;
 }
 
 html.dark .bg-slate-200,

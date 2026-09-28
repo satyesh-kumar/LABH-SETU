@@ -4,6 +4,7 @@ const { askAssistant, getSuggestedQuestions } = require('../controllers/assistan
 const { optionalAuth } = require('../middleware/auth');
 
 router.post('/query', optionalAuth, askAssistant);
+router.post('/ask', optionalAuth, askAssistant);
 router.get('/suggestions', getSuggestedQuestions);
 
 module.exports = router;

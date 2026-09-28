@@ -47,6 +47,16 @@ const uploadDocument = async (req, res, next) => {
       doc.ocrStatus = 'processed';
       doc.verificationStatus = 'pending_review';
       await doc.save();
+
+      // Trigger user notification
+      const Notification = require('../models/Notification');
+      await Notification.create({
+        userId: req.user.id,
+        title: `Document Uploaded: ${doc.originalName}`,
+        message: `Your ${doc.documentType.replace('_', ' ').toUpperCase()} was uploaded and analyzed via OCR with ${Math.round((extracted?.confidenceScore || 0.95) * 100)}% confidence.`,
+        type: 'success',
+        link: '/documents',
+      }).catch(() => {});
     } catch (err) {
       doc.ocrStatus = 'needs_review';
       await doc.save();

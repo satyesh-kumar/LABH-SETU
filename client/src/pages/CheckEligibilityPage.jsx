@@ -202,15 +202,15 @@ const CheckEligibilityPage = () => {
       </div>
 
       {/* Main Questionnaire Card */}
-      <Card className="p-6 sm:p-8 border-slate-200 bg-white shadow-subtle">
+      <Card className="p-5 sm:p-8 border-slate-200 dark:border-slate-800 shadow-subtle">
         {/* Step 1: Personal Details */}
         {step === 1 && (
           <div className="space-y-6">
-            <div className="border-b border-slate-100 pb-3">
-              <h3 className="text-base font-bold text-slate-900">
+            <div className="border-b border-slate-100 dark:border-slate-800 pb-3">
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">
                 Step 1: {t('eligibility.step_personal')}
               </h3>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 Age and gender brackets determine specific youth, women, and pension entitlements.
               </p>
             </div>
@@ -225,7 +225,7 @@ const CheckEligibilityPage = () => {
               />
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-2">
                   Gender *
                 </label>
                 <div className="grid grid-cols-3 gap-3">
@@ -238,10 +238,10 @@ const CheckEligibilityPage = () => {
                       key={g.id}
                       type="button"
                       onClick={() => handleChange('gender', g.id)}
-                      className={`py-3 px-4 rounded-xl border text-center font-bold text-sm transition-all ${
+                      className={`py-3 px-3 sm:px-4 rounded-xl border text-center font-bold text-xs sm:text-sm transition-all ${
                         formData.gender === g.id
-                          ? 'border-gov-600 bg-gov-50/70 text-gov-900 ring-2 ring-gov-600'
-                          : 'border-slate-200 bg-slate-50/40 text-slate-700 hover:bg-slate-50'
+                          ? 'border-gov-600 bg-gov-50/70 dark:bg-gov-900/40 text-gov-900 dark:text-gov-300 ring-2 ring-gov-600'
+                          : 'border-slate-200 dark:border-slate-700 bg-slate-50/40 dark:bg-slate-800/60 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800'
                       }`}
                     >
                       {g.label}
@@ -262,13 +262,13 @@ const CheckEligibilityPage = () => {
                 />
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-2">
                     Marital Status
                   </label>
                   <select
                     value={formData.maritalStatus}
                     onChange={(e) => handleChange('maritalStatus', e.target.value)}
-                    className="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-gov-600"
+                    className="w-full px-3 py-2.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-gov-600 transition-colors"
                   >
                     <option value="single">Single / Unmarried</option>
                     <option value="married">Married</option>
@@ -284,24 +284,24 @@ const CheckEligibilityPage = () => {
         {/* Step 2: Residence Details */}
         {step === 2 && (
           <div className="space-y-6">
-            <div className="border-b border-slate-100 pb-3">
-              <h3 className="text-base font-bold text-slate-900">
+            <div className="border-b border-slate-100 dark:border-slate-800 pb-3">
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">
                 Step 2: {t('eligibility.step_residence')}
               </h3>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 Identifies state-administered benefits (e.g. state scholarships, regional subsidies).
               </p>
             </div>
 
             <div className="space-y-5">
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-2">
                   State of Domicile / Residence *
                 </label>
                 <select
                   value={formData.state}
                   onChange={(e) => handleChange('state', e.target.value)}
-                  className="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-lg text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-gov-600"
+                  className="w-full px-3 py-2.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg text-sm font-semibold text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-gov-600 transition-colors"
                 >
                   {states.map((st) => (
                     <option key={st} value={st}>
@@ -312,7 +312,7 @@ const CheckEligibilityPage = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-2">
                   Area Type (Crucial for Housing & MGNREGA) *
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -327,12 +327,12 @@ const CheckEligibilityPage = () => {
                       onClick={() => handleChange('residenceType', area.id)}
                       className={`p-4 rounded-xl border text-left transition-all ${
                         formData.residenceType === area.id
-                          ? 'border-gov-600 bg-gov-50/70 text-gov-900 ring-2 ring-gov-600'
-                          : 'border-slate-200 bg-slate-50/40 text-slate-700 hover:bg-slate-50'
+                          ? 'border-gov-600 bg-gov-50/70 dark:bg-gov-900/40 text-gov-900 dark:text-gov-300 ring-2 ring-gov-600'
+                          : 'border-slate-200 dark:border-slate-700 bg-slate-50/40 dark:bg-slate-800/60 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800'
                       }`}
                     >
                       <span className="font-bold text-sm block">{area.label}</span>
-                      <span className="text-[11px] text-slate-500 block mt-0.5">{area.desc}</span>
+                      <span className="text-[11px] text-slate-500 dark:text-slate-400 block mt-0.5">{area.desc}</span>
                     </button>
                   ))}
                 </div>
@@ -351,18 +351,18 @@ const CheckEligibilityPage = () => {
         {/* Step 3: Income & Livelihood */}
         {step === 3 && (
           <div className="space-y-6">
-            <div className="border-b border-slate-100 pb-3">
-              <h3 className="text-base font-bold text-slate-900">
+            <div className="border-b border-slate-100 dark:border-slate-800 pb-3">
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">
                 Step 3: {t('eligibility.step_income')}
               </h3>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 Most government welfare schemes have official income thresholds.
               </p>
             </div>
 
             <div className="space-y-5">
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-2">
                   Primary Occupation *
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -375,14 +375,14 @@ const CheckEligibilityPage = () => {
                         onClick={() => handleChange('occupation', occ.id)}
                         className={`p-3.5 rounded-xl border text-left flex items-start gap-3 transition-all ${
                           formData.occupation === occ.id
-                            ? 'border-gov-600 bg-gov-50/70 text-gov-900 ring-2 ring-gov-600'
-                            : 'border-slate-200 bg-slate-50/40 text-slate-700 hover:bg-slate-50'
+                            ? 'border-gov-600 bg-gov-50/70 dark:bg-gov-900/40 text-gov-900 dark:text-gov-300 ring-2 ring-gov-600'
+                            : 'border-slate-200 dark:border-slate-700 bg-slate-50/40 dark:bg-slate-800/60 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800'
                         }`}
                       >
-                        <Icon className="w-5 h-5 text-gov-600 mt-0.5 flex-shrink-0" />
+                        <Icon className="w-5 h-5 text-gov-600 dark:text-gov-400 mt-0.5 flex-shrink-0" />
                         <div>
                           <span className="font-bold text-sm block">{occ.label}</span>
-                          <span className="text-[11px] text-slate-500 block">{occ.desc}</span>
+                          <span className="text-[11px] text-slate-500 dark:text-slate-400 block">{occ.desc}</span>
                         </div>
                       </button>
                     );
@@ -401,7 +401,7 @@ const CheckEligibilityPage = () => {
                 />
                 {/* Income Presets */}
                 <div className="flex flex-wrap items-center gap-2 mt-2">
-                  <span className="text-[11px] font-semibold text-slate-500">Quick set:</span>
+                  <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">Quick set:</span>
                   {[
                     { label: '₹1.2 Lakh (BPL Cap)', val: 120000 },
                     { label: '₹1.8 Lakh (Small Farmer)', val: 180000 },
@@ -412,7 +412,7 @@ const CheckEligibilityPage = () => {
                       key={preset.val}
                       type="button"
                       onClick={() => handleChange('annualIncome', preset.val)}
-                      className="text-[11px] font-bold px-2 py-0.5 rounded bg-slate-100 hover:bg-gov-50 hover:text-gov-800 text-slate-700 transition-colors border border-slate-200"
+                      className="text-[11px] font-bold px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-gov-50 dark:hover:bg-gov-900/40 hover:text-gov-800 dark:hover:text-gov-300 text-slate-700 dark:text-slate-200 transition-colors border border-slate-200 dark:border-slate-700"
                     >
                       {preset.label}
                     </button>
@@ -426,18 +426,18 @@ const CheckEligibilityPage = () => {
         {/* Step 4: Special Categories */}
         {step === 4 && (
           <div className="space-y-6">
-            <div className="border-b border-slate-100 pb-3">
-              <h3 className="text-base font-bold text-slate-900">
+            <div className="border-b border-slate-100 dark:border-slate-800 pb-3">
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">
                 Step 4: {t('eligibility.step_special')}
               </h3>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 Key affirmative welfare conditions, farmer landholding, and BPL entitlements.
               </p>
             </div>
 
             <div className="space-y-5">
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-2">
                   Social Category *
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
@@ -448,8 +448,8 @@ const CheckEligibilityPage = () => {
                       onClick={() => handleChange('socialCategory', cat.toLowerCase())}
                       className={`py-3 px-3 rounded-xl border text-center font-bold text-sm transition-all ${
                         formData.socialCategory === cat.toLowerCase()
-                          ? 'border-gov-600 bg-gov-50/70 text-gov-900 ring-2 ring-gov-600'
-                          : 'border-slate-200 bg-slate-50/40 text-slate-700 hover:bg-slate-50'
+                          ? 'border-gov-600 bg-gov-50/70 dark:bg-gov-900/40 text-gov-900 dark:text-gov-300 ring-2 ring-gov-600'
+                          : 'border-slate-200 dark:border-slate-700 bg-slate-50/40 dark:bg-slate-800/60 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800'
                       }`}
                     >
                       {cat}
@@ -460,12 +460,12 @@ const CheckEligibilityPage = () => {
 
               {/* Yes / No Toggle Cards */}
               <div className="space-y-3 pt-2">
-                <div className="p-4 rounded-xl border border-slate-200 flex items-center justify-between gap-4">
+                <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-700/80 bg-slate-50/30 dark:bg-slate-800/30 flex items-center justify-between gap-4">
                   <div>
-                    <span className="text-sm font-bold text-slate-800 block">
+                    <span className="text-sm font-bold text-slate-800 dark:text-slate-100 block">
                       Do you own cultivable agricultural land? (PM-KISAN)
                     </span>
-                    <span className="text-xs text-slate-500">
+                    <span className="text-xs text-slate-500 dark:text-slate-400">
                       Unlocks central farmer income support and crop insurance.
                     </span>
                   </div>
@@ -473,10 +473,10 @@ const CheckEligibilityPage = () => {
                     <button
                       type="button"
                       onClick={() => handleChange('isFarmer', 'yes')}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-bold ${
+                      className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                         formData.isFarmer === 'yes'
                           ? 'bg-gov-600 text-white shadow-xs'
-                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                          : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600'
                       }`}
                     >
                       Yes
@@ -484,10 +484,10 @@ const CheckEligibilityPage = () => {
                     <button
                       type="button"
                       onClick={() => handleChange('isFarmer', 'no')}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-bold ${
+                      className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                         formData.isFarmer === 'no'
                           ? 'bg-gov-600 text-white shadow-xs'
-                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                          : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600'
                       }`}
                     >
                       No
@@ -495,12 +495,12 @@ const CheckEligibilityPage = () => {
                   </div>
                 </div>
 
-                <div className="p-4 rounded-xl border border-slate-200 flex items-center justify-between gap-4">
+                <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-700/80 bg-slate-50/30 dark:bg-slate-800/30 flex items-center justify-between gap-4">
                   <div>
-                    <span className="text-sm font-bold text-slate-800 block">
+                    <span className="text-sm font-bold text-slate-800 dark:text-slate-100 block">
                       Do you hold BPL / NFSA Ration Card?
                     </span>
-                    <span className="text-xs text-slate-500">
+                    <span className="text-xs text-slate-500 dark:text-slate-400">
                       Unlocks subsidized housing (PMAY-G) and health insurance (PM-JAY).
                     </span>
                   </div>
@@ -508,10 +508,10 @@ const CheckEligibilityPage = () => {
                     <button
                       type="button"
                       onClick={() => handleChange('isBPL', 'yes')}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-bold ${
+                      className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                         formData.isBPL === 'yes'
                           ? 'bg-gov-600 text-white shadow-xs'
-                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                          : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600'
                       }`}
                     >
                       Yes
@@ -519,10 +519,10 @@ const CheckEligibilityPage = () => {
                     <button
                       type="button"
                       onClick={() => handleChange('isBPL', 'no')}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-bold ${
+                      className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                         formData.isBPL === 'no'
                           ? 'bg-gov-600 text-white shadow-xs'
-                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                          : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600'
                       }`}
                     >
                       No
@@ -530,12 +530,12 @@ const CheckEligibilityPage = () => {
                   </div>
                 </div>
 
-                <div className="p-4 rounded-xl border border-slate-200 flex items-center justify-between gap-4">
+                <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-700/80 bg-slate-50/30 dark:bg-slate-800/30 flex items-center justify-between gap-4">
                   <div>
-                    <span className="text-sm font-bold text-slate-800 block">
+                    <span className="text-sm font-bold text-slate-800 dark:text-slate-100 block">
                       Person with Disability (PwD 40%+)?
                     </span>
-                    <span className="text-xs text-slate-500">
+                    <span className="text-xs text-slate-500 dark:text-slate-400">
                       Unlocks disability pension and assistive welfare aid.
                     </span>
                   </div>
@@ -543,10 +543,10 @@ const CheckEligibilityPage = () => {
                     <button
                       type="button"
                       onClick={() => handleChange('disabilityStatus', 'yes')}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-bold ${
+                      className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                         formData.disabilityStatus === 'yes'
                           ? 'bg-gov-600 text-white shadow-xs'
-                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                          : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600'
                       }`}
                     >
                       Yes
@@ -554,10 +554,10 @@ const CheckEligibilityPage = () => {
                     <button
                       type="button"
                       onClick={() => handleChange('disabilityStatus', 'no')}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-bold ${
+                      className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                         formData.disabilityStatus === 'no'
                           ? 'bg-gov-600 text-white shadow-xs'
-                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                          : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600'
                       }`}
                     >
                       No
@@ -570,7 +570,7 @@ const CheckEligibilityPage = () => {
         )}
 
         {/* Navigation Controls */}
-        <div className="flex items-center justify-between pt-6 mt-6 border-t border-slate-100">
+        <div className="flex items-center justify-between pt-6 mt-6 border-t border-slate-100 dark:border-slate-800">
           {step > 1 ? (
             <Button variant="secondary" size="md" icon={ArrowLeft} onClick={handleBack} className="font-bold">
               {t('eligibility.prev')}

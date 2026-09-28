@@ -150,39 +150,39 @@ const HomePage = () => {
   return (
     <div className="space-y-16 pb-20">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-b from-gov-50/80 via-slate-50 to-white pt-12 sm:pt-16 pb-16 border-b border-slate-200">
+      <section className="relative bg-gradient-to-b from-gov-50/80 via-slate-50 to-white dark:from-slate-900/60 dark:via-[#0c1322] dark:to-[#0c1322] pt-12 sm:pt-16 pb-16 border-b border-slate-200/80 dark:border-slate-800">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white text-gov-800 text-xs font-bold shadow-subtle border border-gov-200/80">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-800 text-gov-800 dark:text-sky-300 text-xs font-bold shadow-subtle border border-gov-200/80 dark:border-slate-700">
             <span className="w-2.5 h-2.5 rounded-full bg-[#138808] animate-pulse"></span>
             <span>{t('app.subtitle')}</span>
-            <span className="text-slate-300">•</span>
-            <span className="text-[#1b5e9c] font-semibold">100% Transparent Screening</span>
+            <span className="text-slate-300 dark:text-slate-600">•</span>
+            <span className="text-[#1b5e9c] dark:text-sky-400 font-semibold">100% Transparent Screening</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-tight leading-[1.15] max-w-4xl mx-auto">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.15] max-w-4xl mx-auto">
             {t('home.hero_title')}
           </h1>
 
-          <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed font-medium">
+          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-medium">
             {t('home.hero_desc')}
           </p>
 
           {/* 1-Click Interactive Citizen Quick Screener Card */}
-          <div className="max-w-3xl mx-auto bg-white rounded-2xl p-5 sm:p-6 shadow-elevation border border-slate-200 text-left mt-8">
+          <div className="max-w-3xl mx-auto bg-white dark:bg-[#111a2e] rounded-2xl p-5 sm:p-6 shadow-elevation border border-slate-200 dark:border-[#1e2c45] text-left mt-8">
             <div className="flex items-center gap-2 mb-3">
               <Sparkles className="w-4 h-4 text-[#FF9933]" />
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-700">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                 Quick Scheme Matcher (No Login Required)
               </span>
             </div>
 
             <form onSubmit={handleQuickMatch} className="grid grid-cols-1 sm:grid-cols-4 gap-3 items-end">
               <div>
-                <label className="block text-[11px] font-semibold text-slate-600 mb-1">I am a</label>
+                <label className="block text-[11px] font-semibold text-slate-600 dark:text-slate-300 mb-1">I am a</label>
                 <select
                   value={quickPersona}
                   onChange={(e) => setQuickPersona(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-gov-600"
+                  className="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-gov-600"
                 >
                   <option value="farmer">🌾 Farmer / Kisan</option>
                   <option value="student">🎓 Student</option>
@@ -192,11 +192,11 @@ const HomePage = () => {
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-600 mb-1">Resident of</label>
+                <label className="block text-[11px] font-semibold text-slate-600 dark:text-slate-300 mb-1">Resident of</label>
                 <select
                   value={quickState}
                   onChange={(e) => setQuickState(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-gov-600"
+                  className="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-gov-600"
                 >
                   <option value="All India">All India / Central</option>
                   <option value="Uttar Pradesh">Uttar Pradesh</option>
@@ -209,11 +209,11 @@ const HomePage = () => {
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-600 mb-1">Annual Income</label>
+                <label className="block text-[11px] font-semibold text-slate-600 dark:text-slate-300 mb-1">Annual Income</label>
                 <select
                   value={quickIncome}
                   onChange={(e) => setQuickIncome(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-gov-600"
+                  className="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-gov-600"
                 >
                   <option value="150000">Under ₹2 Lakh</option>
                   <option value="300000">₹2 Lakh - ₹5 Lakh</option>
@@ -222,7 +222,7 @@ const HomePage = () => {
               </div>
 
               <div>
-                <Button type="submit" variant="primary" size="md" className="w-full font-bold">
+                <Button type="submit" variant="primary" size="md" className="w-full font-bold py-2.5 rounded-xl">
                   Find Schemes
                 </Button>
               </div>
@@ -232,12 +232,12 @@ const HomePage = () => {
           {/* Primary Action Buttons */}
           <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
             <Link to="/find-schemes">
-              <Button size="lg" variant="primary" icon={Search} className="px-6 py-3 font-bold shadow-md">
+              <Button size="lg" variant="primary" icon={Search} className="px-6 py-3 font-bold shadow-md rounded-xl">
                 {t('home.cta_find')}
               </Button>
             </Link>
             <Link to="/check-eligibility">
-              <Button size="lg" variant="outline" icon={CheckCircle2} className="px-6 py-3 font-bold bg-white shadow-xs">
+              <Button size="lg" variant="outline" icon={CheckCircle2} className="px-6 py-3 font-bold bg-white dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100 shadow-xs rounded-xl">
                 {t('home.cta_check')}
               </Button>
             </Link>
@@ -249,14 +249,14 @@ const HomePage = () => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
               Explore by Socio-Economic Category
             </h2>
-            <p className="text-xs sm:text-sm text-slate-500 mt-1">
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
               Find schemes tailored to your specific trade, education, or household needs
             </p>
           </div>
-          <Link to="/find-schemes" className="text-xs font-bold text-gov-700 hover:text-gov-900 flex items-center gap-1">
+          <Link to="/find-schemes" className="text-xs font-bold text-gov-700 dark:text-sky-400 hover:text-gov-900 flex items-center gap-1">
             <span>View All Sectors</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
@@ -267,21 +267,21 @@ const HomePage = () => {
             const Icon = cat.icon;
             return (
               <Link key={cat.id} to={`/find-schemes?category=${cat.id}`} className="group">
-                <Card hover className="p-6 h-full flex flex-col justify-between border-slate-200 transition-all group-hover:border-gov-400">
+                <Card hover className="p-6 h-full flex flex-col justify-between border-slate-200 dark:border-[#1e2c45] transition-all group-hover:border-gov-400">
                   <div className="flex items-start gap-4">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 border ${cat.color} group-hover:scale-105 transition-transform`}>
                       <Icon className="w-6 h-6" />
                     </div>
                     <div>
-                      <h3 className="text-base font-bold text-slate-900 group-hover:text-gov-700 transition-colors">
+                      <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-gov-700 dark:group-hover:text-sky-400 transition-colors">
                         {cat.name}
                       </h3>
-                      <p className="text-xs text-slate-500 mt-1">
-                        Popular: <span className="font-medium text-slate-700">{cat.popular}</span>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                        Popular: <span className="font-medium text-slate-700 dark:text-slate-300">{cat.popular}</span>
                       </p>
                     </div>
                   </div>
-                  <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-gov-600 group-hover:text-gov-800">
+                  <div className="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-semibold text-gov-600 dark:text-sky-400 group-hover:text-gov-800">
                     <span>Explore Schemes</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </div>
@@ -295,10 +295,10 @@ const HomePage = () => {
       {/* Quick Access Tools */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-6">
-          <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
             {t('home.quick_actions')}
           </h2>
-          <p className="text-xs sm:text-sm text-slate-500">
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
             Citizen self-service tools for verification and document intelligence
           </p>
         </div>
@@ -308,19 +308,19 @@ const HomePage = () => {
             const Icon = act.icon;
             return (
               <Link key={idx} to={act.to} className="group">
-                <Card hover className="p-6 h-full flex flex-col justify-between border-slate-200">
+                <Card hover className="p-6 h-full flex flex-col justify-between border-slate-200 dark:border-[#1e2c45]">
                   <div>
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 border ${act.color}`}>
                       <Icon className="w-6 h-6" />
                     </div>
-                    <h3 className="text-base font-bold text-slate-900 group-hover:text-gov-700 transition-colors mb-1.5">
+                    <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-gov-700 dark:group-hover:text-sky-400 transition-colors mb-1.5">
                       {act.title}
                     </h3>
-                    <p className="text-xs text-slate-600 leading-relaxed">
+                    <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                       {act.desc}
                     </p>
                   </div>
-                  <div className="pt-4 mt-4 border-t border-slate-100 flex items-center gap-1 text-xs font-semibold text-gov-600 group-hover:text-gov-800">
+                  <div className="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 flex items-center gap-1 text-xs font-semibold text-gov-600 dark:text-sky-400 group-hover:text-gov-800">
                     <span>Open Tool</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </div>
@@ -333,15 +333,15 @@ const HomePage = () => {
 
       {/* How it Works 4-Step Stepper */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-2xl border border-slate-200 p-8 sm:p-12 shadow-subtle">
+        <div className="bg-white dark:bg-[#111a2e] rounded-2xl border border-slate-200 dark:border-[#1e2c45] p-8 sm:p-12 shadow-subtle">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-bold text-gov-600 uppercase tracking-wider block mb-1">
+            <span className="text-xs font-bold text-gov-600 dark:text-sky-400 uppercase tracking-wider block mb-1">
               Structured Guidance
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-2">
               {t('home.how_it_works_title')}
             </h2>
-            <p className="text-xs sm:text-sm text-slate-600">
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
               {t('home.how_it_works_subtitle')}
             </p>
           </div>
@@ -351,10 +351,10 @@ const HomePage = () => {
               <div className="w-11 h-11 rounded-xl bg-gov-600 text-white font-extrabold flex items-center justify-center text-base shadow-gov">
                 1
               </div>
-              <h3 className="text-base font-bold text-slate-900">
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">
                 {t('home.step1_title')}
               </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                 {t('home.step1_desc')}
               </p>
             </div>
@@ -363,10 +363,10 @@ const HomePage = () => {
               <div className="w-11 h-11 rounded-xl bg-gov-600 text-white font-extrabold flex items-center justify-center text-base shadow-gov">
                 2
               </div>
-              <h3 className="text-base font-bold text-slate-900">
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">
                 {t('home.step2_title')}
               </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                 {t('home.step2_desc')}
               </p>
             </div>
@@ -375,10 +375,10 @@ const HomePage = () => {
               <div className="w-11 h-11 rounded-xl bg-gov-600 text-white font-extrabold flex items-center justify-center text-base shadow-gov">
                 3
               </div>
-              <h3 className="text-base font-bold text-slate-900">
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">
                 {t('home.step3_title')}
               </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                 {t('home.step3_desc')}
               </p>
             </div>
@@ -387,10 +387,10 @@ const HomePage = () => {
               <div className="w-11 h-11 rounded-xl bg-gov-600 text-white font-extrabold flex items-center justify-center text-base shadow-gov">
                 4
               </div>
-              <h3 className="text-base font-bold text-slate-900">
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">
                 {t('home.step4_title')}
               </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                 {t('home.step4_desc')}
               </p>
             </div>
@@ -401,10 +401,10 @@ const HomePage = () => {
       {/* Frequently Asked Questions Accordion */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-extrabold text-slate-900">
+          <h2 className="text-2xl font-extrabold text-slate-900 dark:text-white">
             Frequently Asked Questions
           </h2>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Common questions on eligibility calculation, document readiness, and official submissions
           </p>
         </div>
@@ -415,22 +415,22 @@ const HomePage = () => {
             return (
               <Card
                 key={idx}
-                className="overflow-hidden border-slate-200 transition-colors"
+                className="overflow-hidden border-slate-200 dark:border-[#1e2c45] transition-colors"
               >
                 <button
                   type="button"
                   onClick={() => setOpenFaq(isOpen ? null : idx)}
-                  className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-sm text-slate-900 hover:text-gov-700"
+                  className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-sm text-slate-900 dark:text-white hover:text-gov-700 dark:hover:text-sky-400"
                 >
                   <span>{faq.q}</span>
                   {isOpen ? (
-                    <ChevronUp className="w-4 h-4 text-gov-600 flex-shrink-0" />
+                    <ChevronUp className="w-4 h-4 text-gov-600 dark:text-sky-400 flex-shrink-0" />
                   ) : (
                     <ChevronDown className="w-4 h-4 text-slate-400 flex-shrink-0" />
                   )}
                 </button>
                 {isOpen && (
-                  <div className="px-5 pb-5 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+                  <div className="px-5 pb-5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-3">
                     {faq.a}
                   </div>
                 )}

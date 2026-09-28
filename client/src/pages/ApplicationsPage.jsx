@@ -50,23 +50,23 @@ const ApplicationsPage = () => {
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             {t('tracker.title')}
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500">
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
             {t('tracker.subtitle')}
           </p>
         </div>
 
         <Link to="/find-schemes">
-          <Button variant="primary" size="md" icon={Plus}>
+          <Button variant="primary" size="md" icon={Plus} className="rounded-xl shadow-xs">
             Find New Scheme
           </Button>
         </Link>
       </div>
 
       {loading ? (
-        <p className="text-sm text-slate-500">Loading your applications...</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400">Loading your applications...</p>
       ) : applications.length === 0 ? (
         <EmptyState
           title="No application pathways started yet"
@@ -77,7 +77,7 @@ const ApplicationsPage = () => {
       ) : (
         <div className="space-y-4">
           {applications.map((app) => (
-            <Card key={app._id} className="p-6 border-slate-200 bg-white">
+            <Card key={app._id} className="p-6 border-slate-200 dark:border-[#1e2c45]">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
@@ -86,14 +86,14 @@ const ApplicationsPage = () => {
                     </Badge>
                     {getStatusBadge(app.status)}
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900">
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                     {app.schemeId?.name}
                   </h3>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
                     Department: {app.schemeId?.department}
                   </p>
                   {app.referenceNumber && (
-                    <p className="text-xs text-slate-700 font-mono font-semibold pt-1">
+                    <p className="text-xs text-slate-700 dark:text-slate-300 font-mono font-semibold pt-1">
                       Receipt Number: {app.referenceNumber}
                     </p>
                   )}
@@ -101,14 +101,14 @@ const ApplicationsPage = () => {
 
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                   <div className="text-left sm:text-right">
-                    <span className="text-xs text-slate-400 block">Readiness</span>
-                    <span className="text-lg font-bold text-gov-700">
+                    <span className="text-xs text-slate-400 dark:text-slate-500 block">Readiness</span>
+                    <span className="text-lg font-bold text-gov-700 dark:text-sky-400">
                       {app.readinessScore || 0}%
                     </span>
                   </div>
 
                   <Link to={`/pathway/${app._id}`}>
-                    <Button variant="primary" size="sm" icon={ArrowRight}>
+                    <Button variant="primary" size="sm" icon={ArrowRight} className="rounded-xl shadow-2xs font-semibold">
                       Open Pathway & Tracker
                     </Button>
                   </Link>

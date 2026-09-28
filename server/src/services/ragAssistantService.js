@@ -118,6 +118,74 @@ const answerUserQuery = async ({ query, language = 'en', profile = null, schemeC
         : `**${primaryScheme.name}**:\n\n${desc}\n\n**Benefits:** ${primaryScheme.benefitSummary}\n**Department:** ${primaryScheme.department}`;
     }
 
+    // If external LLM key is configured (Gemini or OpenAI), enhance response with generative reasoning
+    const llmKey = process.env.GEMINI_API_KEY || process.env.OPENAI_API_KEY || process.env.LLM_API_KEY;
+    if (llmKey && primaryScheme) {
+      try {
+        const systemPrompt = `You are LabhSetu AI Assistant, a trusted public welfare guide for Government of India schemes.
+Language: ${isHindi ? 'Hindi (हिंदी)' : 'English'}.
+Ground your answers strictly on this verified scheme data:
+Scheme: ${primaryScheme.name} (${primaryScheme.nameHi || ''})
+Ministry/Dept: ${primaryScheme.department}
+Benefits: ${primaryScheme.benefitSummary}
+Eligibility: ${(primaryScheme.eligibilityRules || []).map(r => r.title).join('; ')}
+Required Documents: ${(primaryScheme.requirements || []).map(r => r.title).join('; ')}
+Official Portal: ${primaryScheme.officialPortalUrl || 'https://india.gov.in'}
+Citizen Question: ${query}`;
+
+        if (process.env.GEMINI_API_KEY || (process.env.LLM_API_KEY && !process.env.OPENAI_API_KEY)) {
+          const key = process.env.GEMINI_API_KEY || process.env.LLM_API_KEY;
+          const candidateModels = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-flash-latest'];
+          for (const model of candidateModels) {
+            try {
+              const geminiRes = await fetch(
+                `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`,
+                {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    contents: [{ role: 'user', parts: [{ text: systemPrompt }] }],
+                    generationConfig: { temperature: 0.3, maxOutputTokens: 600 },
+                  }),
+                }
+              );
+              if (geminiRes.ok) {
+                const data = await geminiRes.json();
+                const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (text && text.trim()) {
+                  answerText = text.trim();
+                  break;
+                }
+              }
+            } catch (mErr) {
+              // fallback to next model
+            }
+          }
+        } else if (process.env.OPENAI_API_KEY) {
+          const oaiRes = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+            },
+            body: JSON.stringify({
+              model: 'gpt-4o-mini',
+              messages: [{ role: 'system', content: systemPrompt }],
+              temperature: 0.3,
+              max_tokens: 600,
+            }),
+          });
+          if (oaiRes.ok) {
+            const data = await oaiRes.json();
+            const text = data.choices?.[0]?.message?.content;
+            if (text && text.trim()) answerText = text.trim();
+          }
+        }
+      } catch (llmErr) {
+        logger.warn('LLM call failed, smoothly retained grounded response', { error: llmErr.message });
+      }
+    }
+
     return {
       answer: answerText,
       schemeId: primaryScheme ? primaryScheme._id : null,

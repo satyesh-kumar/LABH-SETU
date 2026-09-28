@@ -45,15 +45,15 @@ const RegisterPage = () => {
   return (
     <div className="max-w-md mx-auto px-4 py-16 space-y-6">
       <div className="text-center space-y-1">
-        <h1 className="text-2xl font-bold text-slate-900">
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
           Create Citizen Account
         </h1>
-        <p className="text-xs text-slate-500">
+        <p className="text-xs text-slate-500 dark:text-slate-400">
           Register to discover schemes, evaluate eligibility, and track your benefits
         </p>
       </div>
 
-      <Card className="p-6 sm:p-8 border-slate-200 bg-white shadow-subtle space-y-4">
+      <Card className="p-6 sm:p-8 border-slate-200 dark:border-slate-800 shadow-elevation rounded-2xl space-y-5">
         <form onSubmit={handleSubmit} className="space-y-4">
           <Input
             label="Full Name"
@@ -103,18 +103,21 @@ const RegisterPage = () => {
             type="submit"
             variant="primary"
             size="md"
-            className="w-full mt-2"
+            className="w-full mt-6 py-2.5 sm:py-3 px-5 text-sm sm:text-base font-bold rounded-xl shadow-xs hover:shadow transition-all"
             icon={UserPlus}
             isLoading={loading}
           >
-            Create Account
+            Create Citizen Account
           </Button>
         </form>
 
-        <div className="text-center text-xs text-slate-500 pt-2 border-t border-slate-100">
-          Already registered?{' '}
-          <Link to="/login" className="font-semibold text-gov-700 hover:text-gov-900 underline">
-            Sign In here
+        <div className="text-center text-xs text-slate-500 dark:text-slate-400 pt-4 mt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-center gap-1.5">
+          <span>Already registered?</span>
+          <Link
+            to="/login"
+            className="font-bold text-gov-700 dark:text-sky-400 hover:text-gov-900 px-2.5 py-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+          >
+            Sign In here →
           </Link>
         </div>
       </Card>

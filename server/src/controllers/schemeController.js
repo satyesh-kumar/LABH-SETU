@@ -72,9 +72,14 @@ const getSchemes = async (req, res, next) => {
   }
 };
 
+const mongoose = require('mongoose');
+
 const getSchemeById = async (req, res, next) => {
   try {
-    const scheme = await Scheme.findById(req.params.id)
+    const isId = mongoose.Types.ObjectId.isValid(req.params.id);
+    const query = isId ? { $or: [{ _id: req.params.id }, { slug: req.params.id }] } : { slug: req.params.id };
+
+    const scheme = await Scheme.findOne(query)
       .populate('officialSources')
       .populate('eligibilityRules')
       .populate('requirements');
@@ -87,7 +92,7 @@ const getSchemeById = async (req, res, next) => {
     }
 
     // Increment view count asynchronously
-    Scheme.findByIdAndUpdate(req.params.id, { $inc: { viewCount: 1 } }).exec();
+    Scheme.findByIdAndUpdate(scheme._id, { $inc: { viewCount: 1 } }).exec();
 
     res.status(200).json({
       success: true,

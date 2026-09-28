@@ -35,12 +35,12 @@ const EligibilityResultsPage = () => {
   if (!resultsData) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-20 text-center space-y-4">
-        <h2 className="text-xl font-bold text-slate-800">No screening results found</h2>
-        <p className="text-sm text-slate-500">
+        <h2 className="text-xl font-bold text-slate-800 dark:text-white">No screening results found</h2>
+        <p className="text-sm text-slate-500 dark:text-slate-400">
           Please run the eligibility checker first with your profile details.
         </p>
         <Link to="/check-eligibility">
-          <Button variant="primary">Go to Eligibility Screener</Button>
+          <Button variant="primary" className="rounded-xl font-bold">Go to Eligibility Screener</Button>
         </Link>
       </div>
     );
@@ -82,20 +82,20 @@ const EligibilityResultsPage = () => {
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-gov-700 bg-gov-50 px-2.5 py-1 rounded-md mb-2 border border-gov-200">
-            <Sparkles className="w-3.5 h-3.5 text-gov-600" />
+          <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-gov-700 dark:text-sky-300 bg-gov-50 dark:bg-sky-950/70 px-2.5 py-1 rounded-md mb-2 border border-gov-200 dark:border-sky-800">
+            <Sparkles className="w-3.5 h-3.5 text-gov-600 dark:text-sky-400" />
             <span>Deterministic Rule-Engine Screening</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Your Preliminary Scheme Match Results
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500">
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
             Based on your answers, here is a transparent breakdown of Central and State schemes
           </p>
         </div>
 
         <Link to="/check-eligibility">
-          <Button variant="outline" size="sm" icon={RotateCcw}>
+          <Button variant="outline" size="sm" icon={RotateCcw} className="rounded-xl">
             Retake Screener
           </Button>
         </Link>
@@ -111,14 +111,14 @@ const EligibilityResultsPage = () => {
               onClick={() => setActiveTab(tab.id)}
               className={`p-4 rounded-xl border text-left transition-all ${
                 isSelected
-                  ? 'border-gov-600 ring-2 ring-gov-600 ring-offset-1 bg-white shadow-subtle'
-                  : 'border-slate-200 bg-white/70 hover:bg-white hover:border-slate-300'
+                  ? 'border-gov-600 dark:border-sky-400 ring-2 ring-gov-600 dark:ring-sky-400 ring-offset-1 bg-white dark:bg-[#111a2e] shadow-subtle'
+                  : 'border-slate-200 dark:border-[#1e2c45] bg-white/70 dark:bg-[#111a2e]/60 hover:bg-white dark:hover:bg-[#111a2e] hover:border-slate-300'
               }`}
             >
-              <span className="text-2xl font-black text-slate-900 block mb-1">
+              <span className="text-2xl font-black text-slate-900 dark:text-white block mb-1">
                 {tab.count}
               </span>
-              <span className="text-xs font-semibold text-slate-600 leading-tight block">
+              <span className="text-xs font-semibold text-slate-600 dark:text-slate-300 leading-tight block">
                 {tab.label}
               </span>
             </button>
@@ -129,23 +129,23 @@ const EligibilityResultsPage = () => {
       {/* Results List */}
       <div className="space-y-6">
         {currentList.length === 0 ? (
-          <Card className="p-8 text-center text-slate-500 text-sm border-dashed">
+          <Card className="p-8 text-center text-slate-500 dark:text-slate-400 text-sm border-dashed">
             No schemes in this specific category for the provided criteria.
           </Card>
         ) : (
           currentList.map((evalItem) => (
-            <Card key={evalItem.schemeId} className="p-6 border-slate-200 bg-white">
-              <div className="flex flex-wrap items-start justify-between gap-4 mb-4 pb-4 border-b border-slate-100">
+            <Card key={evalItem.schemeId} className="p-6 border-slate-200 dark:border-[#1e2c45]">
+              <div className="flex flex-wrap items-start justify-between gap-4 mb-4 pb-4 border-b border-slate-100 dark:border-slate-800">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
                     <Badge variant="primary" size="sm">
                       {evalItem.category}
                     </Badge>
                     <span className="text-xs text-slate-400">•</span>
-                    <span className="text-xs text-slate-500">{evalItem.department}</span>
+                    <span className="text-xs text-slate-500 dark:text-slate-400">{evalItem.department}</span>
                   </div>
                   <Link to={`/schemes/${evalItem.schemeId}`}>
-                    <h3 className="text-lg font-bold text-slate-900 hover:text-gov-700 transition-colors">
+                    <h3 className="text-lg font-bold text-slate-900 dark:text-white hover:text-gov-700 dark:hover:text-sky-400 transition-colors">
                       {evalItem.schemeName}
                     </h3>
                   </Link>
@@ -153,12 +153,12 @@ const EligibilityResultsPage = () => {
 
                 <div className="flex flex-wrap items-center gap-2">
                   <Link to="/documents">
-                    <Button variant="outline" size="sm" className="text-xs font-semibold">
+                    <Button variant="outline" size="sm" className="text-xs font-semibold rounded-xl">
                       Prepare Documents
                     </Button>
                   </Link>
                   <Link to={`/schemes/${evalItem.schemeId}`}>
-                    <Button variant="primary" size="sm" icon={ArrowRight} className="text-xs font-bold">
+                    <Button variant="primary" size="sm" icon={ArrowRight} className="text-xs font-bold rounded-xl shadow-xs">
                       View Scheme & Apply
                     </Button>
                   </Link>

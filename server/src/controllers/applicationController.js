@@ -59,6 +59,20 @@ const createApplication = async (req, res, next) => {
     // Increment scheme application count
     Scheme.findByIdAndUpdate(schemeId, { $inc: { applicationCount: 1 } }).exec();
 
+    // Trigger in-app notification
+    try {
+      const Notification = require('../models/Notification');
+      await Notification.create({
+        userId: req.user.id,
+        title: 'Guidance Pathway Initiated',
+        message: `You started the preparation pathway for ${scheme.name}. Track your document readiness now.`,
+        type: 'info',
+        link: `/pathway/${application._id}`,
+      });
+    } catch (e) {
+      // Notification failure should not block application flow
+    }
+
     res.status(201).json({
       success: true,
       message: 'Application guidance pathway created successfully.',
@@ -142,7 +156,8 @@ const updateApplicationStatus = async (req, res, next) => {
       application.stepsCompleted.push(stepCompleted);
     }
 
-    if (status && status !== application.status) {
+    const isStatusChanged = status && status !== application.status;
+    if (isStatusChanged) {
       application.status = status;
       if (status === 'submitted_to_official' && !application.submissionDate) {
         application.submissionDate = new Date();
@@ -161,6 +176,21 @@ const updateApplicationStatus = async (req, res, next) => {
     }
 
     await application.save();
+
+    if (isStatusChanged) {
+      try {
+        const Notification = require('../models/Notification');
+        await Notification.create({
+          userId: req.user.id,
+          title: `Application Updated: ${application.schemeId?.name || 'Scheme'}`,
+          message: `Status updated to ${status.replace(/_/g, ' ')}. ${referenceNumber ? `Reference: ${referenceNumber}` : ''}`,
+          type: status === 'submitted_to_official' ? 'success' : 'info',
+          link: `/pathway/${application._id}`,
+        });
+      } catch (e) {
+        // Notification failure should not block application flow
+      }
+    }
 
     res.status(200).json({
       success: true,

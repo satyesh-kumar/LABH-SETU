@@ -161,47 +161,47 @@ const AdminDashboardPage = () => {
 
       {/* Metrics Grid (Section 32) */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-        <Card className="p-4 border-slate-200 bg-white">
-          <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block">
+        <Card className="p-4 border-slate-200 dark:border-[#1e2c45]">
+          <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
             Total Schemes
           </span>
-          <span className="text-2xl font-bold text-slate-900 mt-1 block">
+          <span className="text-2xl font-bold text-slate-900 dark:text-white mt-1 block">
             {metrics?.totalSchemes || 0}
           </span>
         </Card>
 
-        <Card className="p-4 border-slate-200 bg-white">
-          <span className="text-[11px] font-semibold text-emerald-700 uppercase tracking-wider block">
+        <Card className="p-4 border-slate-200 dark:border-[#1e2c45]">
+          <span className="text-[11px] font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider block">
             Active / Published
           </span>
-          <span className="text-2xl font-bold text-emerald-600 mt-1 block">
+          <span className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 mt-1 block">
             {metrics?.publishedSchemes || 0}
           </span>
         </Card>
 
-        <Card className="p-4 border-slate-200 bg-white">
-          <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block">
+        <Card className="p-4 border-slate-200 dark:border-[#1e2c45]">
+          <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
             Applications Logged
           </span>
-          <span className="text-2xl font-bold text-slate-900 mt-1 block">
+          <span className="text-2xl font-bold text-slate-900 dark:text-white mt-1 block">
             {metrics?.totalApplications || 0}
           </span>
         </Card>
 
-        <Card className="p-4 border-slate-200 bg-white">
-          <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block">
+        <Card className="p-4 border-slate-200 dark:border-[#1e2c45]">
+          <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
             Verified Documents
           </span>
-          <span className="text-2xl font-bold text-slate-900 mt-1 block">
+          <span className="text-2xl font-bold text-slate-900 dark:text-white mt-1 block">
             {metrics?.totalDocuments || 0}
           </span>
         </Card>
 
-        <Card className="p-4 border-slate-200 bg-white">
-          <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block">
+        <Card className="p-4 border-slate-200 dark:border-[#1e2c45]">
+          <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
             Citizens Registered
           </span>
-          <span className="text-2xl font-bold text-slate-900 mt-1 block">
+          <span className="text-2xl font-bold text-slate-900 dark:text-white mt-1 block">
             {metrics?.totalUsers || 0}
           </span>
         </Card>
@@ -209,9 +209,9 @@ const AdminDashboardPage = () => {
 
       {/* Charts (Recharts) */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="p-6 border-slate-200 bg-white">
-          <h3 className="text-sm font-bold text-slate-900 mb-4 flex items-center gap-2">
-            <BarChart3 className="w-4 h-4 text-gov-600" />
+        <Card className="p-6 border-slate-200 dark:border-[#1e2c45]">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+            <BarChart3 className="w-4 h-4 text-gov-600 dark:text-sky-400" />
             <span>Schemes by Socio-Economic Category</span>
           </h3>
           <div className="h-64">
@@ -226,9 +226,9 @@ const AdminDashboardPage = () => {
           </div>
         </Card>
 
-        <Card className="p-6 border-slate-200 bg-white">
-          <h3 className="text-sm font-bold text-slate-900 mb-4 flex items-center gap-2">
-            <Clock className="w-4 h-4 text-gov-600" />
+        <Card className="p-6 border-slate-200 dark:border-[#1e2c45]">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+            <Clock className="w-4 h-4 text-gov-600 dark:text-sky-400" />
             <span>Recent System Audit Trail (Section 64)</span>
           </h3>
           <div className="space-y-3 overflow-y-auto max-h-64 pr-2">
@@ -236,15 +236,15 @@ const AdminDashboardPage = () => {
               <p className="text-xs text-slate-400">No audit logs recorded yet.</p>
             ) : (
               auditLogs.map((log) => (
-                <div key={log._id} className="p-2.5 rounded bg-slate-50 border border-slate-200 text-xs">
-                  <div className="flex items-center justify-between font-semibold text-slate-800 mb-1">
+                <div key={log._id} className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs">
+                  <div className="flex items-center justify-between font-semibold text-slate-800 dark:text-slate-100 mb-1">
                     <span>{log.action}</span>
                     <span className="text-[10px] text-slate-400">
                       {new Date(log.timestamp).toLocaleTimeString()}
                     </span>
                   </div>
-                  <p className="text-slate-600 text-[11px]">
-                    Actor: <span className="font-medium text-slate-800">{log.actorName}</span> ({log.actorRole}) • Target: {log.entity}
+                  <p className="text-slate-600 dark:text-slate-400 text-[11px]">
+                    Actor: <span className="font-medium text-slate-800 dark:text-slate-200">{log.actorName}</span> ({log.actorRole}) • Target: {log.entity}
                   </p>
                 </div>
               ))
@@ -254,16 +254,16 @@ const AdminDashboardPage = () => {
       </div>
 
       {/* Scheme Management List */}
-      <Card className="p-6 border-slate-200 bg-white">
-        <div className="flex items-center justify-between mb-4 pb-2 border-b border-slate-100">
-          <h3 className="text-base font-bold text-slate-900">
+      <Card className="p-6 border-slate-200 dark:border-[#1e2c45]">
+        <div className="flex items-center justify-between mb-4 pb-2 border-b border-slate-100 dark:border-slate-800">
+          <h3 className="text-base font-bold text-slate-900 dark:text-white">
             Published Schemes Directory ({schemes.length})
           </h3>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 text-slate-700 font-semibold uppercase tracking-wider border-b border-slate-200">
+            <thead className="bg-slate-50 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 font-semibold uppercase tracking-wider border-b border-slate-200 dark:border-slate-700">
               <tr>
                 <th className="py-3 px-4">Scheme Name</th>
                 <th className="py-3 px-4">Department</th>
@@ -273,19 +273,19 @@ const AdminDashboardPage = () => {
                 <th className="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {schemes.map((s) => (
-                <tr key={s._id} className="hover:bg-slate-50/60">
-                  <td className="py-3 px-4 font-semibold text-slate-900 max-w-xs truncate">
+                <tr key={s._id} className="hover:bg-slate-50/60 dark:hover:bg-slate-800/40">
+                  <td className="py-3 px-4 font-semibold text-slate-900 dark:text-white max-w-xs truncate">
                     {s.name}
                   </td>
-                  <td className="py-3 px-4 text-slate-600 max-w-[200px] truncate">
+                  <td className="py-3 px-4 text-slate-600 dark:text-slate-400 max-w-[200px] truncate">
                     {s.department}
                   </td>
                   <td className="py-3 px-4">
                     <Badge variant="primary" size="sm">{s.category}</Badge>
                   </td>
-                  <td className="py-3 px-4 font-mono font-medium text-slate-700">
+                  <td className="py-3 px-4 font-mono font-medium text-slate-700 dark:text-slate-300">
                     v{s.version || 1}
                   </td>
                   <td className="py-3 px-4">

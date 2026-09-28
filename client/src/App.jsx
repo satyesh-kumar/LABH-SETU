@@ -33,6 +33,7 @@ function App() {
           <Route path="/schemes/:id" element={<SchemeDetailPage />} />
           <Route path="/documents" element={<DocumentReadinessPage />} />
           <Route path="/applications" element={<ApplicationsPage />} />
+          <Route path="/applications/:applicationId" element={<ApplicationPathwayPage />} />
           <Route path="/pathway/:applicationId" element={<ApplicationPathwayPage />} />
           <Route path="/assistant" element={<AssistantPage />} />
           <Route path="/help" element={<HelpPage />} />

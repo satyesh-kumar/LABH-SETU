@@ -1,0 +1,13 @@
+services:
+  # Backend Web Service
+  - type: web
+    name: labhsetu-api
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000

@@ -1,0 +1,22 @@
+{
+  "name": "labh-setu",
+  "version": "1.0.0",
+  "description": "LabhSetu - Citizen-Centric Welfare Scheme Discovery & Application Platform",
+  "main": "server/server.js",
+  "scripts": {
+    "postinstall": "npm install --prefix server",
+    "build": "npm install --prefix server",
+    "start": "npm start --prefix server",
+    "server": "npm start --prefix server",
+    "client": "npm run dev --prefix client"
+  },
+  "keywords": [
+    "governance",
+    "welfare",
+    "schemes",
+    "india",
+    "render"
+  ],
+  "author": "Satyesh Kumar",
+  "license": "ISC"
+}
